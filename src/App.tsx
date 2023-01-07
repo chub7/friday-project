@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Stend} from "./features/testovich/stend";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Login} from "./features/Login/Login";
+import {Authorization} from "./features/Login/Authorization/Authorization";
 import {Registration} from "./features/Login/Registeration/Registration";
 import {RecoveryPassword} from "./features/Login/PasswordTroubles/PasswordRecovery/RecoveryPassword";
 import {EnterNewPassword} from "./features/Login/PasswordTroubles/EnterNewPassword/EnterNewPassword";
@@ -18,7 +18,7 @@ function App() {
           <Header />
         <Routes>
           <Route path='/*' element={<Navigate to={'/login'}/>}/>
-          <Route path='/login' element={<Login/>}/>
+          <Route path='/login' element={<Authorization/>}/>
           <Route path='/register' element={<Registration/>}/>
           <Route path='/recoverypass' element={<RecoveryPassword/>}/>
           <Route path='/profile' element={<Profile/>}/>
