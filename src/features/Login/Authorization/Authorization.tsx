@@ -5,6 +5,7 @@ export const Authorization = () => {
         <div>
             Login Page
             <div>Dima</div>
+            <p>hello world</p>
         </div>
     );
 };
