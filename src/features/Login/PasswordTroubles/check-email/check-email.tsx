@@ -1,9 +1,10 @@
 import React from 'react';
 
-export const EnterNewPassword = () => {
+
+export const CheckEmail = () => {
     return (
         <div>
-            EnterNewPassword page
+            CheckEmail page
         </div>
     );
 };

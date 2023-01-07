@@ -1,26 +1,27 @@
-import {applyMiddleware, combineReducers, legacy_createStore} from 'redux'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
-import {AppActionsType, appReducer} from "./app-reducer";
-import {LoginActionsType, loginReducer} from "../features/Login/login-reducer";
-import {ProfileActionsType, profileReducer} from "../features/Profile/profile-reducer";
+import thunkMiddleware from 'redux-thunk'
+import { configureStore } from '@reduxjs/toolkit';
+import {appSlice} from "./app-slice";
+import {loginSlice} from "../features/Login/login-slice";
+import {profileSlice} from "../features/Profile/profile-slice";
 
-
-const rootReducer = combineReducers({
- app: appReducer,
-    loginPage: loginReducer,
-    profile: profileReducer
+export const store = configureStore({
+    reducer: {
+        app: appSlice,
+        login: loginSlice,
+        profile: profileSlice
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 })
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
-export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AllOfActions = AppActionsType | LoginActionsType | ProfileActionsType
-export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AllOfActions>
-
-export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
-// а это, чтобы можно было в консоли браузера обращаться к store в любой момент
+
+
+
 // @ts-ignore
 window.store = store;

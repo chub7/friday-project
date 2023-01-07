@@ -9,8 +9,12 @@ import {EnterNewPassword} from "./features/Login/PasswordTroubles/EnterNewPasswo
 import {Page404} from "./features/404/404";
 import {Header} from "./features/Header/Header";
 import {Profile} from "./features/Profile/Profile";
+import {useSelector} from "react-redux";
+import {useAppSelector} from "./app/store";
 
 function App() {
+    let a = useAppSelector(state => state.app.a)
+    console.log(a)
   return (
       <div>
           <Header />
@@ -24,7 +28,6 @@ function App() {
           <Route path='/testovich' element={<Stend/>}/>
           <Route path='/404' element={<Page404/>}/>
         </Routes>
-
       </div>
   );
 }
