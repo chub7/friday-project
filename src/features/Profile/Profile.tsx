@@ -4,6 +4,7 @@ export const Profile = () => {
     return (
         <div>
             Profile page
+            <h1>Profile</h1>
         </div>
     );
 };
