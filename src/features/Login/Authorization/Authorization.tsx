@@ -3,7 +3,7 @@ import React from 'react';
 export const Authorization = () => {
     return (
         <div>
-            Login Page
+            <p>hello world</p>
         </div>
     );
 };
