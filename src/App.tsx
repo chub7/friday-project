@@ -9,12 +9,10 @@ import {EnterNewPassword} from "./features/Login/PasswordTroubles/EnterNewPasswo
 import {Page404} from "./features/404/404";
 import {Header} from "./features/Header/Header";
 import {Profile} from "./features/Profile/Profile";
-import {useSelector} from "react-redux";
-import {useAppSelector} from "./app/store";
+
 
 function App() {
-    let a = useAppSelector(state => state.app.a)
-    console.log(a)
+
   return (
       <div>
           <Header />
