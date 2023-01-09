@@ -14,25 +14,34 @@ import Box from '@mui/material/Box';
 import ButtonCustom from "../../../components/ButtonCustom/ButtonCustom";
 import {isInProgressSelector, signUpResultSelector} from "../login-selectors";
 
+type FormInitialValuesType = {
+    email: string
+    password: string
+    confirmPassword: string
+}
+
 export const Registration = () => {
-        //check
+
+    const initialValuesForm = {
+        email: '',
+        password: '',
+        confirmPassword: ''
+    } as FormInitialValuesType
+
     const dispatch = useAppDispatch()
     const isInProgress = useAppSelector(isInProgressSelector)
     const signUpResult = useAppSelector(signUpResultSelector)
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-            confirmPassword: ''
-        },
+    const {handleSubmit, errors, touched, handleChange, values}
+        = useFormik({
+        initialValues: initialValuesForm,
         validationSchema: basicSchema,
         onSubmit: (values, actions) => {
              dispatch(singUp(values.email, values.password))
              actions.resetForm()
         },
     });
-    const {handleSubmit, errors, touched, handleChange, values} = formik
+
     if(signUpResult === 'Created'){
         return <Navigate to={'login'} />
     }
