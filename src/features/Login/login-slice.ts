@@ -2,31 +2,41 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {loginApi} from "./loginApi";
 import axios, {AxiosError} from "axios";
 import {AppDispatch} from "../../app/store";
+import {setProfile} from "../Profile/profile-slice";
 
 
 type singUpData = {
     error: string | null
 }
+
+
+type loginType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+
+
 type TypeInitialState = {
-    singUp: singUpData
+    error: string | null
     isInProgress: boolean
+}
+
+const initialState: TypeInitialState = {
+    isInProgress: false,
+    error: null
 }
 
 
 const slice = createSlice({
     name: 'login',
-    initialState: {
-        isInProgress: false,
-        singUp: {
-            error: null
-        }
-    } as TypeInitialState,
+    initialState,
     reducers: {
         setInProgressStatus: (state: TypeInitialState, action: PayloadAction<boolean>) => {
             state.isInProgress = action.payload
         },
         setErrorSingUp: (state: TypeInitialState, action: PayloadAction<string | null>) => {
-            state.singUp.error = action.payload
+            state.error = action.payload
         }
 
     }
@@ -34,8 +44,7 @@ const slice = createSlice({
 })
 
 export const loginSlice = slice.reducer
-const {actions} = slice;
-export const {setInProgressStatus, setErrorSingUp} = actions
+export const {setInProgressStatus, setErrorSingUp} = slice.actions
 
 export const singUp = (email: string, password: string) => async (dispatch: AppDispatch) => {
     dispatch(setErrorSingUp(null))
@@ -53,4 +62,26 @@ export const singUp = (email: string, password: string) => async (dispatch: AppD
     }
 }
 
+export const signInThunk = (data: loginType, setStatus: any) => async (dispatch: AppDispatch) => {
+    const {email, password, rememberMe} = data
 
+    dispatch(setInProgressStatus(true))
+    try {
+
+        const data = await loginApi.login(email, password, rememberMe)
+        dispatch(setProfile({profile: data}))
+
+    } catch (error: any) {
+        console.log(error)
+        if (axios.isAxiosError(error)) {
+            const finalError = (error as AxiosError<{ error: string }>).response?.data.error || error.message
+            setStatus({message: finalError})
+            dispatch(setErrorSingUp(finalError))
+        }
+
+    } finally {
+        dispatch(setInProgressStatus(false))
+
+    }
+
+}

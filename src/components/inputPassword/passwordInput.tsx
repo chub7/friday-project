@@ -35,6 +35,7 @@ export const PasswordInput = (props: PasswordInputType) => {
                 onChange={handleChange}
                 value={inputValue}
                 type={showPassword ? "text" : "password"}
+
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
