@@ -6,10 +6,19 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import FormControl from "@mui/material/FormControl";
+import {useAppSelector} from "../../app/store";
 
-export const PasswordInput = (props:any) => {
-    const {id,name} = props
+type PasswordInputType = {
+    handleChange: any
+    name: string
+    placeHolder: string
+    inputValue: string
+}
+
+export const PasswordInput = (props: PasswordInputType) => {
+    const {name, placeHolder, handleChange, inputValue} = props
     const [showPassword, setShowPassword] = React.useState(false);
+    const isInProgress = useAppSelector(state => state.login.isInProgress)
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (
         event: React.MouseEvent<HTMLButtonElement>
@@ -18,12 +27,13 @@ export const PasswordInput = (props:any) => {
     };
     return (
         <FormControl sx={{width: "347px"}} variant="standard">
-            <InputLabel htmlFor={name}>{`${props.id}`}</InputLabel>
+            <InputLabel htmlFor={name}>{placeHolder}</InputLabel>
             <Input
-                id={id}
+                disabled={isInProgress}
+                id={name}
                 name={name}
-                onChange={props.formik.handleChange}
-                value={props.formik.values[name]}
+                onChange={handleChange}
+                value={inputValue}
                 type={showPassword ? "text" : "password"}
                 endAdornment={
                     <InputAdornment position="end">
@@ -37,6 +47,7 @@ export const PasswordInput = (props:any) => {
                     </InputAdornment>
                 }
             />
+
         </FormControl>
     );
 };

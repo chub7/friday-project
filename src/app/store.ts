@@ -1,5 +1,4 @@
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import thunkMiddleware from 'redux-thunk'
 import { configureStore } from '@reduxjs/toolkit';
 import {appSlice} from "./app-slice";
 import {loginSlice} from "../features/Login/login-slice";
@@ -10,8 +9,7 @@ export const store = configureStore({
         app: appSlice,
         login: loginSlice,
         profile: profileSlice
-    },
-    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+    }
 })
 
 export type AppRootStateType = ReturnType<typeof store.getState>

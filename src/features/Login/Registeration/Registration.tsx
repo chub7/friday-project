@@ -1,12 +1,22 @@
 import React from 'react';
 import styles from "./registration.module.css"
 import {useFormik} from "formik";
-import Button from '@mui/material/Button';
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import {PasswordInput} from "../../../components/inputPassword/passwordInput";
+import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {singUp} from "../login-slice";
+import {NavLink, useNavigate} from "react-router-dom";
+import {basicSchema} from "../../../utils/schema";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import ButtonCustom from "../../../components/ButtonCustom/ButtonCustom";
+
 export const Registration = () => {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const isInProgress = useAppSelector(state => state.login.isInProgress)
 
     const formik = useFormik({
         initialValues: {
@@ -14,40 +24,49 @@ export const Registration = () => {
             password: '',
             confirmPassword: ''
         },
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        validationSchema: basicSchema,
+        onSubmit: (values, actions) => {
+            dispatch(singUp(values.email, values.password))
+                .then(() => {
+                    navigate(`login`)
+                })
+            actions.resetForm()
         },
     });
+    const {handleSubmit, errors, touched, handleChange, values} = formik
+
+
     return (
         <div className={styles.wholeForm}>
-            <form onSubmit={formik.handleSubmit} className={styles.form}>
+            <form onSubmit={handleSubmit} className={styles.form}>
                 <label className={styles.formName}>Sign Up</label>
+
                 <FormControl sx={{width: "347px"}} variant="standard">
                     <InputLabel htmlFor="email">Email</InputLabel>
                     <Input
                         id="email"
                         name="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
+                        onChange={handleChange}
+                        value={values.email}
+                        disabled={isInProgress}
                     />
                 </FormControl>
-                <PasswordInput formik={formik} name={'password'} id={'password'}></PasswordInput>
-                <PasswordInput formik={formik} name={'confirmPassword'} id={'confirmPassword'}></PasswordInput>
+                {errors.email && touched.email ? <div>{errors.email}</div> : null}
 
-                <Button variant="contained" type="submit"
-                        sx={{
-                            backgroundColor: '#366EFF',
-                            borderRadius: '30px',
-                            width: '347px',
-                            height: '36px'
-                        }}>
-                    Sign Up
-                </Button>
+                <PasswordInput handleChange={handleChange} inputValue={values.password}
+                               name={'password'} placeHolder={`Password`}/>
+                {errors.password && touched.password ? <div>{errors.password}</div> : null}
+                <PasswordInput handleChange={handleChange} inputValue={values.confirmPassword} name={'confirmPassword'}
+                               placeHolder={`Confirm password`}/>
+                {errors.confirmPassword && touched.confirmPassword ? <div>{errors.confirmPassword}</div> : null}
+
+                <Box className={styles.progress}>{isInProgress && <CircularProgress/>}</Box>
+
+                <ButtonCustom disabled={isInProgress} type="submit" className={styles.submitBtn}> Sign Up</ButtonCustom>
                 <div className={styles.bottomLinks}>
-                    <div>Already have an account?</div>
-                    <div className={styles.singInLink}>Sign In</div>
+                    <p>Already have an account?</p>
+                    <NavLink to="/login" className={styles.singInLink}>Sign In</NavLink>
                 </div>
-
             </form>
         </div>
     );
