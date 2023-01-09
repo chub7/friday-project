@@ -6,7 +6,29 @@ export const instance = axios.create({
 })
 
 export const loginApi = {
+    me(){
+        return instance.post<MeResponseType>(`/auth/me`,{})
+    },
     registration(email:string, password:string) {
         return instance.post(`/auth/register`,{email, password})
     }
+}
+
+
+type MeResponseType = {
+
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number; // количество колод
+
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+
+    error?: string;
+
 }

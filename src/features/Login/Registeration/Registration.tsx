@@ -7,17 +7,18 @@ import FormControl from "@mui/material/FormControl";
 import {PasswordInput} from "../../../components/inputPassword/passwordInput";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {singUp} from "../login-slice";
-import {NavLink, useNavigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {basicSchema} from "../../../utils/schema";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import ButtonCustom from "../../../components/ButtonCustom/ButtonCustom";
-import {isInProgressSelector} from "../login-selectors";
+import {isInProgressSelector, signUpResultSelector} from "../login-selectors";
 
 export const Registration = () => {
-    const navigate = useNavigate()
+
     const dispatch = useAppDispatch()
     const isInProgress = useAppSelector(isInProgressSelector)
+    const signUpResult = useAppSelector(signUpResultSelector)
 
     const formik = useFormik({
         initialValues: {
@@ -27,15 +28,14 @@ export const Registration = () => {
         },
         validationSchema: basicSchema,
         onSubmit: (values, actions) => {
-            dispatch(singUp(values.email, values.password))
-                .then(() => {
-                    navigate(`login`)
-                })
-            actions.resetForm()
+             dispatch(singUp(values.email, values.password))
+             actions.resetForm()
         },
     });
     const {handleSubmit, errors, touched, handleChange, values} = formik
-
+    if(signUpResult === 'Created'){
+        return <Navigate to={'login'} />
+    }
 
     return (
         <div className={styles.wholeForm}>

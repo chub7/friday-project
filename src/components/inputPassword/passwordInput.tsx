@@ -17,7 +17,7 @@ type PasswordInputType = {
 }
 
 export const PasswordInput = (props: PasswordInputType) => {
-    //refactor
+
     const {name, placeHolder, handleChange, inputValue, touched, error} = props
     const isInProgress = useAppSelector(isInProgressSelector)
     const [show, setShow] = useState(false);
