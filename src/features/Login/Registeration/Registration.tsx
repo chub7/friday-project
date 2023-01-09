@@ -15,7 +15,7 @@ import ButtonCustom from "../../../components/ButtonCustom/ButtonCustom";
 import {isInProgressSelector, signUpResultSelector} from "../login-selectors";
 
 export const Registration = () => {
-
+        //check
     const dispatch = useAppDispatch()
     const isInProgress = useAppSelector(isInProgressSelector)
     const signUpResult = useAppSelector(signUpResultSelector)
