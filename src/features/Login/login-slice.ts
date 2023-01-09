@@ -10,6 +10,7 @@ type singUpData = {
 type TypeInitialState = {
     singUp: singUpData
     isInProgress: boolean
+    isAuth: false
 }
 
 

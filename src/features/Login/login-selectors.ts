@@ -1,3 +1,4 @@
 import {AppRootStateType} from "../../app/store";
 
-export const getLoginInfo = (state:AppRootStateType) : any => state.login
+export const isInProgressSelector = (state:AppRootStateType) : boolean => state.login.isInProgress
+export const isAuthSelector = (state:AppRootStateType) : boolean => state.login.isAuth

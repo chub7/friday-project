@@ -12,11 +12,12 @@ import {basicSchema} from "../../../utils/schema";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import ButtonCustom from "../../../components/ButtonCustom/ButtonCustom";
+import {isInProgressSelector} from "../login-selectors";
 
 export const Registration = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const isInProgress = useAppSelector(state => state.login.isInProgress)
+    const isInProgress = useAppSelector(isInProgressSelector)
 
     const formik = useFormik({
         initialValues: {
@@ -54,11 +55,15 @@ export const Registration = () => {
                 {errors.email && touched.email ? <div>{errors.email}</div> : null}
 
                 <PasswordInput handleChange={handleChange} inputValue={values.password}
-                               name={'password'} placeHolder={`Password`}/>
-                {errors.password && touched.password ? <div>{errors.password}</div> : null}
+                               name={'password'} placeHolder={`Password`}
+                               touched={touched.password} error={errors.password}
+
+                />
+
                 <PasswordInput handleChange={handleChange} inputValue={values.confirmPassword} name={'confirmPassword'}
-                               placeHolder={`Confirm password`}/>
-                {errors.confirmPassword && touched.confirmPassword ? <div>{errors.confirmPassword}</div> : null}
+                               placeHolder={`Confirm password`}
+                               touched={touched.confirmPassword} error={errors.confirmPassword}
+                />
 
                 <Box className={styles.progress}>{isInProgress && <CircularProgress/>}</Box>
 
