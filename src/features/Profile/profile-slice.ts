@@ -61,7 +61,6 @@ export const authMeThunk = () => async (dispatch: Dispatch<AnyAction>) => {
         let res = await profileApi.me()
         dispatch(setIsLoggedIn({status:true}))
         dispatch(setProfileData({data:res.data}))
-        console.log(res.data)
     } catch (e) {
         console.log(e)
     } finally {
@@ -72,7 +71,6 @@ export const authMeThunk = () => async (dispatch: Dispatch<AnyAction>) => {
 export const registarationThunk = () => async (dispatch: Dispatch<AnyAction>) => {
     try {
         let res = await profileApi.registration()
-        console.log(res)
     } catch (e) {
         console.log(e)
     } finally {
@@ -83,7 +81,6 @@ export const registarationThunk = () => async (dispatch: Dispatch<AnyAction>) =>
 export const loginThunk = () => async (dispatch: Dispatch<AnyAction>) => {
     try {
         let res = await profileApi.login()
-        console.log(res)
     } catch (e) {
         console.log(e)
     } finally {
@@ -95,18 +92,16 @@ export const logOutThunk = () => async (dispatch: Dispatch<AnyAction>) => {
     try {
         let res = await profileApi.logOut()
         dispatch(setIsLoggedIn({status:false}))
-        console.log(res)
     } catch (e) {
         console.log(e)
     } finally {
 
     }
 }
-export const changeNameThunk = (name:string) => async (dispatch: Dispatch<AnyAction>) => {
+export const changeProfileDataThunk = (name:string) => async (dispatch: Dispatch<AnyAction>) => {
     try {
         let res = await profileApi.changeProfileData(name)
-        dispatch(setNewName({name:name}))
-        console.log(res)
+        dispatch(setNewName({name:res.data.updatedUser.name}))
     } catch (e) {
         console.log(e)
     } finally {
