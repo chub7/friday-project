@@ -62,8 +62,7 @@ export const singUp = (email: string, password: string) => async (dispatch: AppD
     }
 }
 
-export const signInThunk = (data: loginType, setStatus: any) => async (dispatch: AppDispatch) => {
-    const {email, password, rememberMe} = data
+export const signInThunk = (email: string, password: string, rememberMe: boolean, setStatus: any) => async (dispatch: AppDispatch) => {
 
     dispatch(setInProgressStatus(true))
     try {
@@ -72,11 +71,11 @@ export const signInThunk = (data: loginType, setStatus: any) => async (dispatch:
         dispatch(setProfile({profile: data}))
 
     } catch (error: any) {
-        console.log(error)
+
         if (axios.isAxiosError(error)) {
             const finalError = (error as AxiosError<{ error: string }>).response?.data.error || error.message
             setStatus({message: finalError})
-            dispatch(setErrorSingUp(finalError))
+            /* dispatch(setErrorSingUp(finalError))*/
         }
 
     } finally {
