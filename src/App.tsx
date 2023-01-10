@@ -22,10 +22,10 @@ function App() {
         dispatch(authMe())
     }, [])
 
-    if (appStatus === 'loading') {
-        return <CircularProgress/>
+    // if (appStatus === 'loading') {
+    //     return <CircularProgress/>
 
-    }
+    // }
 
     return (
         <div className='App'>

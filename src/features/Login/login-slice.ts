@@ -99,6 +99,7 @@ export const signInThunk = (email: string, password: string, rememberMe: boolean
 
         const data = await loginApi.login(email, password, rememberMe)
         dispatch(setProfile({profile: data}))
+        dispatch(authorization(true))
 
     } catch (error: any) {
 

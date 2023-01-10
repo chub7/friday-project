@@ -7,7 +7,7 @@ import {PasswordInput} from "../../../components/inputPassword/passwordInput";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {signInThunk} from "../login-slice";
-import {isInProgressSelector} from "../login-selectors";
+import {isAuthSelector, isInProgressSelector} from "../login-selectors";
 import {getProfile} from "../../Profile/profile-selectors";
 import {CssButton} from '../../../components/CustomComponent/CssComponent';
 
@@ -30,6 +30,8 @@ export const Authorization = () => {
     const navigate = useNavigate()
     const progress = useAppSelector(isInProgressSelector)
     const profile = useAppSelector(getProfile)
+    const isAuth = useAppSelector(isAuthSelector)
+
 
     const formik = useFormik({
         initialValues: {
@@ -46,7 +48,7 @@ export const Authorization = () => {
     });
     const {handleSubmit, errors, touched, handleChange, values, status} = formik
 
-    if (profile) {
+    if (isAuth) {
         navigate('/profile')
     }
     return (
