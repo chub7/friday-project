@@ -1,11 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {loginApi} from "./loginApi";
+import {loginApi, MeResponseType} from "./loginApi";
 import axios, {AxiosError} from "axios";
-import {AppDispatch} from "../../app/store";
+import {AppDispatch, AppRootStateType} from "../../app/store";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type ResultSignUpType = false | 'Created'
 type isAuthType = {
+    meData: MeResponseType | null
     status: boolean,
     error: string | null
 }
@@ -30,6 +31,7 @@ const slice = createSlice({
             result: false
         },
         isAuth: {
+            meData: null,
             status: false,
             error: null
         },
@@ -39,6 +41,9 @@ const slice = createSlice({
     reducers: {
         setAppStatus: (state:TypeInitialState,action: PayloadAction<RequestStatusType>)=>{
             state.appStatus = action.payload
+        },
+        setMeData: (state: TypeInitialState, action: PayloadAction<MeResponseType>) => {
+            state.isAuth.meData = action.payload
         },
         authorization: (state: TypeInitialState, action: PayloadAction<boolean>) => {
             state.isAuth.status = action.payload
@@ -62,7 +67,8 @@ const slice = createSlice({
 
 export const loginSlice = slice.reducer
 const {actions} = slice;
-export const {setInProgressStatus, setErrorSingUp,authorization,setAppStatus,registration,authorizationError} = actions
+export const {setInProgressStatus, setErrorSingUp,authorization,
+    setAppStatus,registration,authorizationError,setMeData} = actions
 
 export const singUp = (email: string, password: string) => async (dispatch: AppDispatch) => {
     dispatch(registration(false))
@@ -82,11 +88,14 @@ export const singUp = (email: string, password: string) => async (dispatch: AppD
         dispatch(setInProgressStatus(false))
     }
 }
-export const authMe = () => async (dispatch: AppDispatch) => {
+export const authMe = () => async (dispatch: AppDispatch, getState:  ()=> AppRootStateType) => {
+    const meData = getState().login.isAuth.meData
     dispatch(setAppStatus('loading'))
     try {
         let res = await loginApi.me()
         dispatch(authorization(true))
+        if (!meData) { dispatch(setMeData(res)) }
+
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const finalError = (error as AxiosError<{ error: string }>).response?.data.error || error.message
