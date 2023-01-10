@@ -6,13 +6,16 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { PasswordInput } from "../../../components/inputPassword/passwordInput";
 import { useAppDispatch, useAppSelector } from "../../../app/store";
-import { singUp } from "../login-slice";
-import { Navigate, NavLink } from "react-router-dom";
+import { registration, singUp } from "../login-slice";
+import { NavLink, useNavigate } from "react-router-dom";
 import { basicSchema } from "../../../utils/schema";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ButtonCustom from "../../../components/ButtonCustom/ButtonCustom";
-import { isInProgressSelector, signUpResultSelector } from "../login-selectors";
+import {
+  loginIsInProgressSelector,
+  signUpResultSelector,
+} from "../login-selectors";
 
 type FormInitialValuesType = {
   email: string;
@@ -21,6 +24,7 @@ type FormInitialValuesType = {
 };
 
 export const Registration = () => {
+  const navigate = useNavigate();
   const initialValuesForm = {
     email: "",
     password: "",
@@ -28,7 +32,7 @@ export const Registration = () => {
   } as FormInitialValuesType;
 
   const dispatch = useAppDispatch();
-  const isInProgress = useAppSelector(isInProgressSelector);
+  const isInProgress = useAppSelector(loginIsInProgressSelector);
   const signUpResult = useAppSelector(signUpResultSelector);
 
   const { handleSubmit, errors, touched, handleChange, values } = useFormik({
@@ -41,7 +45,8 @@ export const Registration = () => {
   });
 
   if (signUpResult === "Created") {
-    return <Navigate to={"login"} />;
+    dispatch(registration(false));
+    navigate("login");
   }
 
   return (
