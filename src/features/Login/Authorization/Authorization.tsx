@@ -7,7 +7,7 @@ import {PasswordInput} from "../../../components/inputPassword/passwordInput";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {signInThunk} from "../login-slice";
-import {isProgressSelector} from "../login-selectors";
+import {isInProgressSelector} from "../login-selectors";
 import {getProfile} from "../../Profile/profile-selectors";
 import {CssButton} from '../../../components/CustomComponent/CssComponent';
 
@@ -28,7 +28,7 @@ const validationSchema = yup.object({
 export const Authorization = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const progress = useAppSelector(isProgressSelector)
+    const progress = useAppSelector(isInProgressSelector)
     const profile = useAppSelector(getProfile)
 
     const formik = useFormik({
@@ -69,7 +69,7 @@ export const Authorization = () => {
 
 
                     <PasswordInput handleChange={handleChange} inputValue={values.password} name={'password'}
-                                   placeHolder={`Password`}/>
+                                   placeHolder={`Password`} touched={touched.password} error={errors.password}/>
 
                     <FormControlLabel control={<Checkbox
                         name="rememberMe"
@@ -80,7 +80,7 @@ export const Authorization = () => {
                     <NavLink className={styles.link} to={'/recoverypass'}>Forgot password?</NavLink>
 
                     {status != undefined && status.message}
-                    <CssButton value={'white'} type="submit">Sign In</CssButton>
+                    <CssButton value={'blue'} type="submit">Sign In</CssButton>
 
                     <p className={styles.boldText}>Already have an account?</p>
 

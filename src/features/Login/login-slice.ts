@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {loginApi, MeResponseType} from "./loginApi";
 import axios, {AxiosError} from "axios";
 import {AppDispatch, AppRootStateType} from "../../app/store";
-import {AppDispatch} from "../../app/store";
 import {setProfile} from "../Profile/profile-slice";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
