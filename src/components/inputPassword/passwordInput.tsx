@@ -1,42 +1,49 @@
-import React from 'react';
-import InputLabel from "@mui/material/InputLabel";
-import Input from "@mui/material/Input";
-import InputAdornment from "@mui/material/InputAdornment";
+import React, {useState} from 'react';
 import IconButton from "@mui/material/IconButton";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import FormControl from "@mui/material/FormControl";
+import {useAppSelector} from "../../app/store";
+import {isInProgressSelector} from "../../features/Login/login-selectors";
+import {TextField} from "@mui/material";
 
-export const PasswordInput = (props:any) => {
-    const {id,name} = props
-    const [showPassword, setShowPassword] = React.useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleMouseDownPassword = (
-        event: React.MouseEvent<HTMLButtonElement>
-    ) => {
-        event.preventDefault();
-    };
+type PasswordInputType = {
+    handleChange: any
+    name: string
+    placeHolder: string
+    inputValue: string
+    touched: boolean | undefined
+    error: string | undefined
+}
+
+export const PasswordInput = (props: PasswordInputType) => {
+
+    const {name, placeHolder, handleChange, inputValue, touched, error} = props
+    const isInProgress = useAppSelector(isInProgressSelector)
+    const [show, setShow] = useState(false);
+    const handleClick = () => setShow(!show);
     return (
         <FormControl sx={{width: "347px"}} variant="standard">
-            <InputLabel htmlFor={name}>{`${props.id}`}</InputLabel>
-            <Input
-                id={id}
+            <TextField
+                variant="standard"
+                id={name}
                 name={name}
-                onChange={props.formik.handleChange}
-                value={props.formik.values[name]}
-                type={showPassword ? "text" : "password"}
-                endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                        >
-                            {showPassword ? <VisibilityOff/> : <Visibility/>}
+                label={placeHolder}
+                type={show ? "text" : "password"}
+                value={inputValue}
+                onChange={handleChange}
+                error={touched && !!error}
+                helperText={touched && error}
+                disabled={isInProgress}
+                InputProps={{
+                    endAdornment: (
+                        <IconButton onClick={handleClick}>
+                            {show ? <VisibilityOff/> : <Visibility/>}
                         </IconButton>
-                    </InputAdornment>
-                }
-            />
+                    )
+                }}
+            >
+            </TextField>
         </FormControl>
     );
 };

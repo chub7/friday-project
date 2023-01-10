@@ -1,23 +1,26 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/store';
-import { authMeThunk, changeProfileDataThunk, loginThunk, logOutThunk, registarationThunk } from './profile-slice';
+import {  changeProfileDataThunk, logOutThunk} from './profile-slice';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import LocalSeeOutlinedIcon from '@mui/icons-material/LocalSeeOutlined';
 import style from './Profile.module.css'
 import logoutIcon from './logout.svg'
+import {Navigate} from "react-router-dom";
+import {isAuthSelector} from "../Login/login-selectors";
+import { authMe } from '../Login/login-slice';
 
 export const Profile = () => {
     const dispatch = useAppDispatch()
-    const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
-    const profileData = useAppSelector(state => state.profile.profileData)
+    const isLoggedIn = useAppSelector(state => state.login.isAuth.status)
+    const profileData = useAppSelector(state => state.profile.profile)
     const [isEditMode, setEditMode] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const [userName, setUserName] = useState<string>(profileData.name)
 
     useEffect(() => {
-        dispatch(authMeThunk())
+        dispatch(authMe())
     }, [])
 
     // if(!isLoggedIn){
@@ -71,8 +74,8 @@ export const Profile = () => {
                 <img src={logoutIcon} alt="" />
                 Log out
             </button>
-            <button onClick={() => { dispatch(registarationThunk()) }} >Registartion</button>
-            <button onClick={() => { dispatch(loginThunk()) }} >Login</button>
+            {/* <button onClick={() => { dispatch(registarationThunk()) }} >Registartion</button>
+            <button onClick={() => { dispatch(loginThunk()) }} >Login</button> */}
 
         </div>
     );

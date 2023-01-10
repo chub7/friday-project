@@ -38,14 +38,10 @@
 }
 
 .default:hover {
-    width: 167px;
-    height: 30px;
     background: #0080FF;
 }
 
 .red:hover {
-    width: 167px;
-    height: 30px;
     background: #FF1A47;
 }
 
@@ -57,22 +53,18 @@
 .default:active {
     background: #0059B3;
     color: #FFFFFF;
-    width: 149px;
-    height: 30px;
+
 }
 
 .secondary:active {
     background: #C9E5FF;
     color: #0066CC;
-    width: 149px;
-    height: 30px;
+
 }
 
 .red:active {
     background: #B31232;
     color: #FFFFFF;
-    width: 149px;
-    height: 30px;
 }
 
 .button:disabled {

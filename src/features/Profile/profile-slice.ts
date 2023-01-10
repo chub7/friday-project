@@ -1,97 +1,103 @@
-import {AnyAction, createSlice, Dispatch} from "@reduxjs/toolkit";
+import {AnyAction, createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch} from "../../app/store";
+import { authorization } from "../Login/login-slice";
 import { profileApi } from "./profileApi";
 
-export type ProfileDataType = {
-    _id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number
-    created: Date
-    updated: Date
-    isAdmin: boolean
-    verified: boolean
-    rememberMe: boolean
-}
-export type initialStateType = {
-    isLoggedIn: boolean
-    profileData: ProfileDataType
-}
-const initialState = {
-isLoggedIn: false,
-profileData:{
-    _id: '',
-    email: '',
-    name: '',
-    avatar: '',
-    publicCardPacksCount: 0, // количество колод
-    created: Date,
-    updated: Date,
-    isAdmin: false,
-    verified: false, // подтвердил ли почту
-    rememberMe: false,
-}
-}
+// export type ProfileDataType = {
+//     _id: string
+//     email: string
+//     name: string
+//     avatar?: string
+//     publicCardPacksCount: number
+//     created: Date
+//     updated: Date
+//     isAdmin: boolean
+//     verified: boolean
+//     rememberMe: boolean
+// }
+// export type initialStateType = {
+//     isLoggedIn: boolean
+//     profileData: ProfileDataType
+// }
+export type ProfileType = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number;
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean;
+    rememberMe: boolean;
+    error?: string;
 
+}
+type TypeInitialState = {
+    profile: ProfileType 
+}
+const initialState: TypeInitialState = {
+profile:{} as ProfileType
+}
 const slice = createSlice({
     name: 'profile',
     initialState: initialState,
     reducers: {
-        setIsLoggedIn(state, action){
-            state.isLoggedIn = action.payload.status
+        // setProfileData(state,action){
+        //     state.profile = {...action.payload.data}
+        // },
+        setNewName(state,action: PayloadAction<{name:string}>){
+            if(state.profile){
+                state.profile.name = action.payload.name
+            }
+            
         },
-        setProfileData(state,action){
-            state.profileData = {...action.payload.data}
+        setProfile: (state, action: PayloadAction<{profile:ProfileType}>) => {
+            state.profile = action.payload.profile
         },
-        setNewName(state,action){
-            state.profileData.name = action.payload.name
-        }
     }
-
 })
 
 export const profileSlice = slice.reducer
+export const {setProfile} = slice.actions
+export const {setNewName} = slice.actions
 
+// export const authMeThunk = () => async (dispatch: Dispatch<AnyAction>) => {
+//     try {
+//         let res = await profileApi.me()
+//         dispatch(setIsLoggedIn({status:true}))
+//         dispatch(setProfileData({data:res.data}))
+//     } catch (e) {
+//         console.log(e)
+//     } finally {
 
-export const {setIsLoggedIn,setProfileData,setNewName} = slice.actions
+//     }
+// }
 
-export const authMeThunk = () => async (dispatch: Dispatch<AnyAction>) => {
-    try {
-        let res = await profileApi.me()
-        dispatch(setIsLoggedIn({status:true}))
-        dispatch(setProfileData({data:res.data}))
-    } catch (e) {
-        console.log(e)
-    } finally {
+// export const registarationThunk = () => async (dispatch: Dispatch<AnyAction>) => {
+//     try {
+//         let res = await profileApi.registration()
+//     } catch (e) {
+//         console.log(e)
+//     } finally {
 
-    }
-}
+//     }
+// }
 
-export const registarationThunk = () => async (dispatch: Dispatch<AnyAction>) => {
-    try {
-        let res = await profileApi.registration()
-    } catch (e) {
-        console.log(e)
-    } finally {
+// export const loginThunk = () => async (dispatch: Dispatch<AnyAction>) => {
+//     try {
+//         let res = await profileApi.login()
+//     } catch (e) {
+//         console.log(e)
+//     } finally {
 
-    }
-}
-
-export const loginThunk = () => async (dispatch: Dispatch<AnyAction>) => {
-    try {
-        let res = await profileApi.login()
-    } catch (e) {
-        console.log(e)
-    } finally {
-
-    }
-}
+//     }
+// }
 
 export const logOutThunk = () => async (dispatch: Dispatch<AnyAction>) => {
     try {
         let res = await profileApi.logOut()
-        dispatch(setIsLoggedIn({status:false}))
+        dispatch(authorization(false))
     } catch (e) {
         console.log(e)
     } finally {
