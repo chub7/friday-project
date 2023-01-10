@@ -19,7 +19,5 @@ export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 
-
-
 // @ts-ignore
 window.store = store;

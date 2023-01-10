@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Stend} from "./features/testovich/stend";
 import {Navigate, Route, Routes} from "react-router-dom";
@@ -9,12 +9,23 @@ import {EnterNewPassword} from "./features/Login/PasswordTroubles/EnterNewPasswo
 import {Page404} from "./features/404/404";
 import {Header} from "./features/Header/Header";
 import {Profile} from "./features/Profile/Profile";
-import './App.css'
-import {useAppSelector} from "./app/store";
+import {useAppDispatch, useAppSelector} from "./app/store";
+import {authMe} from "./features/Login/login-slice";
+import {appStatusSelector} from "./features/Login/login-selectors";
+import {CircularProgress} from "@mui/material";
 
 function App() {
-    const profile = useAppSelector(state => state.profile.profile)
+    const dispatch = useAppDispatch()
 
+    const appStatus = useAppSelector(appStatusSelector)
+    useEffect(() => {
+        dispatch(authMe())
+    }, [])
+
+    if (appStatus === 'loading') {
+        return <CircularProgress/>
+
+    }
 
     return (
         <div className='App'>
