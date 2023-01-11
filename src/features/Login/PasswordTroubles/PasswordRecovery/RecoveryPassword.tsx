@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import style from './recoveryPassword.module.css'
@@ -30,10 +30,12 @@ export const RecoveryPassword = () => {
         }
     }
 
+    useEffect(()=>{
+        if (emailFromState) {
+            navigate ('/checkEmail')
+        }
+    },[emailFromState])
 
-    if (emailFromState) {
-        navigate ('/checkEmail')
-    }
     return (
         <div className={style.recoveryContainer}>
             {!isLoading ?
