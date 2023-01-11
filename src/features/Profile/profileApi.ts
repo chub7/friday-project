@@ -25,7 +25,8 @@ export const profileApi = {
     return instance.delete('/auth/me')
    },
    changeProfileData(name:string){
-    return instance.put('/auth/me',{name})
+   // return instance.put('/auth/me',{name})
+    return instance.put('https://neko-back.herokuapp.com/2.0/auth/me',{name})
    }
 }
 

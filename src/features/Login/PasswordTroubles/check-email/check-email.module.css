@@ -1,0 +1,49 @@
+.checkContainer {
+    width: 413px;
+    height: 408px;
+
+    background: #FFFFFF;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checkTitle {
+    width: 168px;
+    height: 32px;
+    margin-top: 35px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 32px;
+    color: #000000;
+}
+
+.checkImg {
+    width: 108px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.checkImg img {
+    background: rgba(54, 110, 255, 0.05);
+    border-radius: 100%;
+}
+
+.checkHelperText{
+    width: 328px;
+    height: 48px;
+    margin-top: 0;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+    opacity: 0.5;
+}

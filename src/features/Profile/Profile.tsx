@@ -21,6 +21,7 @@ export const Profile = () => {
   //   dispatch(authMe());
   // }, []);
   //
+console.log(isLoggedIn);
 
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
