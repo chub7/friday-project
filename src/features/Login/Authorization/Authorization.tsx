@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "../login.module.css";
 import {
   Checkbox,
@@ -48,9 +48,11 @@ export const Authorization = () => {
   const { handleSubmit, errors, touched, handleChange, values, status } =
     formik;
   //
-  if (isAuth) {
-    navigate("/profile");
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/profile");
+    }
+  }, [isAuth])
   return (
     <div className={styles.wholeForm}>
       {!progress ? (

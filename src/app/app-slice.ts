@@ -20,23 +20,13 @@ const slice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setIsAppInProgress: (
-      state: TypeInitialState,
-      action: PayloadAction<{ appStatus: boolean }>
-    ) => {
+    setIsAppInProgress: (state: TypeInitialState, action: PayloadAction<{ appStatus: boolean }>) => {
       state.isAppInProgress = action.payload.appStatus;
     },
-    setIsAuth: (
-      state: TypeInitialState,
-      action: PayloadAction<{ isAuthStatus: boolean }>
-    ) => {
+    setIsAuth: (state: TypeInitialState, action: PayloadAction<{ isAuthStatus: boolean }>) => {
       state.isAuth = action.payload.isAuthStatus;
     },
-    setAuthError: (
-      //refactor надо ли обрабатывать ошибку isAuth
-      state: TypeInitialState,
-      action: PayloadAction<{ error: string }>
-    ) => {
+    setAuthError: (state: TypeInitialState, action: PayloadAction<{ error: string }>) => { //refactor надо ли обрабатывать ошибку isAuth
       state.error = action.payload.error;
     },
   },

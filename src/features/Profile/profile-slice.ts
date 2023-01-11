@@ -1,28 +1,8 @@
-import {
-  AnyAction,
-  createSlice,
-  Dispatch,
-  PayloadAction,
-} from "@reduxjs/toolkit";
-import { profileApi } from "./profileApi";
-import { setIsAuth } from "../../app/app-slice";
+import {createSlice, PayloadAction,} from "@reduxjs/toolkit";
+import {profileApi} from "./profileApi";
+import {setIsAppInProgress, setIsAuth} from "../../app/app-slice";
+import {AppDispatch} from "../../app/store";
 
-// export type ProfileDataType = {
-//     _id: string
-//     email: string
-//     name: string
-//     avatar?: string
-//     publicCardPacksCount: number
-//     created: Date
-//     updated: Date
-//     isAdmin: boolean
-//     verified: boolean
-//     rememberMe: boolean
-// }
-// export type initialStateType = {
-//     isLoggedIn: boolean
-//     profileData: ProfileDataType
-// }
 export type ProfileType = {
   _id: string;
   email: string;
@@ -47,70 +27,41 @@ const slice = createSlice({
   initialState: initialState,
   reducers: {
     setNewName(state, action: PayloadAction<{ name: string }>) {
-      if (state.profile) {
-        state.profile.name = action.payload.name;
-      }
+      state.profile.name = action.payload.name;
     },
     setProfile: (state, action: PayloadAction<{ profile: ProfileType }>) => {
       state.profile = action.payload.profile;
+    },
+    clearProfileData: (state, action: PayloadAction) => {
+      state.profile = {} as ProfileType;
     },
   },
 });
 
 export const profileSlice = slice.reducer;
-export const { setProfile } = slice.actions;
-export const { setNewName } = slice.actions;
+export const {setProfile, setNewName, clearProfileData} = slice.actions;
 
-// export const authMeThunk = () => async (dispatch: Dispatch<AnyAction>) => {
-//     try {
-//         let res = await profileApi.me()
-//         dispatch(setIsLoggedIn({status:true}))
-//         dispatch(setProfileData({data:res.data}))
-//     } catch (e) {
-//         console.log(e)
-//     } finally {
 
-//     }
-// }
-
-// export const registarationThunk = () => async (dispatch: Dispatch<AnyAction>) => {
-//     try {
-//         let res = await profileApi.registration()
-//     } catch (e) {
-//         console.log(e)
-//     } finally {
-
-//     }
-// }
-
-// export const loginThunk = () => async (dispatch: Dispatch<AnyAction>) => {
-//     try {
-//         let res = await profileApi.login()
-//     } catch (e) {
-//         console.log(e)
-//     } finally {
-
-//     }
-// }
-
-export const logOutThunk = () => async (dispatch: Dispatch<AnyAction>) => {
+export const logOutThunk = () => async (dispatch: AppDispatch) => {
+  dispatch(setIsAppInProgress({appStatus: true}));
   try {
     await profileApi.logOut();
-    dispatch(setIsAuth({ isAuthStatus: false }));
+    dispatch(setIsAuth({isAuthStatus: false}));
+    dispatch(clearProfileData())
   } catch (e) {
     console.log(e);
   } finally {
+    dispatch(setIsAppInProgress({appStatus: false}));
   }
 };
 export const changeProfileDataThunk =
-  (name: string) => async (dispatch: Dispatch<AnyAction>) => {
-    try {
-      let res = await profileApi.changeProfileData(name);
-      dispatch(setNewName({ name: res.data.updatedUser.name }));
-    } catch (e) {
-      console.log(e);
-    } finally {
-    }
-  };
+    (name: string) => async (dispatch: AppDispatch) => {
+      try {
+        let res = await profileApi.changeProfileData(name);
+        dispatch(setNewName({name: res.data.updatedUser.name}));
+      } catch (e) {
+        console.log(e);
+      } finally {
+      }
+    };
 
-export type AppActionsType = any;
