@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./registration.module.css";
 import { useFormik } from "formik";
 import Input from "@mui/material/Input";
@@ -35,7 +35,7 @@ export const Registration = () => {
   const isInProgress = useAppSelector(loginIsInProgressSelector);
   const signUpResult = useAppSelector(signUpResultSelector);
 
-  const { handleSubmit, errors, touched, handleChange, values } = useFormik({
+  const {handleSubmit, errors, touched, handleChange, values} = useFormik({
     initialValues: initialValuesForm,
     validationSchema: basicSchema,
     onSubmit: (values, actions) => {
@@ -44,23 +44,25 @@ export const Registration = () => {
     },
   });
 
-  if (signUpResult === "Created") {
-    dispatch(registration(false));
-    navigate("login");
-  }
+  useEffect(() => {
+    if (signUpResult === "Created") {
+      dispatch(registration(false));
+      navigate("/login");
+    }
+  },[signUpResult])
 
   return (
-    <div className={styles.wholeForm}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.formName}>Sign Up</label>
+      <div className={styles.wholeForm}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <label className={styles.formName}>Sign Up</label>
 
-        <FormControl sx={{ width: "347px" }} variant="standard">
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <Input
-            id="email"
-            name="email"
-            onChange={handleChange}
-            value={values.email}
+          <FormControl sx={{width: "347px"}} variant="standard">
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <Input
+                id="email"
+                name="email"
+                onChange={handleChange}
+                value={values.email}
             disabled={isInProgress}
           />
         </FormControl>

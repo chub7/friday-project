@@ -34,8 +34,8 @@ const slice = createSlice({
     }
 });
 
-  export const passwordSlice = slice.reducer;
-  export const { setEmail,setError, setSuccess, setIsLoading} = slice.actions;
+export const passwordSlice = slice.reducer;
+export const { setEmail,setError, setSuccess, setIsLoading} = slice.actions;
 
 
 export const getInstructionThunk = (email: string) => async (dispatch: Dispatch<AnyAction>) => {

@@ -1,20 +1,20 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Navigate, NavLink } from 'react-router-dom';
+import React, {ChangeEvent, useState} from 'react';
+import {NavLink, useNavigate} from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import style from './recoveryPassword.module.css'
-import { useAppDispatch, useAppSelector } from '../../../../app/store';
-import { getInstructionThunk } from '../password-slice';
-import { CssButton } from '../../../../components/CustomComponent/CssComponent';
-import { ErrorSnackbar } from '../../../../components/ErrorSnackBar/ErrorSnackbar';
-import { CircularProgress } from "@mui/material";
+import {useAppDispatch, useAppSelector} from '../../../../app/store';
+import {getInstructionThunk} from '../password-slice';
+import {CssButton} from '../../../../components/CustomComponent/CssComponent';
+import {ErrorSnackbar} from '../../../../components/ErrorSnackBar/ErrorSnackbar';
+import {CircularProgress} from "@mui/material";
 
 
 export const RecoveryPassword = () => {
     const [email, setEmail] = useState<string>('')
     const [error, setError] = useState<string>('')
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const emailFromState = useAppSelector(state => state.passwordData.email)
-    const errorFromState = useAppSelector(state => state.passwordData.error)
     const isLoading = useAppSelector(state => state.passwordData.isLoading)
 
     const onClickHandler = () => {
@@ -30,10 +30,9 @@ export const RecoveryPassword = () => {
         }
     }
 
-    console.log(errorFromState);
 
     if (emailFromState) {
-        return <Navigate to='/checkEmail' />
+        navigate ('/checkEmail')
     }
     return (
         <div className={style.recoveryContainer}>
