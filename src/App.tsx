@@ -12,6 +12,7 @@ import { Profile } from "./features/Profile/Profile";
 import { useAppDispatch, useAppSelector } from "./app/store";
 import { authMe } from "./app/app-slice";
 import { CircularProgress } from "@mui/material";
+import { CheckEmail } from "./features/Login/PasswordTroubles/check-email/check-email";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -33,8 +34,9 @@ function App() {
         <Route path="/login" element={<Authorization />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/recoverypass" element={<RecoveryPassword />} />
+        <Route path="/checkEmail" element={<CheckEmail/>} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/newpass" element={<EnterNewPassword />} />
+        <Route path="/newpass/:token" element={<EnterNewPassword />} />
         <Route path="/testovich" element={<Stend />} />
         <Route path="/404" element={<Page404 />} />
       </Routes>

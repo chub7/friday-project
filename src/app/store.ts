@@ -3,12 +3,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import {appSlice} from "./app-slice";
 import {loginSlice} from "../features/Login/login-slice";
 import {profileSlice} from "../features/Profile/profile-slice";
+import { passwordSlice } from "../features/Login/PasswordTroubles/password-slice";
 
 export const store = configureStore({
     reducer: {
         app: appSlice,
         login: loginSlice,
-        profile: profileSlice
+        profile: profileSlice,
+        passwordData: passwordSlice
     }
 })
 
