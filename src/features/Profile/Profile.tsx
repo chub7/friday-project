@@ -5,9 +5,10 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import LocalSeeOutlinedIcon from "@mui/icons-material/LocalSeeOutlined";
-import style from "./Profile.module.css";
-import logoutIcon from "./logout.svg";
+import styles from "./Profile.module.css";
+import logoutIcon from "../../assets/logout.svg";
 import {useNavigate} from "react-router-dom";
+import {GeneralButton} from "../../utils/StyleForMUI/StyleForMUI";
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
@@ -34,66 +35,70 @@ export const Profile = () => {
         if (!e.currentTarget.value.trim()) {
             setError("required field");
         } else {
-      setError("");
-      setUserName(e.currentTarget.value);
-    }
-  };
-  const onClickHandler = () => {
-    setEditMode(false);
-    dispatch(changeProfileDataThunk(userName));
-  };
-  return (
-    <div className={style.profileContainer}>
-      <h1 className={style.profileTitle}>Personal information</h1>
-      <div className={style.profileAvatar}>
-        <img src={avatar} alt="Yours avatar" />
-        <IconButton>
-          <LocalSeeOutlinedIcon fontSize="small" className={style.photoIcon} />
-        </IconButton>
-      </div>
-      {isEditMode ? (
-        <div className={style.profileInputContainer}>
-          <TextField
-            error={!!error}
-            id="standard-error-helper-text"
-            label={error ? "error" : "nick name"}
-            defaultValue={profileData.name}
-            helperText={error ? error : ""}
-            variant="standard"
-            onChange={onChangeHandler}
-            className={style.inputName}
-          />
-          <button
-            disabled={!!error}
-            className={style.saveButton}
-            onClick={onClickHandler}
-          >
-            SAVE
-          </button>
+            setError("");
+            setUserName(e.currentTarget.value);
+        }
+    };
+    const onClickHandler = () => {
+        setEditMode(false);
+        dispatch(changeProfileDataThunk(userName));
+    };
+    return (
+
+        <div className={styles.wholeForm}>
+            <div className={styles.form}>
+                <h1 className={styles.formName}>Personal information</h1>
+                <div className={styles.profileAvatar}>
+                    <img src={avatar} alt="Yours avatar"/>
+                    <div className={styles.buttonPhoto}>
+                        <IconButton>
+                            <LocalSeeOutlinedIcon className={styles.photoIcon}/>
+                        </IconButton>
+                    </div>
+
+
+                </div>
+                {isEditMode ? (
+                    <div className={styles.profileInputContainer}>
+                        <TextField
+                            error={!!error}
+                            id="standard-error-helper-text"
+                            label={error ? "error" : "nick name"}
+                            defaultValue={profileData.name}
+                            helperText={error ? error : ""}
+                            variant="standard"
+                            onChange={onChangeHandler}
+                            className={styles.inputName}
+                        />
+                        <button
+                            disabled={!!error}
+                            className={styles.saveButton}
+                            onClick={onClickHandler}>
+                            SAVE
+                        </button>
+                    </div>
+                ) : (
+                    <div className={styles.profileNameContainer}>
+                        <div
+                            onDoubleClick={() => setEditMode(true)}
+                            className={styles.profileName}>
+                            {profileData.name}
+                        </div>
+                        <IconButton onClick={() => setEditMode(true)}>
+                            <BorderColorOutlinedIcon/>
+                        </IconButton>
+                    </div>
+                )}
+                <div className={styles.profileEmail}>{profileData.email}</div>
+
+                <GeneralButton value={"white"} sx={{width: '150px'}} onClick={() => {
+                    dispatch(logOutThunk())
+                }}>
+                    <img src={logoutIcon} alt=""/>
+                    Log out
+                </GeneralButton>
+            </div>
         </div>
-      ) : (
-        <div className={style.profileNameContainer}>
-          <div
-            onDoubleClick={() => setEditMode(true)}
-            className={style.profileName}
-          >
-            {profileData.name}
-          </div>
-          <IconButton onClick={() => setEditMode(true)}>
-            <BorderColorOutlinedIcon fontSize="small" />
-          </IconButton>
-        </div>
-      )}
-      <div className={style.profileEmail}>{profileData.email}</div>
-      <button
-        onClick={() => {
-          dispatch(logOutThunk());
-        }}
-        className={style.logOutButton}
-      >
-        <img src={logoutIcon} alt="" />
-        Log out
-      </button>
-    </div>
-  );
+
+    );
 };

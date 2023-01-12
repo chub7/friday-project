@@ -1,11 +1,11 @@
 import React from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import styles from "./header.module.css";
-import logo from "./logo.svg";
+import logo from "../../assets/logo.svg";
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
 import {appStatusSelector, isAuthSelector} from "../../app/app-selector";
 import {logOutThunk} from "../Profile/profile-slice";
+import {GeneralButton} from "../../utils/StyleForMUI/StyleForMUI";
 
 export const Header = () => {
     const navigate = useNavigate();
@@ -24,20 +24,12 @@ export const Header = () => {
             <NavLink to={"/recoverypass"}> Forgot pass</NavLink>
             <NavLink to={"/profile"}> profile</NavLink>
             <NavLink to={"/newpass"}> NewPass</NavLink>
-            <NavLink to={"/testovich"}> ShowBase</NavLink>
             <NavLink to={"/404"}> PageNotFound</NavLink>
-            {isAuth ? (
-                <ButtonCustom className={styles.btn}
-                              onClick={logOutHandler}
-                              disabled={isInProgress}>Logout
-                </ButtonCustom>
-            ) : (
-                <ButtonCustom
-                    className={styles.btn}
-                    onClick={logOutHandler}
-                    disabled={isInProgress}>Sign in
-                </ButtonCustom>
-            )}
+
+            <GeneralButton value={'blue'} sx={{width:'130px'}} onClick={logOutHandler} disabled={isInProgress}>
+                {isAuth ? 'Logout' : 'Sign in'}
+            </GeneralButton>
+
         </div>
     );
 };

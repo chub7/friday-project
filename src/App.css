@@ -1,3 +1,11 @@
+
 .App{
-    background-color: #F9F9FA;
+
+}
+.progress{
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,16 +1,17 @@
 import { AnyAction, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
 import { passwordApi } from "./passwordApi";
+import {handleServerAppError} from "../../../utils/AxiosError/handleServerAppError";
+
 
 type TypeInitialState = {
     email: string;
-    error: string;
+    error: string|null
     isSuccess:boolean,
     isLoading:boolean,
 };
 const initialState: TypeInitialState = {
     email: '',
-    error: '',
+    error:null,
     isSuccess:false,
     isLoading:false
 
@@ -22,7 +23,7 @@ const slice = createSlice({
         setEmail(state, action: PayloadAction<{ email: string }>) {
             state.email = action.payload.email
         },
-        setError(state, action: PayloadAction<{ error: string }>) {
+        setError(state, action: PayloadAction<{ error: string|null }>) {
             state.error = action.payload.error
         },
         setSuccess(state, action: PayloadAction<{ status: boolean }>) {
@@ -44,12 +45,14 @@ export const getInstructionThunk = (email: string) => async (dispatch: Dispatch<
         await passwordApi.getInstruction(email);
         dispatch(setEmail({ email: email }));
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        handleServerAppError(error, dispatch, setError)
+
+      /*  if (axios.isAxiosError(error)) {
             const finalError =
                 (error as AxiosError<{ error: string }>).response?.data.error ||
                 error.message;
             dispatch(setError({ error: finalError }))
-        }
+        }*/
     } finally {
         dispatch(setIsLoading({status:false}))
     }
@@ -60,12 +63,15 @@ export const getInstructionThunk = (email: string) => async (dispatch: Dispatch<
         await passwordApi.setNewPassword(password, token);
         dispatch(setSuccess({ status: true }))
     }catch(error){
+
+        handleServerAppError(error, dispatch, setError)
+      /*
         if (axios.isAxiosError(error)) {
             const finalError =
                 (error as AxiosError<{ error: string }>).response?.data.error ||
                 error.message;
             dispatch(setError({ error: finalError }))
-        }
+        }*/
     }finally{
         dispatch(setIsLoading({status:false}))
     }

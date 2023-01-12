@@ -1,67 +1,59 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../app/store';
-import { CssButton } from '../../../../components/CustomComponent/CssComponent';
-import { ErrorSnackbar } from '../../../../components/ErrorSnackBar/ErrorSnackbar';
-import { PasswordInput } from '../../../../components/inputPassword/passwordInput';
-import { setNewPasswordThunk, setSuccess } from '../password-slice';
-import { useFormik } from 'formik';
-import * as yup from "yup";
-import style from './EnterNewPassword.module.css'
-import { CircularProgress } from "@mui/material";
+import React from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../../app/store';
+import {GeneralButton} from '../../../../utils/StyleForMUI/StyleForMUI';
+import {ErrorSnackbar} from '../../../../components/ErrorSnackBar/ErrorSnackbar';
+import {PasswordInput} from '../../../../components/PasswordInput/PasswordInput';
+import {setError, setNewPasswordThunk, setSuccess} from '../password-slice';
+import {useFormik} from 'formik';
+import styles from '../../login.module.css'
+import {CircularProgress} from "@mui/material";
+import {validationNewPassword} from "../../../../utils/validationSchema/validationSchema";
 
 
 export const EnterNewPassword = () => {
 
     const dispatch = useAppDispatch()
-    const isSuccess = useAppSelector(state => state.passwordData.isSuccess)
-    const isLoading = useAppSelector(state=>state.passwordData.isLoading)
+    const {isSuccess, isLoading, error} = useAppSelector(state => state.passwordData)
+
     const navigate = useNavigate()
     let params = useParams<string>()
 
-    const validationSchema = yup.object({
-        password: yup
-          .string()
-          .min(8, "Password should be of minimum 8 characters length")
-          .required("Password is required"),
-      });
 
     const formik = useFormik({
         initialValues: {
-         password:'',
-
+            password: '',
         },
-        validationSchema:validationSchema,
+        validationSchema: validationNewPassword,
         onSubmit: values => {
-          alert(JSON.stringify(values, null, 2));
+            dispatch(setNewPasswordThunk(values.password, params.token))
         },
-      });
+    });
 
-      const { handleSubmit, errors, touched, handleChange, values, status } = formik; 
-
-    const onClickHandler = () => {
-        console.log('!!!')
-       dispatch(setNewPasswordThunk(values.password, params.token))
-    }
+    const {handleSubmit, errors, touched, handleChange, values} = formik;
 
     if (isSuccess) {
-        dispatch(setSuccess({ status: false }))
+        dispatch(setSuccess({status: false}))
         navigate('login')
     }
+
     return (
-        <div className={style.newPasswordContainer}>
-            {!isLoading?       <div>
-            <h1 className={style.newPasswordTitle}>Create new password</h1>
-            <form onSubmit={handleSubmit}>
-            <PasswordInput handleChange={handleChange} name={"password"} placeHolder={'Enter password'} inputValue={values.password} touched={touched.password} error={errors.password} />
-            <p className={style.newPasswordHelperText}>Create new password and we will send you further instructions to email</p>
-            <CssButton value={'blue'} disabled={!!errors.password} onClick={onClickHandler}>Create new password</CssButton>
-            </form>
-            <ErrorSnackbar/>
-            </div>
-            :
-            <CircularProgress /> }
-      
+        <div className={styles.wholeForm}>
+            {!isLoading ?
+
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <h1 className={styles.formName}>Create new password</h1>
+
+                    <PasswordInput handleChange={handleChange} name={"password"} placeHolder={'Enter password'}
+                                   inputValue={values.password} touched={touched.password} error={errors.password}/>
+                    <p className={styles.textForm}>Create new password and we will send you further
+                        instructions to email</p>
+                    <GeneralButton value={'blue'} type={'submit'}>Create new
+                        password</GeneralButton>
+                </form>
+                :
+                <CircularProgress/>}
+            {error != null && <ErrorSnackbar error={error} changeError={setError}/>}
 
         </div>
     );

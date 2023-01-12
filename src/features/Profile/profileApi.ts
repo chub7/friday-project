@@ -13,3 +13,19 @@ export const profileApi = {
     return instance.put('/auth/me',{name})
    }
 }
+
+export type ResponceType = {
+        _id: string;
+        email: string;
+        name: string;
+        avatar?: string;
+        publicCardPacksCount: number; // количество колод
+        
+        created: Date; 
+        updated: Date;
+        isAdmin: boolean;
+        verified: boolean; // подтвердил ли почту
+        rememberMe: boolean;
+        
+        error?: string;
+} 

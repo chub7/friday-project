@@ -1,110 +1,102 @@
 import React, {useEffect} from "react";
-import styles from "./registration.module.css";
-import { useFormik } from "formik";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import { PasswordInput } from "../../../components/inputPassword/passwordInput";
-import { useAppDispatch, useAppSelector } from "../../../app/store";
-import { registration, singUp } from "../login-slice";
-import { NavLink, useNavigate } from "react-router-dom";
-import { basicSchema } from "../../../utils/schema";
+import styles from "../login.module.css";
+import {useFormik} from "formik";
+import {PasswordInput} from "../../../components/PasswordInput/PasswordInput";
+import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {registration, setErrorSingUp, singUp} from "../login-slice";
+import {NavLink, useNavigate} from "react-router-dom";
+import { validationSignUP} from "../../../utils/validationSchema/validationSchema";
 import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import ButtonCustom from "../../../components/ButtonCustom/ButtonCustom";
-import {
-  loginIsInProgressSelector,
-  signUpResultSelector,
-} from "../login-selectors";
+import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
+import {TextField} from "@mui/material";
+import {ErrorSnackbar} from "../../../components/ErrorSnackBar/ErrorSnackbar";
 
 type FormInitialValuesType = {
-  email: string;
-  password: string;
-  confirmPassword: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
 };
 
 export const Registration = () => {
-  const navigate = useNavigate();
-  const initialValuesForm = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-  } as FormInitialValuesType;
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch();
-  const isInProgress = useAppSelector(loginIsInProgressSelector);
-  const signUpResult = useAppSelector(signUpResultSelector);
+    const {isInProgress, error,result} = useAppSelector(state => state.login)
 
-  const {handleSubmit, errors, touched, handleChange, values} = useFormik({
-    initialValues: initialValuesForm,
-    validationSchema: basicSchema,
-    onSubmit: (values, actions) => {
-      dispatch(singUp(values.email, values.password));
-      actions.resetForm();
-    },
-  });
+    const {handleSubmit, errors, touched, handleChange, values} = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+            confirmPassword: ""
+        } as FormInitialValuesType,
 
-  useEffect(() => {
-    if (signUpResult === "Created") {
-      dispatch(registration(false));
-      navigate("/login");
-    }
-  },[signUpResult])
+        validationSchema: validationSignUP,
+        onSubmit: (values, actions) => {
+            dispatch(singUp(values.email, values.password));
+            actions.resetForm();
+        },
+    });
 
-  return (
-      <div className={styles.wholeForm}>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <label className={styles.formName}>Sign Up</label>
+    useEffect(() => {
+        if (result === "Created") {
+            dispatch(registration(false));
+            navigate("/login");
+        }
+    }, [result])
 
-          <FormControl sx={{width: "347px"}} variant="standard">
-            <InputLabel htmlFor="email">Email</InputLabel>
-            <Input
-                id="email"
-                name="email"
-                onChange={handleChange}
-                value={values.email}
-            disabled={isInProgress}
-          />
-        </FormControl>
+    return (
 
-        {errors.email && touched.email ? <div>{errors.email}</div> : null}
+        <div className={styles.wholeForm}>
 
-        <PasswordInput
-          handleChange={handleChange}
-          inputValue={values.password}
-          name={"password"}
-          placeHolder={`Password`}
-          touched={touched.password}
-          error={errors.password}
-        />
+            {!isInProgress ? (
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <label className={styles.formName}>Sign Up</label>
+                    <TextField
+                        sx={{background: "transparent"}}
+                        id="email"
+                        name="email"
+                        label={"Email"}
+                        onChange={handleChange}
+                        value={values.email}
+                        error={touched.email && Boolean(errors.email)}
+                        variant="standard"
+                        helperText={touched.email && errors.email}
+                    />
 
-        <PasswordInput
-          handleChange={handleChange}
-          inputValue={values.confirmPassword}
-          name={"confirmPassword"}
-          placeHolder={`Confirm password`}
-          touched={touched.confirmPassword}
-          error={errors.confirmPassword}
-        />
+                    <PasswordInput
+                        handleChange={handleChange}
+                        inputValue={values.password}
+                        name={"password"}
+                        placeHolder={`Password`}
+                        touched={touched.password}
+                        error={errors.password}
+                    />
 
-        <Box className={styles.progress}>
-          {isInProgress && <CircularProgress />}
-        </Box>
+                    <PasswordInput
+                        handleChange={handleChange}
+                        inputValue={values.confirmPassword}
+                        name={"confirmPassword"}
+                        placeHolder={`Confirm password`}
+                        touched={touched.confirmPassword}
+                        error={errors.confirmPassword}
+                    />
 
-        <ButtonCustom
-          disabled={isInProgress}
-          type="submit"
-          className={styles.submitBtn}
-        >
-          Sign Up
-        </ButtonCustom>
-        <div className={styles.bottomLinks}>
-          <p>Already have an account?</p>
-          <NavLink to="/login" className={styles.singInLink}>
-            Sign In
-          </NavLink>
+                    <GeneralButton
+                        value={"blue"}
+                        type="submit"
+                        sx={{mt:5}}
+                        className={styles.submitBtn}>
+                        Sign Up
+                    </GeneralButton>
+
+                    <p className={styles.boldText}>Already have an account?</p>
+                    <NavLink to="/login" className={styles.linkForm}>
+                        Sign In
+                    </NavLink>
+
+                    {error != null && <ErrorSnackbar error={error} changeError={setErrorSingUp}/>}
+
+                </form>) : <CircularProgress/>}
         </div>
-      </form>
-    </div>
-  );
+    );
 };
