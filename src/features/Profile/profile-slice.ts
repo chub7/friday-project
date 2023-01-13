@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction,} from "@reduxjs/toolkit";
-import {profileApi} from "./profileApi";
+import {profileApi} from "./profile-api";
 import {setIsAppInProgress, setIsAuth} from "../../app/app-slice";
 import {TypedThunk} from "../../app/store";
 

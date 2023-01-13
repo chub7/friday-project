@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TypedThunk} from "./store";
-import {loginApi} from "../features/Login/loginApi";
+import {loginApi} from "../features/Login/login-api";
 import {setProfile} from "../features/Profile/profile-slice";
 import axios, {AxiosError} from "axios";
 
@@ -46,6 +46,7 @@ export const authMe = () : TypedThunk => async (dispatch) => {
       const finalError =
         (error as AxiosError<{ error: string }>).response?.data.error ||
         error.message;
+
       //refactor надо ли обрабатывать ошибку isAuth
     }
   } finally {

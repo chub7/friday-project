@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {passwordApi} from "./passwordApi";
+import {passwordApi} from "./password-api";
 import {handleServerAppError} from "../../../utils/AxiosError/handleServerAppError";
 import {TypedThunk} from "../../../app/store";
 
