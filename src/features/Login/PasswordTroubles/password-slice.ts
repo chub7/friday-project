@@ -1,6 +1,7 @@
-import { AnyAction, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import { passwordApi } from "./passwordApi";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {passwordApi} from "./passwordApi";
 import {handleServerAppError} from "../../../utils/AxiosError/handleServerAppError";
+import {TypedThunk} from "../../../app/store";
 
 
 type TypeInitialState = {
@@ -39,7 +40,8 @@ export const passwordSlice = slice.reducer;
 export const { setEmail,setError, setSuccess, setIsLoading} = slice.actions;
 
 
-export const getInstructionThunk = (email: string) => async (dispatch: Dispatch<AnyAction>) => {
+export const getInstructionThunk = (email: string) : TypedThunk  =>
+    async (dispatch) => {
     dispatch(setIsLoading({status:true}))
     try {
         await passwordApi.getInstruction(email);
@@ -57,7 +59,8 @@ export const getInstructionThunk = (email: string) => async (dispatch: Dispatch<
         dispatch(setIsLoading({status:false}))
     }
 };
- export const setNewPasswordThunk = (password:string, token: string | undefined) => async(dispatch: Dispatch<AnyAction>)=>{
+ export const setNewPasswordThunk = (password:string, token: string | undefined) : TypedThunk  =>
+    async(dispatch)=>{
     dispatch(setIsLoading({status:true}))
     try{
         await passwordApi.setNewPassword(password, token);

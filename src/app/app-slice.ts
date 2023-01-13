@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppDispatch } from "./store";
-import { loginApi } from "../features/Login/loginApi";
-import { setProfile } from "../features/Profile/profile-slice";
-import axios, { AxiosError } from "axios";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {TypedThunk} from "./store";
+import {loginApi} from "../features/Login/loginApi";
+import {setProfile} from "../features/Profile/profile-slice";
+import axios, {AxiosError} from "axios";
 
 type TypeInitialState = {
   isAuth: boolean;
@@ -35,7 +35,7 @@ const slice = createSlice({
 export const appSlice = slice.reducer;
 export const { setIsAppInProgress, setIsAuth } = slice.actions;
 
-export const authMe = () => async (dispatch: AppDispatch) => {
+export const authMe = () : TypedThunk => async (dispatch) => {
   dispatch(setIsAppInProgress({ appStatus: true }));
   try {
     let res = await loginApi.me();

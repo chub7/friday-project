@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {loginApi} from "./loginApi";
-import {AppDispatch} from "../../app/store";
+import {TypedThunk} from "../../app/store";
 import {setProfile} from "../Profile/profile-slice";
 import {setIsAuth} from "../../app/app-slice";
 import {handleServerAppError} from "../../utils/AxiosError/handleServerAppError";
@@ -39,14 +39,14 @@ const slice = createSlice({
 export const loginSlice = slice.reducer;
 export const {setInProgressStatus, setErrorSingUp, registration} = slice.actions;
 
-export const singUp = (email: string, password: string) => async (dispatch: AppDispatch) => {
+export const singUp = (email: string, password: string) : TypedThunk =>
+    async (dispatch) => {
     dispatch(registration(false));
     /* dispatch(setErrorSingUp({error: null}));*/
     dispatch(setInProgressStatus(true));
     try {
         await loginApi.registration(email, password);
         dispatch(registration("Created"));
-
     } catch (error) {
         handleServerAppError(error, dispatch, setErrorSingUp)
     } finally {
@@ -54,19 +54,15 @@ export const singUp = (email: string, password: string) => async (dispatch: AppD
     }
 };
 
-export const signInThunk = (email: string, password: string, rememberMe: boolean) => async (dispatch: AppDispatch) => {
-
+export const signInThunk = (email: string, password: string, rememberMe: boolean) : TypedThunk =>
+    async (dispatch) => {
     dispatch(setInProgressStatus(true));
-
     try {
         const data = await loginApi.login(email, password, rememberMe);
         dispatch(setProfile({profile: data}));
         dispatch(setIsAuth({isAuthStatus: true}));
-
     } catch (error) {
-
         handleServerAppError(error, dispatch, setErrorSingUp)
-
     } finally {
         dispatch(setInProgressStatus(false));
     }

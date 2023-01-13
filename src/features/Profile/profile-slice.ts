@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction,} from "@reduxjs/toolkit";
 import {profileApi} from "./profileApi";
 import {setIsAppInProgress, setIsAuth} from "../../app/app-slice";
-import {AppDispatch} from "../../app/store";
+import {TypedThunk} from "../../app/store";
 
 export type ProfileType = {
     _id: string;
@@ -32,7 +32,7 @@ const slice = createSlice({
         setProfile: (state, action: PayloadAction<{ profile: ProfileType }>) => {
             state.profile = action.payload.profile;
         },
-        clearProfileData: (state, action: PayloadAction) => {
+        clearProfileData: (state) => {
             state.profile = {} as ProfileType;
         },
     },
@@ -42,7 +42,7 @@ export const profileSlice = slice.reducer;
 export const {setProfile, setNewName, clearProfileData} = slice.actions;
 
 
-export const logOutThunk = () => async (dispatch: AppDispatch) => {
+export const logOutThunk = (): TypedThunk => async (dispatch) => {
     dispatch(setIsAppInProgress({appStatus: true}));
     try {
         await profileApi.logOut();
@@ -55,7 +55,7 @@ export const logOutThunk = () => async (dispatch: AppDispatch) => {
     }
 };
 export const changeProfileDataThunk =
-    (name: string) => async (dispatch: AppDispatch) => {
+    (name: string): TypedThunk => async (dispatch) => {
         try {
             let res = await profileApi.changeProfileData(name);
             dispatch(setNewName({name: res.data.updatedUser.name}));
