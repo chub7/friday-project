@@ -15,7 +15,6 @@ import {isAuthSelector} from "../../app/app-selector";
 export const Profile = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
-
     const isLoggedIn = useAppSelector(isAuthSelector);
     const profileData = useAppSelector(getProfileSelector);
     const [isEditMode, setEditMode] = useState<boolean>(false);

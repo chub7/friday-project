@@ -61,22 +61,14 @@ export const getInstructionThunk = (email: string) : TypedThunk  =>
 };
  export const setNewPasswordThunk = (password:string, token: string | undefined) : TypedThunk  =>
     async(dispatch)=>{
-    dispatch(setIsLoading({status:true}))
-    try{
-        await passwordApi.setNewPassword(password, token);
-        dispatch(setSuccess({ status: true }))
-    }catch(error){
-
-        handleServerAppError(error, dispatch, setError)
-      /*
-        if (axios.isAxiosError(error)) {
-            const finalError =
-                (error as AxiosError<{ error: string }>).response?.data.error ||
-                error.message;
-            dispatch(setError({ error: finalError }))
-        }*/
-    }finally{
-        dispatch(setIsLoading({status:false}))
+        dispatch(setIsLoading({status: true}))
+        try {
+            await passwordApi.setNewPassword(password, token);
+            dispatch(setSuccess({status: true}))
+        } catch (error) {
+            handleServerAppError(error, dispatch, setError)
+        } finally {
+            dispatch(setIsLoading({status: false}))
+        }
     }
- } 
  
