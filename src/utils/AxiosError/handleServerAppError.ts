@@ -4,7 +4,6 @@ import {AxiosError} from "axios";
 import {ActionCreatorWithPayload} from "@reduxjs/toolkit";
 
 
-
 export const handleServerAppError = (error: any,
                                      dispatch: Dispatch,
                                      setError: ActionCreatorWithPayload<{ error: string | null }>) => {

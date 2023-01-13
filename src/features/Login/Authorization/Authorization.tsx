@@ -15,13 +15,15 @@ import { GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {isAuthSelector} from "../../../app/app-selector";
 import {ErrorSnackbar} from "../../../components/ErrorSnackBar/ErrorSnackbar";
 import { validationSignIn } from "../../../utils/validationSchema/validationSchema";
+import {loginIsInProgressSelector, signUpErrorSelector} from "../login-selectors";
 
 
 export const Authorization = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const {isInProgress, error} = useAppSelector(state => state.login)
+    const error = useAppSelector(signUpErrorSelector)
+    const isInProgress = useAppSelector(loginIsInProgressSelector)
     const isAuth = useAppSelector(isAuthSelector);
 
     const formik = useFormik({

@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {TextField} from "@mui/material";
 import {ErrorSnackbar} from "../../../components/ErrorSnackBar/ErrorSnackbar";
+import {loginIsInProgressSelector, signUpErrorSelector, signUpResultSelector} from "../login-selectors";
 
 type FormInitialValuesType = {
     email: string;
@@ -21,7 +22,9 @@ export const Registration = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const {isInProgress, error,result} = useAppSelector(state => state.login)
+    const isInProgress = useAppSelector(loginIsInProgressSelector)
+    const error = useAppSelector(signUpErrorSelector)
+    const result = useAppSelector(signUpResultSelector)
 
     const {handleSubmit, errors, touched, handleChange, values} = useFormik({
         initialValues: {

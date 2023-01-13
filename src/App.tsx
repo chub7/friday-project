@@ -12,10 +12,12 @@ import {useAppDispatch, useAppSelector} from "./app/store";
 import {authMe} from "./app/app-slice";
 import {CircularProgress} from "@mui/material";
 import {CheckEmail} from "./features/Login/PasswordTroubles/CheckEmail/CheckEmail";
+import {appStatusSelector} from "./app/app-selector";
 
 function App() {
     const dispatch = useAppDispatch();
-    const appStatus = useAppSelector((state) => state.app.isAppInProgress);
+    const appStatus = useAppSelector(appStatusSelector);
+
 
     useEffect(() => {
         dispatch(authMe());

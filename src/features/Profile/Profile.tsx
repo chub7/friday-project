@@ -5,16 +5,19 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import LocalSeeOutlinedIcon from "@mui/icons-material/LocalSeeOutlined";
-import styles from "./Profile.module.css";
+import styles from "./profile.module.css";
 import logoutIcon from "../../assets/logout.svg";
 import {useNavigate} from "react-router-dom";
 import {GeneralButton} from "../../utils/StyleForMUI/StyleForMUI";
+import {getProfileSelector} from "./profile-selectors";
+import {isAuthSelector} from "../../app/app-selector";
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
-    const isLoggedIn = useAppSelector((state) => state.app.isAuth);
-    const profileData = useAppSelector((state) => state.profile.profile);
+
+    const isLoggedIn = useAppSelector(isAuthSelector);
+    const profileData = useAppSelector(getProfileSelector);
     const [isEditMode, setEditMode] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [userName, setUserName] = useState<string>(profileData.name);

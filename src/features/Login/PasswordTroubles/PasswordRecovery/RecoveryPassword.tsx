@@ -7,6 +7,7 @@ import {getInstructionThunk, setError} from '../password-slice';
 import {GeneralButton} from '../../../../utils/StyleForMUI/StyleForMUI';
 import {ErrorSnackbar} from '../../../../components/ErrorSnackBar/ErrorSnackbar';
 import {CircularProgress} from "@mui/material";
+import {getEmailSelector, passwordErrorSelector, passwordLoadingSelector} from "./password-selector";
 
 
 export const RecoveryPassword = () => {
@@ -15,7 +16,9 @@ export const RecoveryPassword = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    const {email, isLoading, error} = useAppSelector(state => state.passwordData)
+    const email = useAppSelector(getEmailSelector)
+    const isLoading = useAppSelector(passwordLoadingSelector)
+    const error = useAppSelector(passwordErrorSelector)
 
     const onClickHandler = () => {
         dispatch(getInstructionThunk(emailValue))

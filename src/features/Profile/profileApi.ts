@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import {BaseResponseType, ChangeNameType} from "../../types/types";
 
 export const instance = axios.create({ 
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -7,25 +8,10 @@ export const instance = axios.create({
 
 export const profileApi = {
    logOut(){
-    return instance.delete('/auth/me')
+       return instance.delete<any, AxiosResponse<BaseResponseType>>('/auth/me')
    },
    changeProfileData(name:string){
-    return instance.put('/auth/me',{name})
+       return instance.put<{ name: string }, AxiosResponse<ChangeNameType>>('/auth/me', {name})
    }
 }
 
-export type ResponceType = {
-        _id: string;
-        email: string;
-        name: string;
-        avatar?: string;
-        publicCardPacksCount: number; // количество колод
-        
-        created: Date; 
-        updated: Date;
-        isAdmin: boolean;
-        verified: boolean; // подтвердил ли почту
-        rememberMe: boolean;
-        
-        error?: string;
-} 

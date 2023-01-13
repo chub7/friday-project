@@ -9,15 +9,22 @@ import {useFormik} from 'formik';
 import styles from '../../login.module.css'
 import {CircularProgress} from "@mui/material";
 import {validationNewPassword} from "../../../../utils/validationSchema/validationSchema";
+import {
+    isSuccessPasswordSelector,
+    passwordErrorSelector,
+    passwordLoadingSelector
+} from "../PasswordRecovery/password-selector";
 
 
 export const EnterNewPassword = () => {
 
     const dispatch = useAppDispatch()
-    const {isSuccess, isLoading, error} = useAppSelector(state => state.passwordData)
+    const isSuccess = useAppSelector(isSuccessPasswordSelector)
+    const isLoading = useAppSelector(passwordLoadingSelector)
+    const error = useAppSelector(passwordErrorSelector)
 
     const navigate = useNavigate()
-    let params = useParams<string>()
+    let params = useParams<{token:string}>()
 
 
     const formik = useFormik({
