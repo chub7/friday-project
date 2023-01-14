@@ -1,0 +1,25 @@
+.inputContainer{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding:3px;
+    border-radius: 2px;
+    border: 1px solid #D9D9D9;
+    gap: 10px;
+    color: #c2c2c2;
+    padding-left: 15px;
+    width: 100%;
+
+
+}
+.input{
+
+    color: #000000;
+    opacity: 0.5;
+    font-family: var(--font);
+
+}
+.label{
+    margin-bottom: 7px;
+
+}

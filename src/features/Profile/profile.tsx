@@ -11,6 +11,7 @@ import {useNavigate} from "react-router-dom";
 import {GeneralButton} from "../../utils/StyleForMUI/StyleForMUI";
 import {getProfileSelector} from "./profile-selectors";
 import {isAuthSelector} from "../../app/app-selector";
+import {BackToPackLink} from "../../components/BackLink/BackToPackLink";
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
@@ -47,6 +48,7 @@ export const Profile = () => {
 
     return (
         <div className={styles.wholeForm}>
+            <BackToPackLink/>
             <div className={styles.form}>
                 <h1 className={styles.formName}>Personal information</h1>
                 <div className={styles.profileAvatar}>

@@ -1,3 +1,14 @@
 .wholeForm {
+
+    width: 80%;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    gap: 40px;
+    padding-top: 100px;
+
 }
 

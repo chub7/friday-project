@@ -14,6 +14,7 @@ import {appErrorSelector, appStatusSelector} from "./app/app-selector";
 import {Profile} from "./features/Profile/profile";
 import {Header} from "./features/Header/header";
 import {ErrorSnackbar} from "./components/ErrorSnackBar/ErrorSnackbar";
+import {PackList} from "./features/studies-page/pack-list/PackList";
 
 
 function App() {
@@ -28,8 +29,8 @@ function App() {
     if (appStatus) {
         return <div className={'progress'}><CircularProgress/></div>;
     }
-
-    {appError !== null && <ErrorSnackbar error={appError} changeError={setAuthError}/>}
+/*
+    {appError !== null && <ErrorSnackbar error={appError} changeError={setAuthError}/>}*/
 
     return (
         <div className="App">
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/checkEmail" element={<CheckEmail/>}/>
                 <Route path="/profile" element={<Profile />}/>
                 <Route path="/newpass/:token" element={<EnterNewPassword/>}/>
+                <Route path="/packList" element={<PackList />}/>
                 <Route path="/404" element={<Page404/>}/>
             </Routes>
         </div>
