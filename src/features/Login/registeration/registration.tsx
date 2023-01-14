@@ -33,6 +33,7 @@ export const Registration = () => {
             confirmPassword: ""
         } as FormInitialValuesType,
 
+
         validationSchema: validationSignUP,
         onSubmit: (values, actions) => {
             dispatch(singUp(values.email, values.password));
