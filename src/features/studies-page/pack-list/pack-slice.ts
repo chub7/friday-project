@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {TypedThunk} from "../../../app/store";
 
 
 const initialState =  {
@@ -11,3 +12,9 @@ const slice = createSlice({
 
     },
 });
+
+
+export const getCards = () : TypedThunk => (dispatch) =>{
+
+
+}

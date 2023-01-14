@@ -25,6 +25,7 @@ export const Header = () => {
             <NavLink to={"/profile"}> profile</NavLink>
             <NavLink to={"/newpass"}> NewPass</NavLink>
             <NavLink to={"/404"}> PageNotFound</NavLink>
+            <NavLink to={"/packs"}>Cards List</NavLink>
 
             <GeneralButton value={'blue'} sx={{width:'130px'}} onClick={logOutHandler} disabled={isInProgress}>
                 {isAuth ? 'Logout' : 'Sign in'}
