@@ -1,18 +1,12 @@
 import React from 'react';
 import {BaseTable} from "../../../components/table/table";
 
-
-export const PackList = () => {
+export const CardList = () => {
 
     return (
         <div>
-            <BaseTable type={`main`} />
+            <BaseTable type={`question-answer`} />
         </div>
     );
 };
-
-
-
-
-
 

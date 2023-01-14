@@ -15,6 +15,7 @@ import {Profile} from "./features/Profile/profile";
 import {Header} from "./features/Header/header";
 import {ErrorSnackbar} from "./components/ErrorSnackBar/ErrorSnackbar";
 import {PackList} from "./features/studies-page/pack-list/pack-list";
+import {CardList} from "./features/studies-page/cards-list/CardList";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/login" element={<Authorization/>}/>
                 <Route path="/register" element={<Registration/>}/>
                 <Route path="/packs" element={<PackList/>}/>
+                <Route path="/cards-pack" element={<CardList/>}/>
                 <Route path="/recoverypass" element={<RecoveryPassword/>}/>
                 <Route path="/checkEmail" element={<CheckEmail/>}/>
                 <Route path="/profile" element={<Profile />}/>

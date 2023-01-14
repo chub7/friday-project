@@ -28,15 +28,26 @@ export type SingInType = {
 }
 
 export type CardsPackType = {
-    _id: string
-    user_id: string
+    _id: string;
+    user_id: string;
     name: string
     cardsCount: number
     created: string
     updated: string
+
+    user_name: string;
+    private: boolean;
+    path: string;
+    grade: number;
+    shots: number;
+    deckCover: string;
+    type: string;
+    rating: number;
+    more_id: string;
+    __v: number;
 }
 
-export type GetCardsPackResponseType = {
+export type GetPacksCardsResponseType = {
     cardPacks: CardsPackType[]
     cardPacksTotalCount: number    // количество колод
     maxCardsCount: number
@@ -56,7 +67,7 @@ export type CardType = {
     _id: string
 }
 
-export type GetCardResponseType = {
+export type GetCardOfPackResponseType = {
     cards: CardType[]
     cardsTotalCount: number
     maxGrade: number

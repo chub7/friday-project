@@ -1,4 +1,8 @@
 import {AppRootStateType} from "../../app/store";
-import {ProfileType} from "../Profile/profile-slice";
+import {createDraftSafeSelector} from "@reduxjs/toolkit";
 
-export const getProfile = (state: AppRootStateType): ProfileType | null => state.profile.profile
+
+const selectSelf = (state: AppRootStateType) => state
+
+export const packsCardsSelector = createDraftSafeSelector(selectSelf, (state) => state.packList.cards)
+export const cardsSelector = createDraftSafeSelector(selectSelf, (state) => state.cardList.cards)
