@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {GetPacksCardsResponseType} from "../../types/types";
+import {GetPacksCardsResponseType} from "../../../types/types";
 
 export const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -7,10 +7,11 @@ export const instance = axios.create({
 });
 
 
-export const studiesApi = {
-    getCards () {
+export const packListApi = {
+    getPacksCards () {
         return instance.get<any, AxiosResponse<GetPacksCardsResponseType>>(`cards/pack`,{
             params: { page: 1 , pageCount: 5 }
         })
-    }
+    },
+
 }

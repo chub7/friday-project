@@ -58,7 +58,6 @@ export const Profile = () => {
                             <LocalSeeOutlinedIcon className={styles.photoIcon}/>
                         </IconButton>
                     </div>
-
                 </div>
                 {isEditMode ? (
                     <div className={styles.profileInputContainer}>
