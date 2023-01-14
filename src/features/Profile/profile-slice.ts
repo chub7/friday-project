@@ -15,7 +15,7 @@ export type ProfileType = {
     verified: boolean;
     rememberMe: boolean;
     error?: string;
-};
+} ;
 type TypeInitialState = {
     profile: ProfileType;
 };
@@ -24,7 +24,7 @@ const initialState: TypeInitialState = {
 };
 const slice = createSlice({
     name: "profile",
-    initialState: initialState,
+    initialState,
     reducers: {
         setNewName(state, action: PayloadAction<{ name: string }>) {
             state.profile.name = action.payload.name;

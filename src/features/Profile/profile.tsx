@@ -28,7 +28,6 @@ export const Profile = () => {
         }
     }, [isLoggedIn])
 
-
     const avatar = profileData.avatar
         ? profileData.avatar
         : "https://static.thenounproject.com/png/707608-200.png";
@@ -45,8 +44,8 @@ export const Profile = () => {
         setEditMode(false);
         dispatch(changeProfileDataThunk(userName));
     };
-    return (
 
+    return (
         <div className={styles.wholeForm}>
             <div className={styles.form}>
                 <h1 className={styles.formName}>Personal information</h1>
@@ -57,7 +56,6 @@ export const Profile = () => {
                             <LocalSeeOutlinedIcon className={styles.photoIcon}/>
                         </IconButton>
                     </div>
-
 
                 </div>
                 {isEditMode ? (

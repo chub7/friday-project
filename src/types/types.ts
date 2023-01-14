@@ -21,7 +21,47 @@ export type BaseResponseType = {
     info: string
     error: string;
 }
+
 export type SingInType = {
     addedUser: any
     error?: string;
+}
+
+export type CardsPackType = {
+    _id: string
+    user_id: string
+    name: string
+    cardsCount: number
+    created: string
+    updated: string
+}
+
+export type GetCardsPackResponseType = {
+    cardPacks: CardsPackType[]
+    cardPacksTotalCount: number    // количество колод
+    maxCardsCount: number
+    minCardsCount: number
+    page: number // выбранная страница
+    pageCount: number
+}
+export type CardType = {
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: number
+    shots: number
+    user_id: string
+    created: string
+    updated: string
+    _id: string
+}
+
+export type GetCardResponseType = {
+    cards: CardType[]
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    page: number
+    pageCount: number
+    packUserId: string
 }
