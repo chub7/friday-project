@@ -34,7 +34,6 @@ export type CardsPackType = {
     cardsCount: number
     created: string
     updated: string
-
     user_name: string;
     private: boolean;
     path: string;

@@ -44,11 +44,10 @@ const slice = createSlice({
 export const cardsList = slice.reducer
 export const {setLoading, setCardsState} = slice.actions
 
-export const setCards = (): TypedThunk => async (dispatch) => {
+export const setCards = (id:string|undefined): TypedThunk => async (dispatch) => {
     dispatch(setLoading({isLoading: true}))
     try {
-        let response = await cardListApi.getCardsOfPack()
-        console.log(response.data.cards)
+        let response = await cardListApi.getCardsOfPack(id)
         dispatch(setCardsState({response: response.data.cards}))
     } catch (error) {
 

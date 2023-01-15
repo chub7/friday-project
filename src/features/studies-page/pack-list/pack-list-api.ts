@@ -14,4 +14,12 @@ export const packListApi = {
         })
     },
 
+    createPack(){
+        return instance.post(`cards/pack`,{
+            cardsPack: {
+                name: "MariaPack",
+            }
+        })
+    }
+
 }

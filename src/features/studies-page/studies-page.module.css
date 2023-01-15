@@ -1,3 +1,71 @@
 .wholeForm {
+    width: 80%;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    padding-top:40px;
+
 }
 
+.headerContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+
+}
+.tool{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    flex-wrap: wrap;
+
+}
+.linkContainer{
+
+    display: flex;
+    align-items: center;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+.inputContainerCard{
+
+    width: 100%;
+}
+
+.greyLabel {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    opacity: 0.5;
+}
+
+.ownerName{
+    align-self: flex-start;
+}
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inputContainerPack{
+    width: 40%;
+}
+.filter{
+
+    background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid #E8E8E8;
+    padding: 5px;
+
+}

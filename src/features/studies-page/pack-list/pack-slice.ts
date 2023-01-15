@@ -15,6 +15,7 @@ const initialState: InitialStateType = {
     minCardsCount: 0,
     page: 0, // выбранная страница
     pageCount: 0,
+    owner: ``
 }
 
 type InitialStateType = {
@@ -26,6 +27,7 @@ type InitialStateType = {
     maxCardsCount: number,
     minCardsCount: number,
     page: number, // выбранная страница
+    owner: string,
     pageCount: number,
 }
 
@@ -46,18 +48,22 @@ const slice = createSlice({
             state.minCardsCount = action.payload.response.minCardsCount
             state.page = action.payload.response.page
             state.pageCount = action.payload.response.pageCount
+        },
+        setCurrentOwnerOfPack(state, action: PayloadAction<string>){
+            state.owner = action.payload
         }
 
     },
 });
 export const packListSlice = slice.reducer
-export const {setLoading, setError, setCardPacks} = slice.actions
+export const {setLoading, setError, setCardPacks,setCurrentOwnerOfPack} = slice.actions
 
 export const setPacksCards = (): TypedThunk => async (dispatch) => {
     dispatch(setLoading({isLoading: true}))
     try {
         let response = await packListApi.getPacksCards()
         dispatch(setCardPacks({response: response.data}))
+
     } catch (error) {
         handleServerAppError(error, dispatch, setError)
     } finally {

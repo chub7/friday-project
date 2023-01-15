@@ -20,7 +20,8 @@ export const GeneralButton = styled(Button)(({value = 'blue'}) => ({
     borderRadius: 20,
     color: colorsArray[`${value}`].color,
     fontFamily: 'Montserrat',
-
+    paddingLeft:30,
+    paddingRight: 30,
     boxShadow: `0px 4px 18px ${colorsArray[`${value}`].shadow}`,
     ':hover': {
         background: colorsArray[`${value}`].hover,
