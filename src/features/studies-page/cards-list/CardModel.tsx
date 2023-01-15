@@ -5,7 +5,6 @@ import {getProfileSelector} from "../../Profile/profile-selectors";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {useParams} from "react-router-dom";
 
 function createData(question: string, answer: string, updated: string, grade: any, myProfile: any) {
     return {question, answer, updated, grade, myProfile};
@@ -15,8 +14,6 @@ export const CardModel = () => {
     let tableFieldName = [`Question`, `Answer`, `Last updated`, `Grade`, ``]
     const dataTable = useAppSelector(cardsSelector)
     const {_id} = useAppSelector(getProfileSelector)
-
-
     let rows = dataTable.map(pack => createData(
         pack.question,
         pack.answer,
