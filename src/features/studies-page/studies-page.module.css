@@ -23,9 +23,10 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     gap: 20px;
     flex-wrap: wrap;
+
 }
 .linkContainer{
 
@@ -36,7 +37,18 @@
     text-decoration: none;
     color: black;
 }
-.inputContainer{
+.inputContainerCard{
 
     width: 100%;
+}
+.inputContainerPack{
+    width: 40%;
+}
+.filter{
+
+    background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid #E8E8E8;
+    padding: 5px;
+    
 }

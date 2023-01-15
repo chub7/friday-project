@@ -3,11 +3,12 @@ import {MainTable} from '../../../components/table/MainTable';
 import {useAppDispatch} from "../../../app/store";
 import {setPacksCards} from "./pack-slice";
 import {PackModel} from "./PackModel";
-import {packListApi} from "./pack-list-api";
 import styles from '../studies-page.module.css'
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {InputSearch} from "../../../components/InputSearch/InputSearch";
 import {SliderOfCountCards} from "../../../components/Slider/SliderOfCountCards";
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import IconButton from "@mui/material/IconButton";
 
 
 export const PackList = () => {
@@ -21,6 +22,7 @@ export const PackList = () => {
 
 
 
+
     return (
 
         <div className={styles.wholeForm}>
@@ -29,9 +31,16 @@ export const PackList = () => {
                 <GeneralButton>Add new pack</GeneralButton>
             </div>
             <div className={styles.tool}>
-
-                <InputSearch/>
+                <div className={styles.inputContainerPack}>
+                    <InputSearch/>
+                </div>
                 <SliderOfCountCards/>
+                <div>
+                    <IconButton className={styles.filter}>
+                        <FilterAltOffIcon/>
+                    </IconButton>
+                </div>
+
             </div>
 
             <MainTable
