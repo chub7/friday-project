@@ -17,7 +17,7 @@ export const SliderOfCountCards=()=> {
 
     return (
         <div>
-            <h4>Number of cards</h4>
+            <h4  className={styles.label}>Number of cards</h4>
             <div className={styles.sliderContainer}>
                 <p className={styles.value}>{value[0]}</p>
                 <Slider

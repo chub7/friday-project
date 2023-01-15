@@ -8,7 +8,7 @@ export const InputSearch = () => {
         <div>
             <h4 className={styles.label}>Search</h4>
             <div className={styles.inputContainer}>
-                <SearchIcon/>
+                <SearchIcon className={styles.inputIcon}/>
                 <InputBase
                     placeholder="Provide your text"
                     className={styles.input}/>

@@ -58,6 +58,7 @@ export const setPacksCards = (): TypedThunk => async (dispatch) => {
     try {
         let response = await packListApi.getPacksCards()
         dispatch(setCardPacks({response: response.data}))
+
     } catch (error) {
         handleServerAppError(error, dispatch, setError)
     } finally {
