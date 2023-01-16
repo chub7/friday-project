@@ -21,20 +21,26 @@ export const PackModel = () => {
     const {_id} = useAppSelector(getProfileSelector)
 
     let rows = dataTable.map(pack => createData(
-        <NavLink className={styles.link} onClick={()=>dispatch(setCurrentOwnerOfPack(pack.name))} to={`/cards-pack/${pack._id}`}>{pack.name}</NavLink>,
+
+        <NavLink className={styles.link} onClick={() => dispatch(setCurrentOwnerOfPack(pack.name))}
+                 to={`/cards-pack/${pack._id}`}>{pack.name}</NavLink>,
+
         pack.cardsCount,
+
         parseData(pack.updated),
+
         pack.user_name,
+
         (pack.user_id === _id) ?
             <div className={styles.linkContainer}>
                 <NavLink to={`/learn`}>
-                    <IconButton disabled={pack.cardsCount===0}><SchoolIcon/></IconButton>
+                    <IconButton disabled={pack.cardsCount === 0}><SchoolIcon/></IconButton>
                 </NavLink>
                 <IconButton> <EditIcon/></IconButton>
                 <IconButton> <DeleteIcon/></IconButton>
             </div>
             : <NavLink to={`learn/`}>
-                <IconButton disabled={pack.cardsCount===0}><SchoolIcon/></IconButton>
+                <IconButton disabled={pack.cardsCount === 0}><SchoolIcon/></IconButton>
             </NavLink>))
 
     const key = rows.length != 0 ? Object.keys(rows[0]) : []

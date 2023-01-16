@@ -11,9 +11,11 @@ function createData(question: string, answer: string, updated: string, grade: an
     return {question, answer, updated, grade, myProfile};
 }
 
-export const CardModel = () => {
+
+export const CardModel = (deleteCard:(id:string)=>void) => {
     let tableFieldName = [`Question`, `Answer`, `Last updated`, `Grade`, ``]
     const dataTable = useAppSelector(cardsSelector)
+    console.log(dataTable)
     const {_id} = useAppSelector(getProfileSelector)
 
     let rows = dataTable.map(pack => createData(
@@ -21,14 +23,13 @@ export const CardModel = () => {
         pack.answer,
         parseData(pack.updated),
         <div>
-            {new Array(5).fill(null).map((grade, index) => <GradeIcon key={index}
-                                                                      sx={{color: (pack.grade > index ? '#FFC700' : '#DADADA')}}
+            {new Array(5).fill(null).map((grade, index) => <GradeIcon key={index} sx={{color: (pack.grade > index ? '#FFC700' : '#DADADA')}}
             />)}
         </div>,
         pack.user_id === _id &&
         <div>
             <IconButton> <EditIcon/></IconButton>
-            <IconButton> <DeleteIcon/></IconButton>
+            <IconButton onClick={()=>deleteCard(pack._id)}> <DeleteIcon/></IconButton>
         </div>
     ))
 

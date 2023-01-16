@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MainTable} from '../../../components/table/MainTable';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {setPacksCards} from "./pack-slice";
@@ -8,20 +8,33 @@ import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {InputSearch} from "../../../components/InputSearch/InputSearch";
 import {SliderOfCountCards} from "../../../components/Slider/SliderOfCountCards";
 import {CircularProgress} from "@mui/material";
-import {packListIsLoadingSelector} from "../studies-selectors";
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import IconButton from "@mui/material/IconButton";
+import {
+    isMyPackSelector, maxCountCards, minCountCards,
+    packListIsLoadingSelector,
+    pageCountSelector,
+    pagePackSelector,
+    searchPackSelector
+} from "../studies-selectors";
+import {PaginationRounded} from "../../../components/Pagiatinon/Pagination";
+import {BasicButtonGroup} from "../../../components/ButtonGroup/ButtonGroup";
+import {ResetFilter} from "../../../components/ResetFilter/ResetFilter";
 
 
 export const PackList = () => {
     const dispatch = useAppDispatch();
-    const model = PackModel()
     const isLoading = useAppSelector(packListIsLoadingSelector)
+    const search = useAppSelector(searchPackSelector)
+    const page = useAppSelector(pagePackSelector)
+    const pageCount = useAppSelector(pageCountSelector)
+    const isMyPack = useAppSelector(isMyPackSelector)
+    const min = useAppSelector(minCountCards)
+    const max = useAppSelector(maxCountCards)
+
+    const model = PackModel()
+
     useEffect(() => {
         dispatch(setPacksCards())
-
-    }, [])
-
+    }, [search, page, pageCount, isMyPack,min,max])
 
 
     return (
@@ -34,15 +47,12 @@ export const PackList = () => {
                 <div className={styles.inputContainerPack}>
                     <InputSearch/>
                 </div>
+                <BasicButtonGroup/>
                 <SliderOfCountCards/>
-                <div>
-                    <IconButton className={styles.filter}>
-                        <FilterAltOffIcon/>
-                    </IconButton>
-                </div>
-
+                <ResetFilter/>
             </div>
-            {isLoading? <CircularProgress/> : <MainTable model={model}/>}
+            {isLoading ? <CircularProgress/> : <MainTable model={model}/>}
+            <PaginationRounded/>
         </div>
     )
 };

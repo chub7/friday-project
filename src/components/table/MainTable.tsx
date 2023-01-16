@@ -51,7 +51,6 @@ export const MainTable: FC<TableType> = ({model}) => {
                                     </p>
                                 </TableCell>
                             )}
-
                         </TableRow>
                     ))}
                 </TableBody>
@@ -59,14 +58,3 @@ export const MainTable: FC<TableType> = ({model}) => {
         </TableContainer>
     );
 };
-/*property != 'myProfile' ?
-                                        row[property as keyof TypeCardForTable] :
-                                        row[property as keyof TypeCardForTable] ?
-                                            <div>
-                                                <SchoolIcon/>
-                                                <EditIcon/>
-                                                <DeleteIcon/>
-                                            </div> :
-                                            <div>
-                                                <SchoolIcon/>
-                                            </div>*/

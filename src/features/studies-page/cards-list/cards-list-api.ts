@@ -28,5 +28,11 @@ export const cardListApi = {
         })
 
     }
+    ,
+    deleteCard(id:string){
+
+        return instance.delete(`cards/card?id=${id}`)
+
+    }
 
 }
