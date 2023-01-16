@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from "@mui/material/IconButton";
 import {NavLink} from "react-router-dom";
 import styles from '../studies-page.module.css'
-import {setCurrentOwnerOfPack} from "./pack-slice";
+import {changeNamePacksCards, deletePacksCards, setCurrentOwnerOfPack} from "./pack-slice";
 
 export function createData(name?: any, cardsCount?: number, lastUpdated?: any, createdBy?: string, myProfile?: any,) {
     return {name, cardsCount, lastUpdated, createdBy, myProfile}
@@ -30,8 +30,8 @@ export const PackModel = () => {
                 <NavLink to={`/learn`}>
                     <IconButton disabled={pack.cardsCount===0}><SchoolIcon/></IconButton>
                 </NavLink>
-                <IconButton> <EditIcon/></IconButton>
-                <IconButton> <DeleteIcon/></IconButton>
+                <IconButton onClick={()=>{dispatch(changeNamePacksCards(pack._id))}}> <EditIcon/></IconButton>
+                <IconButton onClick={()=>{dispatch(deletePacksCards(pack._id))}}> <DeleteIcon/></IconButton>
             </div>
             : <NavLink to={`learn/`}>
                 <IconButton disabled={pack.cardsCount===0}><SchoolIcon/></IconButton>

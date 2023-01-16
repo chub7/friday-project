@@ -75,3 +75,33 @@ export type GetCardOfPackResponseType = {
     pageCount: number
     packUserId: string
 }
+
+export type UpdateCardResponseType = CRUDResponseType & {
+    updatedCard: CardType
+}
+
+export type DeleteCardResponseType = CRUDResponseType & {
+    deletedCard: CardType
+}
+
+
+export type AddCardResponseType = CRUDResponseType & {
+    newCard: CardType
+}
+
+export type CRUDResponseType = {
+    token: string
+    tokenDeathTime: Date
+}
+
+export type AddPackResponseType = CRUDResponseType & {
+    newCardsPack: CardsPackType
+}
+
+export type DeletePackResponseType = CRUDResponseType & {
+    deletedCardsPack: CardsPackType
+}
+
+export type UpdatePackResponseType = CRUDResponseType & {
+    updatedCardsPack: CardsPackType
+}

@@ -72,3 +72,48 @@ export const setPacksCards = (): TypedThunk => async (dispatch) => {
 
 
 }
+
+export const addNewPacksCards = (): TypedThunk => async (dispatch) => {
+    dispatch(setLoading({isLoading: true}))
+    try {
+        let response = await packListApi.createPack()
+       dispatch(setPacksCards())
+
+    } catch (error) {
+        handleServerAppError(error, dispatch, setError)
+    } finally {
+        dispatch(setLoading({isLoading: false}))
+    }
+
+
+}
+
+export const deletePacksCards = (id:string): TypedThunk => async (dispatch) => {
+    dispatch(setLoading({isLoading: true}))
+    try {
+       await packListApi.deletePack(id)
+       dispatch(setPacksCards())
+
+    } catch (error) {
+        handleServerAppError(error, dispatch, setError)
+    } finally {
+        dispatch(setLoading({isLoading: false}))
+    }
+
+
+}
+
+export const changeNamePacksCards = (id:string): TypedThunk => async (dispatch) => {
+    dispatch(setLoading({isLoading: true}))
+    try {
+       await packListApi.changePackName(id)
+       dispatch(setPacksCards())
+
+    } catch (error) {
+        handleServerAppError(error, dispatch, setError)
+    } finally {
+        dispatch(setLoading({isLoading: false}))
+    }
+
+
+}
