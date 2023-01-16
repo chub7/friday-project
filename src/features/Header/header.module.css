@@ -16,3 +16,19 @@
 .logo {
     height: 48px;
 }
+
+.name {
+    border-bottom: 1px dashed black;
+    justify-self: flex-start
+}
+.avatar {
+    position: relative;
+    display: flex;
+
+}
+.avatar img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50px;
+
+}

@@ -6,16 +6,21 @@ import {useAppDispatch, useAppSelector} from "../../app/store";
 import {appStatusSelector, isAuthSelector} from "../../app/app-selector";
 import {logOutThunk} from "../Profile/profile-slice";
 import {GeneralButton} from "../../utils/StyleForMUI/StyleForMUI";
+import {usePopUpProfileMenuField} from "../../components/bubling-menu/options-menu";
+import {ProfileNavigation} from "./naviation/profile-navigation";
+
 
 export const Header = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const isInProgress = useAppSelector(appStatusSelector);
     const isAuth = useAppSelector(isAuthSelector);
+    const data = usePopUpProfileMenuField()
     const logOutHandler = () => {
         dispatch(logOutThunk());
         navigate(`login`)
     };
+
     return (
         <div className={styles.header}>
             <img src={logo} alt="logo image" className={styles.logo}/>
@@ -28,10 +33,14 @@ export const Header = () => {
             <NavLink to={"/packs"}>Packs List</NavLink>
             <NavLink to={"/cards-pack"}>Cards List</NavLink>
 
-            <GeneralButton value={'blue'} sx={{width:'130px'}} onClick={logOutHandler} disabled={isInProgress}>
-                {isAuth ? 'Logout' : 'Sign in'}
-            </GeneralButton>
+            {isAuth
+                ?<ProfileNavigation popUpProfileMenuField={data}/>
+                : <GeneralButton value={'blue'} sx={{width: '130px'}}
+                                 onClick={logOutHandler}
+                                 disabled={isInProgress}> Sing In
+                </GeneralButton>
 
+            }
         </div>
     );
 };
