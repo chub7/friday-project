@@ -24,7 +24,7 @@ function App() {
 
     useEffect(() => {
         dispatch(authMe());
-    }, []);
+    }, [dispatch]);
 
     if (appStatus) {
         return <div className={'progress'}><CircularProgress/></div>;
