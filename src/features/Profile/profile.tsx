@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {changeProfileDataThunk, logOutThunk} from "./profile-slice";
 import TextField from "@mui/material/TextField";
@@ -7,27 +7,17 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import LocalSeeOutlinedIcon from "@mui/icons-material/LocalSeeOutlined";
 import styles from "./profile.module.css";
 import logoutIcon from "../../assets/logout.svg";
-import {useNavigate} from "react-router-dom";
 import {GeneralButton} from "../../utils/StyleForMUI/StyleForMUI";
 import {getProfileSelector} from "./profile-selectors";
-import {isAuthSelector} from "../../app/app-selector";
 import {BackToPackLink} from "../../components/BackLink/BackToPackLink";
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate()
-    const isLoggedIn = useAppSelector(isAuthSelector);
     const profileData = useAppSelector(getProfileSelector);
     const [isEditMode, setEditMode] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [userName, setUserName] = useState<string>(profileData.name);
 
-
-    useEffect(() => {
-        if (!isLoggedIn) {
-            navigate('/login')
-        }
-    }, [isLoggedIn])
 
     const avatar = profileData.avatar
         ? profileData.avatar

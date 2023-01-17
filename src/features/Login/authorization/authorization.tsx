@@ -1,30 +1,22 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styles from "../login.module.css";
-import {
-    Checkbox,
-    CircularProgress,
-    FormControlLabel,
-    TextField,
-} from "@mui/material";
+import {Checkbox, CircularProgress, FormControlLabel, TextField,} from "@mui/material";
 import {useFormik} from "formik";
 import {PasswordInput} from "../../../components/PasswordInput/PasswordInput";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {setErrorSingUp, signInThunk} from "../login-slice";
-import { GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
-import {isAuthSelector} from "../../../app/app-selector";
+import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {ErrorSnackbar} from "../../../components/ErrorSnackBar/ErrorSnackbar";
-import { validationSignIn } from "../../../utils/validationSchema/validationSchema";
+import {validationSignIn} from "../../../utils/validationSchema/validationSchema";
 import {loginIsInProgressSelector, signUpErrorSelector} from "../login-selectors";
 
 
 export const Authorization = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
     const error = useAppSelector(signUpErrorSelector)
     const isInProgress = useAppSelector(loginIsInProgressSelector)
-    const isAuth = useAppSelector(isAuthSelector);
+
 
     const formik = useFormik({
         initialValues: {
@@ -40,13 +32,6 @@ export const Authorization = () => {
         },
     });
     const {handleSubmit, errors, touched, handleChange, values} = formik;
-
-    useEffect(() => {
-        if (isAuth) {
-            navigate("/profile");
-        }
-    }, [isAuth])
-
 
     return (
         <div className={styles.wholeForm}>

@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import "./App.css";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {Authorization} from "./features/Login/authorization/authorization";
 import {Registration} from "./features/Login/registeration/registration";
 import {RecoveryPassword} from "./features/Login/PasswordTroubles/PasswordRecovery/recovery-password";
@@ -15,12 +15,12 @@ import {Profile} from "./features/Profile/profile";
 import {Header} from "./features/Header/header";
 import {PackList} from "./features/studies-page/pack-list/PackList";
 import {CardList} from "./features/studies-page/cards-list/CardList";
+import {PrivateRoute} from "./components/private-route/private-route";
 
 
 function App() {
     const dispatch = useAppDispatch();
     const appStatus = useAppSelector(appStatusSelector);
-
 
     useEffect(() => {
         dispatch(authMe());
@@ -34,16 +34,18 @@ function App() {
         <div className="App">
             <Header/>
             <Routes>
-                <Route path="/*" element={<Navigate to={"/login"}/>}/>
+                <Route element={<PrivateRoute/>}>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/packs" element={<PackList/>}/>
+                    <Route path="/cards-pack" element={<CardList/>}/>
+                    <Route path="/cards-pack/:id" element={<CardList/>}/>
+                </Route>
                 <Route path="/login" element={<Authorization/>}/>
                 <Route path="/register" element={<Registration/>}/>
-                <Route path="/packs" element={<PackList/>}/>
-                <Route path="/cards-pack" element={<CardList/>}/>
-                <Route path="/cards-pack/:id" element={<CardList/>}/>
                 <Route path="/recoverypass" element={<RecoveryPassword/>}/>
                 <Route path="/checkEmail" element={<CheckEmail/>}/>
-                <Route path="/profile" element={<Profile />}/>
                 <Route path="/newpass/:token" element={<EnterNewPassword/>}/>
+                {/*<Route path="/*" element={<Navigate to={"/404"}/>}/>*/}
                 <Route path="/404" element={<Page404/>}/>
             </Routes>
         </div>
@@ -51,3 +53,4 @@ function App() {
 }
 
 export default App;
+

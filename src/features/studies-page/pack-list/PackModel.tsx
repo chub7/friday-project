@@ -37,7 +37,7 @@ export const PackModel = () => {
                 <IconButton disabled={pack.cardsCount===0}><SchoolIcon/></IconButton>
             </NavLink>))
 
-    const key = rows.length != 0 ? Object.keys(rows[0]) : []
+    const key = rows.length !== 0 ? Object.keys(rows[0]) : []
 
     return {tableFieldName, rows, key}
 }
