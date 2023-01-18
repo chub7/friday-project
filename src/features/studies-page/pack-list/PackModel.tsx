@@ -34,15 +34,20 @@ export const PackModel = () => {
         pack.user_name,
         (pack.user_id === myId) ?
             <div className={styles.linkContainer}>
-                <NavLink to={`/learn`}>
-                    <IconButton disabled={pack.cardsCount===0}><SchoolIcon/></IconButton>
-                </NavLink>
+                    <IconButton disabled={pack.cardsCount===0} >
+                    <NavLink to={`/learn`}>
+                    <SchoolIcon color={pack.cardsCount===0? 'disabled': 'action'}/>
+                    </NavLink>
+                    </IconButton>
+            
                 <IconButton onClick={()=>{dispatch(changeNamePacksCards(pack._id))}}> <EditIcon/></IconButton>
                 <IconButton onClick={()=>{dispatch(deletePacksCards(pack._id))}}> <DeleteIcon/></IconButton>
             </div>
-            : <NavLink to={`learn/`}>
-                <IconButton disabled={pack.cardsCount===0}><SchoolIcon/></IconButton>
-            </NavLink>))
+            :  <IconButton disabled={pack.cardsCount===0} >
+            <NavLink to={`/learn`}>
+            <SchoolIcon color={pack.cardsCount===0? 'disabled': 'action'}/>
+            </NavLink>
+            </IconButton>))
 
     const key = rows.length !== 0 ? Object.keys(rows[0]) : []
 
