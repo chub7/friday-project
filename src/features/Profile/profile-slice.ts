@@ -21,11 +21,13 @@ type TypeInitialState = {
     profile: ProfileType;
     successStatusForSnackBar: string
     errorForSnackBar: string | null
+    isLoading: boolean
 };
 const initialState: TypeInitialState = {
     profile: {} as ProfileType,
     successStatusForSnackBar: '',
-    errorForSnackBar: null
+    errorForSnackBar: null,
+    isLoading: false
 
 };
 const slice = createSlice({
@@ -46,12 +48,15 @@ const slice = createSlice({
         },
         setSuccessStatusForSnackBar(state, action: PayloadAction<{ success: string }>) {
             state.successStatusForSnackBar = action.payload.success
+        },
+        setIsLoading(state, action: PayloadAction<{ isLoading: boolean }>) {
+            state.isLoading = action.payload.isLoading
         }
     },
 });
 
 export const profileSlice = slice.reducer;
-export const { setProfile, setNewName, clearProfileData, setError, setSuccessStatusForSnackBar} = slice.actions;
+export const { setProfile, setNewName, clearProfileData, setError, setSuccessStatusForSnackBar, setIsLoading } = slice.actions;
 
 
 export const logOutThunk = (): TypedThunk => async (dispatch) => {
@@ -68,13 +73,15 @@ export const logOutThunk = (): TypedThunk => async (dispatch) => {
 };
 export const changeProfileDataThunk =
     (name: string): TypedThunk => async (dispatch) => {
+        dispatch(setIsLoading({isLoading:true}))
         try {
             let res = await profileApi.changeProfileData(name);
             dispatch(setNewName({ name: res.data.updatedUser.name }));
-            dispatch(setSuccessStatusForSnackBar({success:'Name was changed successfully'}))
+            dispatch(setSuccessStatusForSnackBar({ success: 'Name was changed successfully' }))
         } catch (e) {
             handleServerAppError(e, dispatch, setError)
         } finally {
+            dispatch(setIsLoading({isLoading:false}))
         }
     };
 

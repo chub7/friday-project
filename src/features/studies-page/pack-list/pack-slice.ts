@@ -120,6 +120,7 @@ export const setPacksCards = (): TypedThunk => async (dispatch, getState) => {
 
 }
 
+
 export const addNewPacksCards = (): TypedThunk => async (dispatch) => {
     dispatch(setLoading({ isLoading: true }))
     try {
@@ -130,7 +131,6 @@ export const addNewPacksCards = (): TypedThunk => async (dispatch) => {
     } catch (error) {
         handleServerAppError(error, dispatch, setError)
     } finally {
-        dispatch(setLoading({ isLoading: false }))
     }
 
 
@@ -146,7 +146,6 @@ export const deletePacksCards = (id: string): TypedThunk => async (dispatch) => 
     } catch (error) {
         handleServerAppError(error, dispatch, setError)
     } finally {
-        dispatch(setLoading({ isLoading: false }))
     }
 
 
@@ -162,7 +161,6 @@ export const changeNamePacksCards = (id: string): TypedThunk => async (dispatch)
     } catch (error) {
         handleServerAppError(error, dispatch, setError)
     } finally {
-        dispatch(setLoading({ isLoading: false }))
     }
 
 

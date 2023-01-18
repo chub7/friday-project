@@ -47,6 +47,7 @@ export const PackList = () => {
         dispatch(setPacksCards())
     }, [search, page, pageCount, isMyPack, cardsCount, sort])
 
+console.log(isLoading);
 
 
     return (

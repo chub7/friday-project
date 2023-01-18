@@ -30,7 +30,7 @@ export const packListApi = {
     changePackName(id: string) {
         return instance.put<any, AxiosResponse<UpdatePackResponseType>>(`cards/pack`, {
             cardsPack: {
-                name: "New name",
+                name: "Refactor name",
                 _id:id
             }
         })
