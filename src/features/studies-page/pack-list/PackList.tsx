@@ -1,41 +1,52 @@
-import React, {useEffect, useState} from 'react';
-import {MainTable} from '../../../components/table/MainTable';
+import React, {useEffect} from 'react';
+import {MainTable} from '../../../components/MainTable/MainTable';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {setPacksCards} from "./pack-slice";
+import {setPacksCards, setPageCountPack, setPagePack, setSearchPack} from "./pack-slice";
 import {PackModel} from "./PackModel";
 import styles from '../studies-page.module.css'
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {InputSearch} from "../../../components/InputSearch/InputSearch";
-import {SliderOfCountCards} from "../../../components/Slider/SliderOfCountCards";
+import {SliderCountCards} from "../../../components/SliderCountCards/SliderCountCards";
 import {CircularProgress} from "@mui/material";
-import {
-    isMyPackSelector, maxCountCards, minCountCards,
-    packListIsLoadingSelector,
-    pageCountSelector,
-    pagePackSelector,
-    searchPackSelector
-} from "../studies-selectors";
-import {PaginationRounded} from "../../../components/Pagiatinon/Pagination";
 import {BasicButtonGroup} from "../../../components/ButtonGroup/ButtonGroup";
 import {ResetFilter} from "../../../components/ResetFilter/ResetFilter";
+import {
+    cardsCountSelector,
+    isMyPackSelector,
+    packListIsLoadingSelector,
+    pageCountPackSelector,
+    pagePackSelector,
+    searchPackSelector,
+    sortPacksSelector,
+    totalCountPackSelector
+} from "./pack-selectors";
+import {useSearchParams} from 'react-router-dom';
 
 
 export const PackList = () => {
-    const dispatch = useAppDispatch();
+
     const isLoading = useAppSelector(packListIsLoadingSelector)
     const search = useAppSelector(searchPackSelector)
     const page = useAppSelector(pagePackSelector)
-    const pageCount = useAppSelector(pageCountSelector)
+    const pageCount = useAppSelector(pageCountPackSelector)
     const isMyPack = useAppSelector(isMyPackSelector)
-    const min = useAppSelector(minCountCards)
-    const max = useAppSelector(maxCountCards)
+    const cardsCount = useAppSelector(cardsCountSelector)
+    const sort = useAppSelector(sortPacksSelector)
+
+    let [searchParams, setSearchParams] = useSearchParams();
 
     const model = PackModel()
 
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
         dispatch(setPacksCards())
-    }, [search, page, pageCount, isMyPack,min,max])
+    }, [search, page, pageCount, isMyPack, cardsCount, sort])
 
+    /* const  handleSearch=()=>{
+         setSearchParams(`page=${page}&pageCount=${pageCount}&packName=${search}&user_id=${isMyPack}&min=7&max=110&sortPacks=${sort}`)
+
+     }*/
 
     return (
         <div className={styles.wholeForm}>
@@ -45,14 +56,22 @@ export const PackList = () => {
             </div>
             <div className={styles.tool}>
                 <div className={styles.inputContainerPack}>
-                    <InputSearch/>
+                    <InputSearch searchSelector={searchPackSelector} setSearch={setSearchPack}/>
                 </div>
                 <BasicButtonGroup/>
-                <SliderOfCountCards/>
+                <SliderCountCards/>
                 <ResetFilter/>
             </div>
-            {isLoading ? <CircularProgress/> : <MainTable model={model}/>}
-            <PaginationRounded/>
+            {isLoading ? <CircularProgress/> :
+                <MainTable model={model} pagination={{
+                    pageSelector: pagePackSelector,
+                    setPage: setPagePack,
+                    totalCountSelector: totalCountPackSelector,
+                    pageCountSelector: pageCountPackSelector,
+                    setCountPage: setPageCountPack
+                }}
+                />}
+
         </div>
     )
 };

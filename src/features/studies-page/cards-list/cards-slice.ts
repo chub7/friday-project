@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CardType} from "../../../types/types";
+import {CardType, GetCardOfPackResponseType} from "../../../types/types";
 import {TypedThunk} from "../../../app/store";
 import {cardListApi} from "./cards-list-api";
 
@@ -14,6 +14,8 @@ type InitialStateType = {
     page: number,
     pageCount: number,
     packUserId: string
+    sort:string,
+    search:string
 }
 const initialState: InitialStateType = {
     isLoading: false,
@@ -25,30 +27,52 @@ const initialState: InitialStateType = {
     minGrade: 0,
     page: 0,
     pageCount: 0,
-    packUserId: ""
+    packUserId: "",
+    sort:'',
+    search:''
 }
 
 const slice = createSlice({
     name: "cards-list",
     initialState,
     reducers: {
-        setCardsState(state, action: PayloadAction<{ response: CardType[] }>) {
-            state.cards = action.payload.response
+        setCardsState(state, action: PayloadAction<{ response: GetCardOfPackResponseType }>) {
+            state.cards=action.payload.response.cards
+            state.cardsTotalCount = action.payload.response.cardsTotalCount
+            state.pageCount = action.payload.response.pageCount
+
         },
         setLoading(state, action: PayloadAction<{ isLoading: boolean }>) {
             state.isLoading = action.payload.isLoading
-        }
+        },
+
+        setPageCard(state, action: PayloadAction<{ page: number }>) {
+            state.page = action.payload.page
+        },
+        setPageCountCard(state, action: PayloadAction<{ count: number }>) {
+            state.pageCount = action.payload.count
+        },
+        setSortCard(state, action: PayloadAction<{sort:string }>) {
+            state.sort = action.payload.sort
+
+        },
+        setSearchCard(state, action: PayloadAction<{ value: string }>) {
+            state.search = action.payload.value
+        },
+
     },
 });
 
 export const cardsList = slice.reducer
-export const {setLoading, setCardsState} = slice.actions
+export const {setLoading, setCardsState, setPageCard,setPageCountCard,setSortCard,setSearchCard} = slice.actions
 
-export const setCards = (id:string|undefined): TypedThunk => async (dispatch) => {
+export const setCards = (id: string | undefined): TypedThunk => async (dispatch,getState) => {
+
+    const { page,pageCount,sort,search} = getState().cardList
     dispatch(setLoading({isLoading: true}))
     try {
-        let response = await cardListApi.getCardsOfPack(id)
-        dispatch(setCardsState({response: response.data.cards}))
+        let response = await cardListApi.getCardsOfPack(id,page,pageCount,sort,search)
+        dispatch(setCardsState({response: response.data}))
     } catch (error) {
 
     } finally {

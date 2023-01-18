@@ -38,3 +38,9 @@ export const ButtonForGroup = styled(Button)(({value = 'blue'}) => ({
 
 
 }))
+
+export const styleForTableRow={
+    padding:'4px',
+    paddingLeft:'12px',
+
+}

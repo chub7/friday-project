@@ -1,25 +1,29 @@
 import * as React from 'react';
 import Slider from '@mui/material/Slider';
-import {useState} from 'react';
-import styles from './SliderOfCountCards.module.css'
+import {useEffect, useState} from 'react';
+import styles from './SliderCountCards.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {maxCountCards, minCountCards} from "../../features/studies-page/studies-selectors";
 import {setCountCard} from '../../features/studies-page/pack-list/pack-slice';
+import {cardsCountSelector, maxCountCards, minCountCards} from '../../features/studies-page/pack-list/pack-selectors';
 
 
-export const SliderOfCountCards = () => {
+export const SliderCountCards = React.memo(() => {
     const min = useAppSelector(minCountCards)
     const max = useAppSelector(maxCountCards)
-    const dispatch = useAppDispatch()
+    const cardsCount = useAppSelector(cardsCountSelector)
 
+    const dispatch = useAppDispatch()
     const [value, setValue] = useState<number[]>([min, max]);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
     const handleSpendRequest = () => {
-        dispatch(setCountCard({min: value[0], max: value[1]}))
+        dispatch(setCountCard({value}))
     }
+    useEffect(() => {//чтобы после очистки фильтра затиралось
+        cardsCount.length === 0 && setValue([min,max]);
+    }, [cardsCount])
 
     return (
         <div>
@@ -27,6 +31,8 @@ export const SliderOfCountCards = () => {
             <div className={styles.sliderContainer}>
                 <p className={styles.value}>{value[0]}</p>
                 <Slider
+                    min={min}
+                    max={max}
                     value={value}
                     onChange={handleChange}
                     onChangeCommitted={handleSpendRequest}/>
@@ -34,5 +40,5 @@ export const SliderOfCountCards = () => {
             </div>
 
         </div>
-    );
-}
+    )
+})

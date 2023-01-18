@@ -1,34 +1,49 @@
 import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import styles from './Pagination.module.css'
-import {useAppDispatch, useAppSelector} from "../../app/store";
-import {pageCountSelector, totalCountPackSelector} from "../../features/studies-page/studies-selectors";
-import {setPageCount, setPagePack} from "../../features/studies-page/pack-list/pack-slice";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
 import FormControl from '@mui/material/FormControl/FormControl';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
+import {FC} from "react";
+import {ActionCreatorWithPayload} from "@reduxjs/toolkit";
 
-export const PaginationRounded = () => {
-    const count=useAppSelector(pageCountSelector)
-    const totalCount = useAppSelector(totalCountPackSelector)
+export type PaginationType = {
+    pageSelector: (state: AppRootStateType) => number
+    setPage: ActionCreatorWithPayload<{ page: number }>
+    totalCountSelector: (state: AppRootStateType) => number,
+    pageCountSelector: (state: AppRootStateType) => number
+    setCountPage: ActionCreatorWithPayload<{ count: number }>
+}
+export const PaginationRounded: FC<PaginationType> = ({
+                                                          pageSelector,
+                                                          setPage,
+                                                          totalCountSelector,
+                                                          pageCountSelector,
+                                                          setCountPage
+                                                      }) => {
+    const count = useAppSelector(pageCountSelector)
+    const totalCount = useAppSelector(totalCountSelector)
+    const page = useAppSelector(pageSelector)
 
     const dispatch = useAppDispatch()
 
     const handleChangePagePack = (event: React.ChangeEvent<unknown>, page: number) => {
-        dispatch(setPagePack({page}))}
-
-
+        dispatch(setPage({page}))
+    }
     const handleChangePackCount = (event: SelectChangeEvent) => {
-        dispatch(setPageCount({count:+event.target.value}))}
-
+        dispatch(setCountPage({count: +event.target.value}))
+    }
 
     return (
         <div className={styles.pagination}>
-            <Pagination count={Math.round(totalCount / count)} onChange={handleChangePagePack} variant="outlined"
-                        shape="rounded"/>
+            <Pagination
+                page={page}
+                count={Math.round(totalCount / count)} onChange={handleChangePagePack} variant="outlined"
+                shape="rounded"/>
             <div className={styles.selectContainer}>
                 Show
-                <FormControl >
+                <FormControl>
                     <Select
                         className={styles.select}
                         value={String(count)}

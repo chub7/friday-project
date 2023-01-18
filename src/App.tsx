@@ -5,7 +5,7 @@ import {Authorization} from "./features/Login/authorization/authorization";
 import {Registration} from "./features/Login/registeration/registration";
 import {RecoveryPassword} from "./features/Login/PasswordTroubles/PasswordRecovery/recovery-password";
 import {EnterNewPassword} from "./features/Login/PasswordTroubles/EnterNewPassword/enter-new-password";
-import {Page404} from "./features/404/404";
+import {Page404} from "./components/404/404";
 import {useAppDispatch, useAppSelector} from "./app/store";
 import {authMe} from "./app/app-slice";
 import {CircularProgress} from "@mui/material";

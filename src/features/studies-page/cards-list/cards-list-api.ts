@@ -8,31 +8,12 @@ export const instance = axios.create({
 
 
 export const cardListApi = {
-    getCardsOfPack (_id: string = `63a6f5de89d9010004f8b721` ) {
-        return instance.get<any, AxiosResponse<GetCardOfPackResponseType>>(`cards/card/?cardsPack_id=${_id}`)
-    },
-    createCard(){
-        return instance.post(`cards/card`,{
-            card: {
-                cardsPack_id: "63c3ba56bbf2ab12e09c45f8",
-                question: "card 1",
-                answer: "no answer",
-                grade: 2,
-                shots: 0 ,
-                answerImg: "url or base 64",
-                questionImg: "url or base 64",
-                questionVideo: "url or base 64",
-                answerVideo: "url or base 64"
-            }
+    getCardsOfPack(cardsPack_id: string = `63a6f5de89d9010004f8b721`, page: number, pageCount: number, sortCards: string,cardQuestion:string) {
 
+        return instance.get<any, AxiosResponse<GetCardOfPackResponseType>>(`cards/card`, {
+            params: {cardsPack_id, page, pageCount, sortCards,cardQuestion}
         })
+    },
 
-    }
-    ,
-    deleteCard(id:string){
-
-        return instance.delete(`cards/card?id=${id}`)
-
-    }
 
 }

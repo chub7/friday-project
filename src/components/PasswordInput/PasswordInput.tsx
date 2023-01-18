@@ -16,10 +16,9 @@ type PasswordInputType = {
 
 export const PasswordInput = (props: PasswordInputType) => {
     const {name, placeHolder, handleChange, inputValue, touched, error} = props;
-
-
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
+
     return (
         <FormControl sx={{width: "347px"}} variant="standard">
             <TextField

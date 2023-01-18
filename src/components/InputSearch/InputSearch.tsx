@@ -1,33 +1,34 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-
 import {InputBase} from "@mui/material";
 import styles from './InputSearch.module.css'
 import {useDebounce} from "../../common/hook/useDebounce";
-import {setSearch} from "../../features/studies-page/pack-list/pack-slice";
-import {useAppDispatch, useAppSelector} from "../../app/store";
-import {searchPackSelector} from "../../features/studies-page/studies-selectors";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
+import {ActionCreatorWithPayload} from "@reduxjs/toolkit";
 
-/*
-type InputSearchType={
-    value:string
-    onChange:(value:string)=>void
-
+type InputSearchType = {
+       searchSelector:(state: AppRootStateType) => string
+       setSearch:ActionCreatorWithPayload<{ value: string }>
 }
-*/
 
-export const InputSearch/*:FC<InputSearchType>*/ = (/*{value,onChange}*/) => {
-    const search=useAppSelector(searchPackSelector)
+export const InputSearch: FC<InputSearchType> = React.memo(({searchSelector,setSearch}) => {
+
+    const search = useAppSelector(searchSelector)
+
     const [value, setValue] = useState(search)
+
     const debouncedValue = useDebounce<string>(value, 500)
     const dispatch = useAppDispatch()
-    console.log(search)
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value)
-    }
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value)
+
     useEffect(() => {
         dispatch(setSearch({value: value}))
     }, [debouncedValue])
+
+    useEffect(() => {//чтобы после очистки фильтра затиралось
+        search === '' && setValue(search)
+    }, [search])
 
     return (
         <div>
@@ -43,5 +44,5 @@ export const InputSearch/*:FC<InputSearchType>*/ = (/*{value,onChange}*/) => {
             </div>
         </div>
     );
-};
+})
 

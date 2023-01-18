@@ -8,19 +8,12 @@ export const instance = axios.create({
 
 
 export const packListApi = {
-    getPacksCards(packName: string, page: number, pageCount: number, isMyPack: string,min:number,max:number) {
-
+    getPacksCards(packName: string, page: number, pageCount: number, user_id: string, cardsCount: number[], sortPacks: string) {
         return instance.get<any, AxiosResponse<GetPacksCardsResponseType>>(`cards/pack`, {
-            params: {page, pageCount, packName, user_id: isMyPack,min:min,max:max}
+
+            params: {page, pageCount, packName, user_id, min: cardsCount[0], max: cardsCount[1], sortPacks}
         })
     },
 
-    createPack() {
-        return instance.post(`cards/pack`, {
-            cardsPack: {
-                name: "MariaPack",
-            }
-        })
-    }
 
 }
