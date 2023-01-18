@@ -6,3 +6,4 @@ export const getProfileAvatarSelector = (state: AppRootStateType): string | unde
 export const getProfileEmailSelector = (state: AppRootStateType): string | undefined  => state.profile.profile.email
 export const getProfileNameSelector = (state: AppRootStateType): string  => state.profile.profile.name
 export const getAvatarSelector = (state: AppRootStateType): string | undefined  => state.profile.profile.avatar
+export const getMyIdSelector = (state: AppRootStateType): string  => state.profile.profile._id

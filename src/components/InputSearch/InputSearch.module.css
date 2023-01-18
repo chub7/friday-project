@@ -1,5 +1,5 @@
 .inputContainer {
-    background-color: white;
+
     display: flex;
     align-items: center;
     border-radius: 2px;
@@ -22,6 +22,7 @@
 }
 
 .label {
+    margin: 0;
     margin-bottom: 7px;
 
 }

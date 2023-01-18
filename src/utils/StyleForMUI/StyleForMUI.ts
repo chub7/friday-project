@@ -28,8 +28,19 @@ export const GeneralButton = styled(Button)(({value = 'blue'}) => ({
     },
     ':disabled': {
         background: 'rgba(145, 158, 171, 0.08)'
-
     }
+
+}))
+export const ButtonForGroup = styled(Button)(({value = 'blue'}) => ({
+    fontFamily: 'Montserrat',
+    width: '100px',
+    border: '1px solid #D9D9D9',
 
 
 }))
+
+export const styleForTableRow={
+    padding:'4px',
+    paddingLeft:'12px',
+
+}

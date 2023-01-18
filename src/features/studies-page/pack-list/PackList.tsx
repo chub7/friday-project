@@ -1,31 +1,50 @@
 import React, {useEffect} from 'react';
-import {MainTable} from '../../../components/table/MainTable';
+import {MainTable} from '../../../components/MainTable/MainTable';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {addNewPacksCards, setError, setPacksCards} from "./pack-slice";
+
+import {setPacksCards,setError,addNewPacksCards, setPageCountPack, setPagePack, setSearchPack} from "./pack-slice";
 import {PackModel} from "./PackModel";
 import styles from '../studies-page.module.css'
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {InputSearch} from "../../../components/InputSearch/InputSearch";
-import {SliderOfCountCards} from "../../../components/Slider/SliderOfCountCards";
+import {SliderCountCards} from "../../../components/SliderCountCards/SliderCountCards";
 import {CircularProgress} from "@mui/material";
-import { packErrorSelector, packListIsLoadingSelector} from "../studies-selectors";
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import IconButton from "@mui/material/IconButton";
 import { ErrorSnackbar } from '../../../components/ErrorSnackBar/ErrorSnackbar';
+import {BasicButtonGroup} from "../../../components/ButtonGroup/ButtonGroup";
+import {ResetFilter} from "../../../components/ResetFilter/ResetFilter";
+import {
+    cardsCountSelector,
+    isMyPackSelector, packErrorSelector, packListIsLoadingSelector,
+    pageCountPackSelector,
+    pagePackSelector,
+    searchPackSelector,
+    sortPacksSelector,
+    totalCountPackSelector
+} from "./pack-selectors";
+import {useSearchParams} from 'react-router-dom';
 
 
 export const PackList = () => {
+
+    const isLoading = useAppSelector(packListIsLoadingSelector)
+    const search = useAppSelector(searchPackSelector)
+    const page = useAppSelector(pagePackSelector)
+    const pageCount = useAppSelector(pageCountPackSelector)
+    const isMyPack = useAppSelector(isMyPackSelector)
+    const cardsCount = useAppSelector(cardsCountSelector)
+    const sort = useAppSelector(sortPacksSelector)
+    const packError = useAppSelector(packErrorSelector)
+
+    let [searchParams, setSearchParams] = useSearchParams();
+
     const dispatch = useAppDispatch();
     const model = PackModel()
-    const isLoading = useAppSelector(packListIsLoadingSelector)
-    const packError = useAppSelector(packErrorSelector)
+
     useEffect(() => {
         dispatch(setPacksCards())
+    }, [search, page, pageCount, isMyPack, cardsCount, sort])
 
-    }, [])
 
-
-console.log(packError);
 
     return (
         <div className={styles.wholeForm}>
@@ -35,17 +54,22 @@ console.log(packError);
             </div>
             <div className={styles.tool}>
                 <div className={styles.inputContainerPack}>
-                    <InputSearch/>
+                    <InputSearch searchSelector={searchPackSelector} setSearch={setSearchPack}/>
                 </div>
-                <SliderOfCountCards/>
-                <div>
-                    <IconButton className={styles.filter}>
-                        <FilterAltOffIcon/>
-                    </IconButton>
-                </div>
-
+                <BasicButtonGroup/>
+                <SliderCountCards/>
+                <ResetFilter/>
             </div>
-            {isLoading? <CircularProgress/> : <MainTable model={model}/>}
+            {isLoading ? <CircularProgress/> :
+                <MainTable model={model} pagination={{
+                    pageSelector: pagePackSelector,
+                    setPage: setPagePack,
+                    totalCountSelector: totalCountPackSelector,
+                    pageCountSelector: pageCountPackSelector,
+                    setCountPage: setPageCountPack
+                }}
+                />}
+
             {packError != null && <ErrorSnackbar error={packError} changeError={setError}/>}
         </div>
     )

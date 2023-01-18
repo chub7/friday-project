@@ -4,6 +4,7 @@
     width: 300px;
     gap: 20px;
 
+
 }
 
 .value{
@@ -20,5 +21,6 @@
     font-weight: bold;
 }
 .label{
+    margin: 0;
     margin-bottom: 7px;
 }

@@ -14,8 +14,12 @@ const initialState: InitialStateType = {
     maxCardsCount: 0,
     minCardsCount: 0,
     page: 0, // выбранная страница
-    pageCount: 0,
-    owner: ``
+    pageCount: 10,
+    owner: ``,
+    search: '',
+    isMyPack: '',
+    sort:'',
+    cardsCount:[]
 }
 
 type InitialStateType = {
@@ -29,6 +33,10 @@ type InitialStateType = {
     page: number, // выбранная страница
     owner: string,
     pageCount: number,
+    search: string,
+    isMyPack: string,
+    sort:string,
+    cardsCount:number[]
 }
 
 const slice = createSlice({
@@ -49,20 +57,53 @@ const slice = createSlice({
             state.page = action.payload.response.page
             state.pageCount = action.payload.response.pageCount
         },
-        setCurrentOwnerOfPack(state, action: PayloadAction<string>){
+        setCurrentOwnerOfPack(state, action: PayloadAction<string>) {
             state.owner = action.payload
-        }
+        },
+        setSearchPack(state, action: PayloadAction<{ value: string }>) {
+            state.search = action.payload.value
+        },
+        setPagePack(state, action: PayloadAction<{ page: number }>) {
+            state.page = action.payload.page
+        },
+        setPageCountPack(state, action: PayloadAction<{ count: number }>) {
+            state.pageCount = action.payload.count
+        },
+        setIsMyPack(state, action: PayloadAction<{ myPack: string }>) {
+            state.isMyPack = action.payload.myPack
+        },
+        setCountCard(state, action: PayloadAction<{ value:number[]}>) {
+            state.cardsCount=action.payload.value
+        },
+        setSortPack(state, action: PayloadAction<{sort:string }>) {
+            state.sort = action.payload.sort
+
+        },
+
 
     },
 });
 export const packListSlice = slice.reducer
-export const {setLoading, setError, setCardPacks,setCurrentOwnerOfPack} = slice.actions
+export const {
+    setLoading,
+    setError,
+    setCardPacks,
+    setCurrentOwnerOfPack,
+    setSearchPack, setPagePack,
+    setPageCountPack, setIsMyPack,
+    setCountCard,
+    setSortPack
+} = slice.actions
 
-export const setPacksCards = (): TypedThunk => async (dispatch) => {
+export const setPacksCards = (): TypedThunk => async (dispatch, getState) => {
+
+    const {search, page, pageCount, isMyPack,cardsCount,sort} = getState().packList
+
     dispatch(setLoading({isLoading: true}))
     try {
-        let response = await packListApi.getPacksCards()
+        let response = await packListApi.getPacksCards(search, page, pageCount, isMyPack,cardsCount,sort)
         dispatch(setCardPacks({response: response.data}))
+
 
     } catch (error) {
         handleServerAppError(error, dispatch, setError)
