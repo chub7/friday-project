@@ -7,10 +7,10 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {setErrorSingUp, signInThunk} from "../login-slice";
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
-import {ErrorSnackbar} from "../../../components/ErrorSnackBar/ErrorSnackbar";
 import {validationSignIn} from "../../../utils/validationSchema/validationSchema";
 import {loginIsInProgressSelector, signUpErrorSelector} from "../login-selectors";
 import {isAuthSelector} from "../../../app/app-selector";
+import { UniversalSnackbar } from "../../../components/SnackBar/Snackbar";
 
 
 export const Authorization = () => {
@@ -86,7 +86,7 @@ export const Authorization = () => {
                     <NavLink className={styles.linkForm} to={"/register"}>
                         Sign Up
                     </NavLink>
-                    {error != null && <ErrorSnackbar error={error} changeError={setErrorSingUp}/>}
+                    {error != null && <UniversalSnackbar error={error} changeError={setErrorSingUp}/>}
                 </form>
             ) : (
                 <CircularProgress/>

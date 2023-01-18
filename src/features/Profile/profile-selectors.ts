@@ -7,3 +7,5 @@ export const getProfileEmailSelector = (state: AppRootStateType): string | undef
 export const getProfileNameSelector = (state: AppRootStateType): string  => state.profile.profile.name
 export const getAvatarSelector = (state: AppRootStateType): string | undefined  => state.profile.profile.avatar
 export const getMyIdSelector = (state: AppRootStateType): string  => state.profile.profile._id
+export const getErrorSelector = (state: AppRootStateType): string | null  => state.profile.errorForSnackBar
+export const successStatusForSnackBarSelector = (state : AppRootStateType) => state.profile.successStatusForSnackBar

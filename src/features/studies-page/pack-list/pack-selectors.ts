@@ -16,3 +16,4 @@ export const sortPacksSelector=createDraftSafeSelector(selectSelf, (state) => st
 export const cardsCountSelector=createDraftSafeSelector(selectSelf, (state) => state.packList.cardsCount)
 export const ownerOfPackSelector = (state : AppRootStateType) => state.packList.owner
 export const packErrorSelector = (state : AppRootStateType) => state.packList.error
+export const successStatusForSnackBarSelector = (state : AppRootStateType) => state.packList.successStatusForSnackBar

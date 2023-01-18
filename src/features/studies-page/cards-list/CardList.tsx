@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {MainTable} from "../../../components/MainTable/MainTable";
-import {addNewCard, setCards, setCardsError, setPageCard, setPageCountCard, setSearchCard} from "./cards-slice";
+import {addNewCard, setCards, setCardsError, setPageCard, setPageCountCard, setSearchCard, setSuccessStatusForSnackBar} from "./cards-slice";
 import {CardModel} from "./CardModel";
 import styles from '../studies-page.module.css'
 import {BackToPackLink} from "../../../components/BackLink/BackToPackLink";
@@ -17,9 +17,11 @@ import {
     pageCardSelector,
     pageCountCardsSelector, searchCardsSelector,
     sortCardsSelector,
+    successStatusForSnackBarSelector,
     totalCountCardsSelector
 } from "./cards-selectors";
-import { ErrorSnackbar } from '../../../components/ErrorSnackBar/ErrorSnackbar';
+import { UniversalSnackbar } from '../../../components/SnackBar/Snackbar';
+
 
 
 
@@ -30,15 +32,17 @@ export const CardList = () => {
     const pageCount = useAppSelector(pageCountCardsSelector)
     const sort = useAppSelector(sortCardsSelector)
     const search = useAppSelector(searchCardsSelector)
-
+    const successForSnackBar = useAppSelector(successStatusForSnackBarSelector)
     const dispatch = useAppDispatch();
+   
 
     const params = useParams()
     const model = CardModel()
 
 
     const cardError = useAppSelector(cardErrorSelector)
-
+    const open = cardError !== null || !!successForSnackBar
+    
     useEffect(() => {
         dispatch(setCards(params.id))
     }, [page, pageCount, sort, search])
@@ -74,13 +78,13 @@ export const CardList = () => {
                         pageCountSelector: pageCountCardsSelector,
                         setCountPage: setPageCountCard
                     }}/>
-                    {cardError != null && <ErrorSnackbar error={cardError} changeError={setCardsError}/>}
+                    {open && <UniversalSnackbar error={cardError} changeError={setCardsError} success={successForSnackBar} changeSuccess={setSuccessStatusForSnackBar}/>}
                 </div>
                 : <div className={styles.wholeForm}>
                     <BackToPackLink />
                     <h3 className={styles.ownerName}>{ownerPack}</h3>
                     <EmptyPack />
-                    {cardError != null && <ErrorSnackbar error={cardError} changeError={setCardsError}/>}
+                    {open && <UniversalSnackbar error={cardError} changeError={setCardsError} success={successForSnackBar} changeSuccess={setSuccessStatusForSnackBar}/>}
                 </div>
 
     );

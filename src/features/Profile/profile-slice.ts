@@ -1,7 +1,8 @@
-import {createSlice, PayloadAction,} from "@reduxjs/toolkit";
-import {profileApi} from "./profile-api";
-import {setIsAppInProgress, setIsAuth} from "../../app/app-slice";
-import {TypedThunk} from "../../app/store";
+import { createSlice, PayloadAction, } from "@reduxjs/toolkit";
+import { profileApi } from "./profile-api";
+import { setIsAppInProgress, setIsAuth } from "../../app/app-slice";
+import { TypedThunk } from "../../app/store";
+import { handleServerAppError } from "../../utils/AxiosError/handleServerAppError";
 
 export type ProfileType = {
     _id: string;
@@ -15,12 +16,17 @@ export type ProfileType = {
     verified: boolean;
     rememberMe: boolean;
     error?: string;
-} ;
+};
 type TypeInitialState = {
     profile: ProfileType;
+    successStatusForSnackBar: string
+    errorForSnackBar: string | null
 };
 const initialState: TypeInitialState = {
     profile: {} as ProfileType,
+    successStatusForSnackBar: '',
+    errorForSnackBar: null
+
 };
 const slice = createSlice({
     name: "profile",
@@ -35,32 +41,39 @@ const slice = createSlice({
         clearProfileData: (state) => {
             state.profile = {} as ProfileType;
         },
+        setError(state, action: PayloadAction<{ error: string | null }>) {
+            state.errorForSnackBar = action.payload.error
+        },
+        setSuccessStatusForSnackBar(state, action: PayloadAction<{ success: string }>) {
+            state.successStatusForSnackBar = action.payload.success
+        }
     },
 });
 
 export const profileSlice = slice.reducer;
-export const {setProfile, setNewName, clearProfileData} = slice.actions;
+export const { setProfile, setNewName, clearProfileData, setError, setSuccessStatusForSnackBar} = slice.actions;
 
 
 export const logOutThunk = (): TypedThunk => async (dispatch) => {
-    dispatch(setIsAppInProgress({appStatus: true}));
+    dispatch(setIsAppInProgress({ appStatus: true }));
     try {
         await profileApi.logOut();
-        dispatch(setIsAuth({isAuthStatus: false}));
+        dispatch(setIsAuth({ isAuthStatus: false }));
         dispatch(clearProfileData())
     } catch (e) {
-        console.log(e);
+        handleServerAppError(e, dispatch, setError)
     } finally {
-        dispatch(setIsAppInProgress({appStatus: false}));
+        dispatch(setIsAppInProgress({ appStatus: false }));
     }
 };
 export const changeProfileDataThunk =
     (name: string): TypedThunk => async (dispatch) => {
         try {
             let res = await profileApi.changeProfileData(name);
-            dispatch(setNewName({name: res.data.updatedUser.name}));
+            dispatch(setNewName({ name: res.data.updatedUser.name }));
+            dispatch(setSuccessStatusForSnackBar({success:'Name was changed successfully'}))
         } catch (e) {
-            console.log(e);
+            handleServerAppError(e, dispatch, setError)
         } finally {
         }
     };

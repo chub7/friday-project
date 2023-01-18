@@ -14,4 +14,4 @@ export const sortCardsSelector=createDraftSafeSelector(selectSelf, (state) => st
 export const searchCardsSelector=createDraftSafeSelector(selectSelf, (state) => state.cardList.search)
 export const packUserIdSelector = (state : AppRootStateType) => state.cardList.packUserId
 export const cardErrorSelector = (state : AppRootStateType) => state.cardList.error
-
+export const successStatusForSnackBarSelector = (state : AppRootStateType) => state.cardList.successStatusForSnackBar

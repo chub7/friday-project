@@ -5,9 +5,9 @@ import styles from '../../login.module.css'
 import {useAppDispatch, useAppSelector} from '../../../../app/store';
 import {getInstructionThunk, setError} from '../password-slice';
 import {GeneralButton} from '../../../../utils/StyleForMUI/StyleForMUI';
-import {ErrorSnackbar} from '../../../../components/ErrorSnackBar/ErrorSnackbar';
 import {CircularProgress} from "@mui/material";
 import {getEmailSelector, passwordErrorSelector, passwordLoadingSelector} from "./password-selector";
+import { UniversalSnackbar } from '../../../../components/SnackBar/Snackbar';
 
 
 export const RecoveryPassword = () => {
@@ -60,7 +60,7 @@ export const RecoveryPassword = () => {
                     <GeneralButton value={'blue'} sx={{mt: 2}} onClick={onClickHandler}>Send instruction</GeneralButton>
                     <p className={styles.boldText}>Did you remember your password?</p>
                     <NavLink to={'login'} className={styles.linkForm}>Try logging in</NavLink>
-                    {error != null && <ErrorSnackbar error={error} changeError={setError}/>}
+                    {error != null && <UniversalSnackbar error={error} changeError={setError} />}
                 </form>
                 : <CircularProgress/>}
 
