@@ -16,7 +16,8 @@ type InitialStateType = {
     pageCount: number,
     packUserId: string
     sort:string,
-    search:string
+    search:string,
+    successStatusForSnackBar: string,
 }
 const initialState: InitialStateType = {
     isLoading: false,
@@ -30,7 +31,8 @@ const initialState: InitialStateType = {
     pageCount: 0,
     packUserId: "",
     sort:'',
-    search:''
+    search:'',
+    successStatusForSnackBar: ''
 }
 
 const slice = createSlice({
@@ -65,12 +67,15 @@ const slice = createSlice({
         },
         setCardsError(state, action:PayloadAction<{ error: string | null }>){
             state.error = action.payload.error
+        },
+        setSuccessStatusForSnackBar(state, action: PayloadAction<{ success: string }>) {
+            state.successStatusForSnackBar = action.payload.success
         }
     },
 });
 
 export const cardsList = slice.reducer
-export const {setLoading, setCardsState, setPageCard,setPageCountCard,setSortCard,setSearchCard,setCardsError} = slice.actions
+export const {setLoading, setCardsState, setPageCard,setPageCountCard,setSortCard,setSearchCard,setCardsError,setSuccessStatusForSnackBar} = slice.actions
 
 export const setCards = (id: string | undefined): TypedThunk => async (dispatch,getState) => {
     const { page,pageCount,sort,search} = getState().cardList
@@ -90,6 +95,7 @@ export const addNewCard = (id:string|undefined): TypedThunk => async (dispatch) 
     try {
         let response = await cardListApi.createCard(id)
         dispatch(setCards(id))
+        dispatch(setSuccessStatusForSnackBar({success:'New card successfully added'}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
@@ -102,6 +108,7 @@ export const updateNameCard = (cardId:string, packId:string): TypedThunk => asyn
     try {
         await cardListApi.updateCardName(cardId)
         dispatch(setCards(packId))
+        dispatch(setSuccessStatusForSnackBar({success:'Name was changed successfully'}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
@@ -114,6 +121,7 @@ export const deleteCard = (cardId:string, packId:string): TypedThunk => async (d
     try {
         await cardListApi.deleteCard(cardId)
         dispatch(setCards(packId))
+        dispatch(setSuccessStatusForSnackBar({success:'Card was removed'}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {

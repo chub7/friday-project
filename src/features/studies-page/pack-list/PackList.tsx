@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {MainTable} from '../../../components/MainTable/MainTable';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 
-import {setPacksCards,setError,addNewPacksCards, setPageCountPack, setPagePack, setSearchPack} from "./pack-slice";
+import {setPacksCards,setError,addNewPacksCards, setPageCountPack, setPagePack, setSearchPack, setSuccessStatusForSnackBar} from "./pack-slice";
 import {PackModel} from "./PackModel";
 import styles from '../studies-page.module.css'
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {InputSearch} from "../../../components/InputSearch/InputSearch";
 import {SliderCountCards} from "../../../components/SliderCountCards/SliderCountCards";
 import {CircularProgress} from "@mui/material";
-import { ErrorSnackbar } from '../../../components/ErrorSnackBar/ErrorSnackbar';
+import { UniversalSnackbar } from '../../../components/SnackBar/Snackbar';
 import {BasicButtonGroup} from "../../../components/ButtonGroup/ButtonGroup";
 import {ResetFilter} from "../../../components/ResetFilter/ResetFilter";
 import {
@@ -19,6 +19,7 @@ import {
     pagePackSelector,
     searchPackSelector,
     sortPacksSelector,
+    successStatusForSnackBarSelector,
     totalCountPackSelector
 } from "./pack-selectors";
 import {useSearchParams} from 'react-router-dom';
@@ -34,11 +35,13 @@ export const PackList = () => {
     const cardsCount = useAppSelector(cardsCountSelector)
     const sort = useAppSelector(sortPacksSelector)
     const packError = useAppSelector(packErrorSelector)
+    const successForSnackBar = useAppSelector(successStatusForSnackBarSelector)
 
     let [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useAppDispatch();
     const model = PackModel()
+    const open = packError !== null || !!successForSnackBar
 
     useEffect(() => {
         dispatch(setPacksCards())
@@ -70,7 +73,7 @@ export const PackList = () => {
                 }}
                 />}
 
-            {packError != null && <ErrorSnackbar error={packError} changeError={setError}/>}
+            {open && <UniversalSnackbar error={packError} changeError={setError} success={successForSnackBar} changeSuccess={setSuccessStatusForSnackBar}/>}
         </div>
     )
 };

@@ -9,7 +9,7 @@ import { validationSignUP} from "../../../utils/validationSchema/validationSchem
 import CircularProgress from "@mui/material/CircularProgress";
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {TextField} from "@mui/material";
-import {ErrorSnackbar} from "../../../components/ErrorSnackBar/ErrorSnackbar";
+import { UniversalSnackbar} from "../../../components/SnackBar/Snackbar";
 import {loginIsInProgressSelector, signUpErrorSelector, signUpResultSelector} from "../login-selectors";
 
 type FormInitialValuesType = {
@@ -98,7 +98,7 @@ export const Registration = () => {
                         Sign In
                     </NavLink>
 
-                    {error != null && <ErrorSnackbar error={error} changeError={setErrorSingUp}/>}
+                    {error != null && <UniversalSnackbar error={error} changeError={setErrorSingUp}/>}
 
                 </form>) : <CircularProgress/>}
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../../app/store';
 import {GeneralButton} from '../../../../utils/StyleForMUI/StyleForMUI';
-import {ErrorSnackbar} from '../../../../components/ErrorSnackBar/ErrorSnackbar';
+
 import {PasswordInput} from '../../../../components/PasswordInput/PasswordInput';
 import {setError, setNewPasswordThunk, setSuccess} from '../password-slice';
 import {useFormik} from 'formik';
@@ -14,6 +14,7 @@ import {
     passwordErrorSelector,
     passwordLoadingSelector
 } from "../PasswordRecovery/password-selector";
+import { UniversalSnackbar } from '../../../../components/SnackBar/Snackbar';
 
 
 export const EnterNewPassword = () => {
@@ -60,7 +61,7 @@ export const EnterNewPassword = () => {
                 </form>
                 :
                 <CircularProgress/>}
-            {error != null && <ErrorSnackbar error={error} changeError={setError}/>}
+            {error != null && <UniversalSnackbar error={error} changeError={setError} />}
 
         </div>
     );
