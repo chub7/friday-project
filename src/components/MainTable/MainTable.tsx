@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -7,7 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import styles from './MainTable.module.css'
-import {PaginationRounded, PaginationType} from "../Pagiatinon/Pagination";
+import { PaginationRounded, PaginationType } from "../Pagiatinon/Pagination";
 import { styleForTableRow } from '../../utils/StyleForMUI/StyleForMUI';
 
 export type TypeCardForTable = {
@@ -33,7 +33,10 @@ type TableType = {
 
 
 
-export const MainTable: FC<TableType> = ({model, pagination}) => {
+export const MainTable: FC<TableType> = ({ model, pagination }) => {
+
+    console.log(model.rows);
+
 
     return (
         <div className={styles.tableContainer}>
@@ -47,12 +50,12 @@ export const MainTable: FC<TableType> = ({model, pagination}) => {
                                 </TableCell>)}
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {model.rows.length !== 0 ? <TableBody>
                         {model.rows.map((row: TypeCardForTable, index) => (
                             <TableRow
-                                key={index} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                                key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 {model.key.map((property, index) =>
-                                    <TableCell key={index}  sx={styleForTableRow}>
+                                    <TableCell key={index} sx={styleForTableRow}>
                                         <p className={styles.row}>
                                             {row[property as keyof TypeCardForTable]}
                                         </p>
@@ -60,7 +63,7 @@ export const MainTable: FC<TableType> = ({model, pagination}) => {
                                 )}
                             </TableRow>
                         ))}
-                    </TableBody>
+                    </TableBody> : <div className={styles.noResult}> No results for your search </div>}
                 </Table>
             </TableContainer>
             <PaginationRounded
@@ -74,3 +77,4 @@ export const MainTable: FC<TableType> = ({model, pagination}) => {
 
     );
 };
+

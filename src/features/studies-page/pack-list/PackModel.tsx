@@ -39,7 +39,8 @@ export const PackModel = () => {
                         <SchoolIcon color={pack.cardsCount === 0 ? 'disabled' : 'action'} />
                     </NavLink>
                 </IconButton>
-                <IconButton onClick={() => { dispatch(changeNamePacksCards(pack._id)) }}> <EditIcon /></IconButton>
+                <IconButton onClick={() => {
+                    dispatch(changeNamePacksCards(pack._id)) }}> <EditIcon /></IconButton>
                 <IconButton onClick={() => { dispatch(deletePacksCards(pack._id)) }}> <DeleteIcon /></IconButton>
             </div>
             : <IconButton disabled={pack.cardsCount === 0} >

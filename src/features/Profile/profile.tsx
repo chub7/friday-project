@@ -6,10 +6,11 @@ import LocalSeeOutlinedIcon from "@mui/icons-material/LocalSeeOutlined";
 import styles from "./profile.module.css";
 import logoutIcon from "../../assets/logout.svg";
 import { GeneralButton } from "../../utils/StyleForMUI/StyleForMUI";
-import { getErrorSelector, getProfileAvatarSelector, getProfileEmailSelector, successStatusForSnackBarSelector } from "./profile-selectors";
+import { getErrorSelector, getIsLoading, getProfileAvatarSelector, getProfileEmailSelector, successStatusForSnackBarSelector } from "./profile-selectors";
 import { BackToPackLink } from "../../components/BackLink/BackToPackLink";
 import { EditableSpan } from "../../components/editable-span/editable-span";
 import { UniversalSnackbar } from "../../components/SnackBar/Snackbar";
+import {CircularProgress} from "@mui/material";
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ export const Profile = () => {
     const profileDataEmail = useAppSelector(getProfileEmailSelector);
     const error = useAppSelector(getErrorSelector)
     const successForSnackBar = useAppSelector(successStatusForSnackBarSelector)
+    const isLoading = useAppSelector(getIsLoading) 
     const open = error !== null || !!successForSnackBar
     const avatar = profileDataAvatar
         ? profileDataAvatar
@@ -36,7 +38,8 @@ export const Profile = () => {
                         </IconButton>
                     </div>
                 </div>
-                <EditableSpan />
+                {isLoading ? <CircularProgress/> :  <EditableSpan /> }
+               
                 <div className={styles.profileEmail}>{profileDataEmail}</div>
                 <GeneralButton value={"white"} sx={{ width: '150px' }} onClick={() => {
                     dispatch(logOutThunk())

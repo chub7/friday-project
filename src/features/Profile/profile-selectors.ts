@@ -9,3 +9,4 @@ export const getAvatarSelector = (state: AppRootStateType): string | undefined  
 export const getMyIdSelector = (state: AppRootStateType): string  => state.profile.profile._id
 export const getErrorSelector = (state: AppRootStateType): string | null  => state.profile.errorForSnackBar
 export const successStatusForSnackBarSelector = (state : AppRootStateType) => state.profile.successStatusForSnackBar
+export const getIsLoading = (state : AppRootStateType) => state.profile.isLoading
