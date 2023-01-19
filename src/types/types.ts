@@ -105,3 +105,12 @@ export type DeletePackResponseType = CRUDResponseType & {
 export type UpdatePackResponseType = CRUDResponseType & {
     updatedCardsPack: CardsPackType
 }
+
+export type FilterParamsPack={
+    packName:string
+    page:number
+    pageCount:number
+    user_id:string
+    cardsCount:number[]
+    sortPacks:string
+}

@@ -34,7 +34,7 @@ function App() {
         <div className="App">
             <Header/>
             <Routes>
-                <Route element={<PrivateRoute/>}>
+                <Route >
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/packs" element={<PackList/>}/>
                     <Route path="/cards-pack" element={<CardList/>}/>

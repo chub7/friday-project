@@ -1,10 +1,8 @@
 import axios, {AxiosResponse} from "axios"
 import {BaseResponseType} from "../../../types/types";
+import {instance} from "../../../app/app-api";
 
-export const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true,
-})
+
 
 export const passwordApi = {
     getInstruction(email: string) {
@@ -17,13 +15,13 @@ export const passwordApi = {
     link</a>
     </div>`
         }
-        return axios.post<any, AxiosResponse<BaseResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot', { ...data })
+        return instance.post<any, AxiosResponse<BaseResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot', { ...data })
     },
     setNewPassword(password: string, token: string | undefined) {
         const data = {
             password:password,
             resetPasswordToken: token
         }
-        return axios.post<any, AxiosResponse<BaseResponseType>>('https://neko-back.herokuapp.com/2.0/auth/set-new-password', { ...data })
+        return instance.post<any, AxiosResponse<BaseResponseType>>('https://neko-back.herokuapp.com/2.0/auth/set-new-password', { ...data })
     }
 }

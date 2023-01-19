@@ -3,7 +3,23 @@ import { TypedThunk } from "../../../app/store";
 import { CardsPackType, GetPacksCardsResponseType } from "../../../types/types";
 import { handleServerAppError } from "../../../utils/AxiosError/handleServerAppError";
 import { packListApi } from "./pack-list-api";
-
+type InitialStateType = {
+    isLoading: boolean,
+    isSuccess: boolean,
+    error: string | null,
+    cards: CardsPackType[],
+    cardPacksTotalCount: number,   // количество колод
+    maxCardsCount: number,
+    minCardsCount: number,
+    page: number, // выбранная страница
+    owner: string,
+    pageCount: number,
+    search: string,
+    isMyPack: string,
+    sort: string,
+    cardsCount: number[]
+    successStatusForSnackBar: string
+}
 
 const initialState: InitialStateType = {
     isLoading: false,
@@ -23,23 +39,6 @@ const initialState: InitialStateType = {
     successStatusForSnackBar: ''
 }
 
-type InitialStateType = {
-    isLoading: boolean,
-    isSuccess: boolean,
-    error: string | null,
-    cards: CardsPackType[],
-    cardPacksTotalCount: number,   // количество колод
-    maxCardsCount: number,
-    minCardsCount: number,
-    page: number, // выбранная страница
-    owner: string,
-    pageCount: number,
-    search: string,
-    isMyPack: string,
-    sort: string,
-    cardsCount: number[]
-    successStatusForSnackBar: string
-}
 
 const slice = createSlice({
     name: "pack-list",
@@ -109,7 +108,6 @@ export const setPacksCards = (): TypedThunk => async (dispatch, getState) => {
     try {
         let response = await packListApi.getPacksCards(search, page, pageCount, isMyPack, cardsCount, sort)
         dispatch(setCardPacks({ response: response.data }))
-
 
     } catch (error) {
         handleServerAppError(error, dispatch, setError)
