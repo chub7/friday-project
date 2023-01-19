@@ -23,7 +23,7 @@ export const SliderCountCards = React.memo(() => {
     }
     useEffect(() => {//чтобы после очистки фильтра затиралось
         cardsCount.length === 0 && setValue([min,max]);
-    }, [cardsCount])
+    }, [cardsCount,min,max])
 
     return (
         <div>

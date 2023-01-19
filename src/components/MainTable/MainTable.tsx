@@ -35,9 +35,6 @@ type TableType = {
 
 export const MainTable: FC<TableType> = ({ model, pagination }) => {
 
-    console.log(model.rows);
-
-
     return (
         <div className={styles.tableContainer}>
             <TableContainer component={Paper} className={styles.table}>

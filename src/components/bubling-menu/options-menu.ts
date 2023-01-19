@@ -5,7 +5,8 @@ import deleteIcon from "../../assets/Delete.svg";
 import learnIcon from "../../assets/teacher.svg";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../app/store";
-import {logOutThunk} from "../../features/Profile/profile-slice";
+import {logOutThunk} from "../../features/Login/login-slice";
+
 
 
 export const usePopUpProfileMenuField = () => {

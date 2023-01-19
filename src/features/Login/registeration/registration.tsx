@@ -47,7 +47,7 @@ export const Registration = () => {
             navigate("/login");
         }
     }, [result])
-
+    console.log(error)
     return (
 
         <div className={styles.wholeForm}>

@@ -59,18 +59,19 @@ export const profileSlice = slice.reducer;
 export const { setProfile, setNewName, clearProfileData, setError, setSuccessStatusForSnackBar, setIsLoading } = slice.actions;
 
 
-export const logOutThunk = (): TypedThunk => async (dispatch) => {
+/*export const logOutThunk = (): TypedThunk => async (dispatch) => {
     dispatch(setIsAppInProgress({ appStatus: true }));
     try {
         await profileApi.logOut();
         dispatch(setIsAuth({ isAuthStatus: false }));
         dispatch(clearProfileData())
+        dispatch(setSuccessStatusForSnackBar({ success: 'you successfully logged out' }))
     } catch (e) {
         handleServerAppError(e, dispatch, setError)
     } finally {
         dispatch(setIsAppInProgress({ appStatus: false }));
     }
-};
+};*/
 export const changeProfileDataThunk =
     (name: string): TypedThunk => async (dispatch) => {
         dispatch(setIsLoading({isLoading:true}))

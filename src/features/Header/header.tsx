@@ -4,10 +4,11 @@ import styles from "./header.module.css";
 import logo from "../../assets/logo.svg";
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {appStatusSelector, isAuthSelector} from "../../app/app-selector";
-import {logOutThunk} from "../Profile/profile-slice";
+
 import {GeneralButton} from "../../utils/StyleForMUI/StyleForMUI";
 import {usePopUpProfileMenuField} from "../../components/bubling-menu/options-menu";
 import {ProfileNavigation} from "./naviation/profile-navigation";
+import {logOutThunk} from "../Login/login-slice";
 
 
 export const Header = () => {

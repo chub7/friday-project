@@ -47,8 +47,6 @@ export const PackList = () => {
         dispatch(setPacksCards())
     }, [search, page, pageCount, isMyPack, cardsCount, sort])
 
-console.log(isLoading);
-
 
     return (
         <div className={styles.wholeForm}>
@@ -64,7 +62,7 @@ console.log(isLoading);
                 <SliderCountCards/>
                 <ResetFilter/>
             </div>
-            {isLoading ? <CircularProgress/> :
+            {isLoading ?<div className={styles.loading}> <CircularProgress/></div> :
                 <MainTable model={model} pagination={{
                     pageSelector: pagePackSelector,
                     setPage: setPagePack,

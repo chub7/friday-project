@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {loginApi} from "./login-api";
 import {TypedThunk} from "../../app/store";
-import {setProfile} from "../Profile/profile-slice";
-import {setIsAuth} from "../../app/app-slice";
+import {clearProfileData, setError, setProfile, setSuccessStatusForSnackBar} from "../Profile/profile-slice";
+import {setIsAppInProgress, setIsAuth} from "../../app/app-slice";
 import {handleServerAppError} from "../../utils/AxiosError/handleServerAppError";
+import {profileApi} from "../Profile/profile-api";
 
 export type ResultSignUpType = false | "Created";
 
@@ -11,12 +12,14 @@ type TypeInitialState = {
     error: string | null;
     isInProgress: boolean;
     result: ResultSignUpType;
+    success:string
 };
 
 const initialState: TypeInitialState = {
     error: null,
     isInProgress: false,
     result: false,
+    success:''
 };
 
 const slice = createSlice({
@@ -32,21 +35,25 @@ const slice = createSlice({
         setErrorSingUp: (state: TypeInitialState, action: PayloadAction<{ error: string | null }>) => {
             state.error = action.payload.error;
         },
+        setSuccessLogin(state, action: PayloadAction<{ success: string }>) {
+            state.success = action.payload.success
+        },
     },
 
 });
 
 export const loginSlice = slice.reducer;
-export const {setInProgressStatus, setErrorSingUp, registration} = slice.actions;
+export const {setInProgressStatus, setErrorSingUp, registration,setSuccessLogin} = slice.actions;
 
 export const singUp = (email: string, password: string) : TypedThunk =>
     async (dispatch) => {
     dispatch(registration(false));
-    /* dispatch(setErrorSingUp({error: null}));*/
     dispatch(setInProgressStatus(true));
     try {
         await loginApi.registration(email, password);
         dispatch(registration("Created"));
+        dispatch(setSuccessLogin({success:'You  successfully sign up'}))
+
     } catch (error) {
         handleServerAppError(error, dispatch, setErrorSingUp)
     } finally {
@@ -61,9 +68,27 @@ export const signInThunk = (email: string, password: string, rememberMe: boolean
         const data = await loginApi.login(email, password, rememberMe);
         dispatch(setProfile({profile: data}));
         dispatch(setIsAuth({isAuthStatus: true}));
+        dispatch(setSuccessLogin({success:'You  successfully logged in'}))
+
     } catch (error) {
         handleServerAppError(error, dispatch, setErrorSingUp)
     } finally {
         dispatch(setInProgressStatus(false));
     }
 };
+
+export const logOutThunk = (): TypedThunk => async (dispatch) => {
+    dispatch(setIsAppInProgress({ appStatus: true }));
+    try {
+        await profileApi.logOut();
+        dispatch(setIsAuth({ isAuthStatus: false }));
+        dispatch(clearProfileData())
+        dispatch(setSuccessLogin({ success: 'You successfully logged out' }))
+    } catch (e) {
+        handleServerAppError(e, dispatch, setError)
+    } finally {
+        dispatch(setIsAppInProgress({ appStatus: false }));
+    }
+};
+
+

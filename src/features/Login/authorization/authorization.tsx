@@ -5,10 +5,10 @@ import {useFormik} from "formik";
 import {PasswordInput} from "../../../components/PasswordInput/PasswordInput";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {setErrorSingUp, signInThunk} from "../login-slice";
+import {setErrorSingUp, setSuccessLogin, signInThunk} from "../login-slice";
 import {GeneralButton} from "../../../utils/StyleForMUI/StyleForMUI";
 import {validationSignIn} from "../../../utils/validationSchema/validationSchema";
-import {loginIsInProgressSelector, signUpErrorSelector} from "../login-selectors";
+import {loginIsInProgressSelector, signUpErrorSelector, successSelector} from "../login-selectors";
 import {isAuthSelector} from "../../../app/app-selector";
 import { UniversalSnackbar } from "../../../components/SnackBar/Snackbar";
 
@@ -16,8 +16,12 @@ import { UniversalSnackbar } from "../../../components/SnackBar/Snackbar";
 export const Authorization = () => {
     const dispatch = useAppDispatch();
     const error = useAppSelector(signUpErrorSelector)
+    const successForSnackBar=useAppSelector(successSelector)
     const isInProgress = useAppSelector(loginIsInProgressSelector)
     const isLoginIn = useAppSelector(isAuthSelector)
+    const open = error !== null || !!successForSnackBar
+
+
     const navigate = useNavigate()
 
     const formik = useFormik({
@@ -86,7 +90,8 @@ export const Authorization = () => {
                     <NavLink className={styles.linkForm} to={"/register"}>
                         Sign Up
                     </NavLink>
-                    {error != null && <UniversalSnackbar error={error} changeError={setErrorSingUp}/>}
+                    {open && <UniversalSnackbar error={error} changeError={setErrorSingUp}
+                                                         success={successForSnackBar} changeSuccess={setSuccessLogin}/>}
                 </form>
             ) : (
                 <CircularProgress/>
