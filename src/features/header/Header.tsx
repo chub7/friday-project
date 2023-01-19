@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import styles from "./header.module.css";
 import logo from "../../common/assets/logo.svg";
 import {useAppDispatch, useAppSelector} from "../../app/store";
@@ -11,14 +11,12 @@ import {usePopUpProfileMenuField} from "../../common/components/pop-up-menu/hook
 
 
 export const Header = () => {
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const isInProgress = useAppSelector(appStatusSelector);
     const isAuth = useAppSelector(isAuthSelector);
     const data = usePopUpProfileMenuField()
     const logOutHandler = () => {
         dispatch(logOutThunk());
-        navigate(`login`)
     };
 
     return (

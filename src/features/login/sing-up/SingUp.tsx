@@ -47,7 +47,7 @@ export const SingUp = () => {
             navigate("/login");
         }
     }, [result,dispatch,navigate])
-    console.log(error)
+
     return (
 
         <div className={styles.wholeForm}>

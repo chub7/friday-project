@@ -12,12 +12,12 @@ import {CircularProgress} from "@mui/material";
 import {CheckEmail} from "./features/login/password-troubles/check-email/check-email";
 import {appStatusSelector} from "./app/app-selector";
 import {Profile} from "./features/profile/Profile";
-import {Header} from "./features/header/Header";
 import {PacksList} from "./features/studies-page/packs/PacksList";
-
-import {PrivateRoute} from "./common/components/private-route/private-route";
 import {CardsContainer} from "./features/studies-page/cards/CardsContainer";
-import { SingIn } from "./features/login/sing-in/SingIn";
+import {SingIn} from "./features/login/sing-in/SingIn";
+import {Layout} from "./common/components/routes/layout/Layout";
+import {RequireAuth} from "./common/components/routes/RequireAuth";
+import {ProtectedAfterAuth} from "./common/components/routes/ProtectedAfterAuth";
 
 
 function App() {
@@ -33,26 +33,35 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <Header/>
-            <Routes>
-                <Route element={<PrivateRoute/>}>
+        <Routes>
+            <Route path="/" element={<Layout/>}>
+
+                {/*public routes*/}
+                <Route element={<ProtectedAfterAuth/>}>
+                    <Route path="/login" element={<SingIn/>}/>
+                    <Route path="/register" element={<SingUp/>}/>
+                    <Route path="/recoverypass" element={<RecoveryPassword/>}/>
+                    <Route path="/checkEmail" element={<CheckEmail/>}/>
+                    <Route path="/newpass/:token" element={<EnterNewPassword/>}/>
+                </Route>
+
+                {/*private routes*/}
+                <Route element={<RequireAuth/>}>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/packs" element={<PacksList/>}/>
                     <Route path="/cards-pack" element={<CardsContainer/>}/>
                     <Route path="/cards-pack/:id" element={<CardsContainer/>}/>
                 </Route>
-                <Route path="/login" element={<SingIn/>}/>
-                <Route path="/register" element={<SingUp/>}/>
-                <Route path="/recoverypass" element={<RecoveryPassword/>}/>
-                <Route path="/checkEmail" element={<CheckEmail/>}/>
-                <Route path="/newpass/:token" element={<EnterNewPassword/>}/>
-                {/*<Route path="/*" element={<Navigate to={"/404"}/>}/>*/}
-                <Route path="/404" element={<Page404/>}/>
-            </Routes>
-        </div>
+
+                {/*catch miss*/}
+                <Route path="*" element={<Page404/>}/>
+            </Route>
+        </Routes>
     );
 }
 
 export default App;
+
+
+
 
