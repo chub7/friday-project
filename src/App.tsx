@@ -1,22 +1,23 @@
 import React, {useEffect} from "react";
 import "./App.css";
 import {Route, Routes} from "react-router-dom";
-import {Authorization} from "./features/Login/authorization/authorization";
-import {Registration} from "./features/Login/registeration/registration";
-import {RecoveryPassword} from "./features/Login/PasswordTroubles/PasswordRecovery/recovery-password";
-import {EnterNewPassword} from "./features/Login/PasswordTroubles/EnterNewPassword/enter-new-password";
-import {Page404} from "./components/404/404";
+
+import {SingUp} from "./features/login/sing-up/SingUp";
+import {RecoveryPassword} from "./features/login/password-troubles/password-recovery/RecoveryPassword";
+import {EnterNewPassword} from "./features/login/password-troubles/enter-new-password/EnterNewPassword";
+import {Page404} from "./common/components/404/404";
 import {useAppDispatch, useAppSelector} from "./app/store";
 import {authMe} from "./app/app-slice";
 import {CircularProgress} from "@mui/material";
-import {CheckEmail} from "./features/Login/PasswordTroubles/CheckEmail/check-email";
+import {CheckEmail} from "./features/login/password-troubles/check-email/check-email";
 import {appStatusSelector} from "./app/app-selector";
-import {Profile} from "./features/Profile/profile";
-import {Header} from "./features/Header/header";
-import {PackList} from "./features/studies-page/pack-list/PackList";
+import {Profile} from "./features/profile/Profile";
+import {Header} from "./features/header/Header";
+import {PacksList} from "./features/studies-page/packs/PacksList";
 
-import {PrivateRoute} from "./components/private-route/private-route";
-import { CardContainer } from "./features/studies-page/cards-list/CardContainer";
+import {PrivateRoute} from "./common/components/private-route/private-route";
+import {CardsContainer} from "./features/studies-page/cards/CardsContainer";
+import { SingIn } from "./features/login/sing-in/SingIn";
 
 
 function App() {
@@ -37,12 +38,12 @@ function App() {
             <Routes>
                 <Route element={<PrivateRoute/>}>
                     <Route path="/profile" element={<Profile/>}/>
-                    <Route path="/packs" element={<PackList/>}/>
-                    <Route path="/cards-pack" element={<CardContainer/>}/>
-                    <Route path="/cards-pack/:id" element={<CardContainer/>}/>
+                    <Route path="/packs" element={<PacksList/>}/>
+                    <Route path="/cards-pack" element={<CardsContainer/>}/>
+                    <Route path="/cards-pack/:id" element={<CardsContainer/>}/>
                 </Route>
-                <Route path="/login" element={<Authorization/>}/>
-                <Route path="/register" element={<Registration/>}/>
+                <Route path="/login" element={<SingIn/>}/>
+                <Route path="/register" element={<SingUp/>}/>
                 <Route path="/recoverypass" element={<RecoveryPassword/>}/>
                 <Route path="/checkEmail" element={<CheckEmail/>}/>
                 <Route path="/newpass/:token" element={<EnterNewPassword/>}/>

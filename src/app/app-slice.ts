@@ -1,8 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TypedThunk} from "./store";
-import {loginApi} from "../features/Login/login-api";
-import {setProfile} from "../features/Profile/profile-slice";
-import {handleServerAppError} from "../utils/AxiosError/handleServerAppError";
+import {loginApi} from "../features/login/login-api";
+import {setProfile} from "../features/profile/profile-slice";
+import {handleServerAppError} from "../common/utils/handling-response-error/handleServerAppError";
 
 type TypeInitialState = {
   isAuth: boolean;
