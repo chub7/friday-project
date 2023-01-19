@@ -51,14 +51,45 @@ export const CardList = () => {
         dispatch(setCards(params.id))
     }, [page, pageCount, sort, search])
 
-    const sendRequest = () => {
-        dispatch(addNewCard(params.id))
-    }
+    useEffect(()=>{
+        return ()=>{dispatch(setSearchCard({value:''}))}
+    },[])
 
     return (
         cardsListIsLoading ?   <div className={styles.loading}><CircularProgress/></div>:
-            model.rows.length != 0 ?
+            model.rows.length != 0 || !!search ?
+                <CardsTable/>
+                : 
                 <div className={styles.wholeForm}>
+                    <EmptyPack namePack={namePack}
+                               error={cardError}
+                               success={successForSnackBar}
+                               open={open}
+                /></div>
+
+    );
+};
+
+
+
+
+
+
+export const CardsTable = ()=>{
+    const namePack = useAppSelector(ownerOfPackSelector)
+    const model = CardModel()
+    const dispatch = useAppDispatch();
+    const params = useParams()
+    const successForSnackBar = useAppSelector(successStatusForSnackBarSelector)
+    const cardError = useAppSelector(cardErrorSelector)
+    const open = cardError !== null || !!successForSnackBar
+
+  
+    const sendRequest = () => {
+        dispatch(addNewCard(params.id))
+    }
+    return (
+        <div className={styles.wholeForm}>
                     <BackToPackLink/>
                     <div className={styles.headerContainer}>
                         <h3>{namePack}</h3>
@@ -81,14 +112,5 @@ export const CardList = () => {
                     {open && <UniversalSnackbar error={cardError} changeError={setCardsError} success={successForSnackBar}
                                            changeSuccess={setSuccessStatusForSnackBar}/>}
                 </div>
-                :
-                <div className={styles.wholeForm}>
-                    <EmptyPack namePack={namePack}
-                               error={cardError}
-                               success={successForSnackBar}
-                               open={open}
-                /></div>
-
-    );
-};
-
+    )
+}
