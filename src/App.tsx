@@ -14,8 +14,9 @@ import {appStatusSelector} from "./app/app-selector";
 import {Profile} from "./features/Profile/profile";
 import {Header} from "./features/Header/header";
 import {PackList} from "./features/studies-page/pack-list/PackList";
-import {CardList} from "./features/studies-page/cards-list/CardList";
+
 import {PrivateRoute} from "./components/private-route/private-route";
+import { CardContainer } from "./features/studies-page/cards-list/CardContainer";
 
 
 function App() {
@@ -37,8 +38,8 @@ function App() {
                 <Route element={<PrivateRoute/>}>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/packs" element={<PackList/>}/>
-                    <Route path="/cards-pack" element={<CardList/>}/>
-                    <Route path="/cards-pack/:id" element={<CardList/>}/>
+                    <Route path="/cards-pack" element={<CardContainer/>}/>
+                    <Route path="/cards-pack/:id" element={<CardContainer/>}/>
                 </Route>
                 <Route path="/login" element={<Authorization/>}/>
                 <Route path="/register" element={<Registration/>}/>
