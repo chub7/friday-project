@@ -1,5 +1,5 @@
 import ButtonGroup from '@mui/material/ButtonGroup';
-import styles from './button-sort-by-own.css'
+import styles from "./button-sort-by-own.module.css";
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {getMyIdSelector} from "../../../profile/profile-selectors";
 import {setIsMyPack} from "../packs-slice";

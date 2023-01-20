@@ -5,20 +5,19 @@ import logo from "../../common/assets/logo.svg";
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {appStatusSelector, isAuthSelector} from "../../app/app-selector";
 import {GeneralButton} from "../../common/utils/style-for-mui/style-for-mui";
-import {logOutThunk} from "../login/login-slice";
 import {ProfileNavigation} from "./profile-navigation/ProfileNavigation";
 import {usePopUpProfileMenuField} from "../../common/components/pop-up-menu/hooks/usePopUpProfileMenuField";
 
 
 export const Header = () => {
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
+    const navigate = useNavigate()
     const isInProgress = useAppSelector(appStatusSelector);
     const isAuth = useAppSelector(isAuthSelector);
     const data = usePopUpProfileMenuField()
-    const logOutHandler = () => {
-        dispatch(logOutThunk());
-        navigate(`login`)
+    const onClickHandler = () => {
+       // dispatch(logOutThunk());
+        navigate(`/login`)
     };
 
     return (
@@ -36,7 +35,7 @@ export const Header = () => {
             {isAuth
                 ?<ProfileNavigation popUpProfileMenuField={data}/>
                 : <GeneralButton value={'blue'} sx={{width: '130px'}}
-                                 onClick={logOutHandler}
+                                 onClick={onClickHandler}
                                  disabled={isInProgress}> Sing In
                 </GeneralButton>
 
