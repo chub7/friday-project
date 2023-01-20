@@ -136,7 +136,7 @@ export const addNewPacksCards = (): TypedThunk => async (dispatch) => {
 
 }
 
-export const deletePacksCards = (id: string): TypedThunk => async (dispatch) => {
+export const deletePacksCards = (id: string | undefined): TypedThunk => async (dispatch) => {
     dispatch(setLoading({ isLoading: true }))
     try {
         await packsApi.deletePack(id)
@@ -151,7 +151,7 @@ export const deletePacksCards = (id: string): TypedThunk => async (dispatch) => 
 
 }
 
-export const changeNamePacksCards = (id: string): TypedThunk => async (dispatch) => {
+export const changeNamePacksCards = (id: string | undefined): TypedThunk => async (dispatch) => {
     dispatch(setLoading({ isLoading: true }))
     try {
         await packsApi.changePackName(id)

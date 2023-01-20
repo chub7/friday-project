@@ -99,7 +99,6 @@ export const addNewCard = (id:string|undefined): TypedThunk => async (dispatch) 
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
-        dispatch(setLoading({isLoading: false}))
     }
 }
 
@@ -112,7 +111,6 @@ export const updateNameCard = (cardId:string, packId:string): TypedThunk => asyn
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
-        dispatch(setLoading({isLoading: false}))
     }
 }
 
@@ -125,6 +123,5 @@ export const deleteCard = (cardId:string, packId:string): TypedThunk => async (d
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
-        dispatch(setLoading({isLoading: false}))
     }
 }

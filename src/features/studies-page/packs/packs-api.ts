@@ -23,11 +23,11 @@ export const packsApi = {
         })
     },
 
-    deletePack(id:string){
+    deletePack(id:string | undefined){
         return instance.delete<any, AxiosResponse<DeletePackResponseType>>(`cards/pack?id=${id}`)
     },
 
-    changePackName(id: string) {
+    changePackName(id: string | undefined) {
         return instance.put<any, AxiosResponse<UpdatePackResponseType>>(`cards/pack`, {
             cardsPack: {
                 name: "Refactor name",
