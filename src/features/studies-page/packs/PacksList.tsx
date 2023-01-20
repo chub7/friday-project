@@ -32,6 +32,7 @@ import {
     successStatusForSnackBarSelector,
     totalCountPackSelector
 } from "./packs-selectors";
+import {setSearchCard} from "../cards/cards-slice";
 
 
 export const PacksList = () => {
@@ -53,8 +54,11 @@ export const PacksList = () => {
 
     useEffect(() => {
         dispatch(setPacksCards())
-    }, [search, page, pageCount, isMyPack, cardsCount, sort, dispatch])
+    }, [search, page, pageCount, isMyPack, cardsCount, sort])
 
+    useEffect(() => {
+        return () => {dispatch(setSearchPack({ value: '' })) }
+    }, [dispatch])
 
     return (
         <div className={styles.wholeForm}>

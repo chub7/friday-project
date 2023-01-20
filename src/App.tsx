@@ -17,7 +17,7 @@ import {PacksList} from "./features/studies-page/packs/PacksList";
 
 import {PrivateRoute} from "./common/components/private-route/private-route";
 import {CardsContainer} from "./features/studies-page/cards/CardsContainer";
-import { SingIn } from "./features/login/sing-in/SingIn";
+import {SingIn} from "./features/login/sing-in/SingIn";
 
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
         <div className="App">
             <Header/>
             <Routes>
-                <Route >
+                <Route element={<PrivateRoute/>}>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/packs" element={<PacksList/>}/>
                     <Route path="/cards-pack" element={<CardsContainer/>}/>

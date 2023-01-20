@@ -1,10 +1,13 @@
 import ButtonGroup from '@mui/material/ButtonGroup';
-import styles from './button-sort-by-own.css'
+import styles from './button-sort-by-own.module.css'
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
-import {getMyIdSelector} from "../../../profile/profile-selectors";
+
 import {setIsMyPack} from "../packs-slice";
 import {ButtonForGroup} from '../../../../common/utils/style-for-mui/style-for-mui';
 import {isMyPackSelector} from "../packs-selectors";
+import {useEffect} from "react";
+import {getMyIdSelector} from "../../../profile/profile-selectors";
+import { useSearchParams } from 'react-router-dom';
 
 
 export const BasicButtonGroup = () => {

@@ -36,6 +36,7 @@ export const SingIn = () => {
         },
     });
     const {handleSubmit, errors, touched, handleChange, values} = formik;
+
     if(isLoginIn) navigate(`/profile`)
     return (
         <div className={styles.wholeForm}>

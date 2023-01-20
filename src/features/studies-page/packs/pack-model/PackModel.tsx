@@ -1,15 +1,13 @@
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {parseData} from "../../../../common/utils/data-parse/parse-data";
-import {getMyIdSelector} from "../../../profile/profile-selectors";
-import SchoolIcon from '@mui/icons-material/School';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from "@mui/material/IconButton";
+
+
 import {NavLink} from "react-router-dom";
 import styles from '../../studies-page.module.css'
-import {changeNamePacksCards, deletePacksCards, setCurrentOwnerOfPack, setSortPack} from "../packs-slice";
+import { setCurrentOwnerOfPack, setSortPack} from "../packs-slice";
 import {packsCardsSelector, sortPacksSelector} from "../packs-selectors";
 import {ButtonSort} from "../../../../common/components/button-sort/ButtonSort";
+import {ButtonRowCrud} from "./button-row-crud/ButtonRowCrud";
 
 export function createData(name?: any, cardsCount?: number, lastUpdated?: any, createdBy?: string, myProfile?: any,) {
     return {name, cardsCount, lastUpdated, createdBy, myProfile}
