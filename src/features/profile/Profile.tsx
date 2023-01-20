@@ -21,7 +21,7 @@ export const Profile = () => {
     const error = useAppSelector(getErrorSelector)
     const successChangeNameProfile = useAppSelector(successStatusForSnackBarSelector)
     const successLogin=useAppSelector(successSelector)
-    const isLoading = useAppSelector(getIsLoading) 
+    const isLoading = useAppSelector(getIsLoading)
     const open = error !== null || !!successChangeNameProfile
 
 
@@ -29,7 +29,7 @@ export const Profile = () => {
         ? profileDataAvatar
         : "https://static.thenounproject.com/png/707608-200.png";
 
-
+    console.log(successLogin)
     return (
         <div className={styles.wholeForm}>
             <BackToPackLink />
@@ -44,11 +44,9 @@ export const Profile = () => {
                     </div>
                 </div>
                 {isLoading ? <CircularProgress/> :  <EditableSpan /> }
-               
+
                 <div className={styles.profileEmail}>{profileDataEmail}</div>
-                <GeneralButton value={"white"} sx={{ width: '150px' }} onClick={() => {
-                    dispatch(logOutThunk())
-                }}>
+                <GeneralButton value={"white"} sx={{ width: '150px' }} onClick={() => {dispatch(logOutThunk())}}>
                     <img src={logoutIcon} alt="" />
                     Log out
                 </GeneralButton>

@@ -20,13 +20,18 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 export const UniversalSnackbar: FC<ErrorSnackBarType> = ({error, changeError, success, changeSuccess}) => {
 
     const dispatch = useAppDispatch();
-    const handleClose = useCallback((event?: React.SyntheticEvent<any> | Event, reason?: string) => {
+
+    const handleClose = (event?: React.SyntheticEvent<any> | Event, reason?: string) => {
+
         changeError && dispatch(changeError({error: null}))
         changeSuccess && dispatch(changeSuccess({success: ''}))
-    },[dispatch, changeError, changeSuccess]);
+
+    }
+
     useEffect(() => {
         return () => handleClose()
-    }, [handleClose])
+    }, [])
+    console.log(error !== '' || success !== '')
 
     const color = error !== null && (success === '' || success === undefined) ? "error" : "success"
     return (

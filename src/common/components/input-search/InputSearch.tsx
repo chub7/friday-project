@@ -24,7 +24,7 @@ export const InputSearch: FC<InputSearchType> = React.memo(({searchSelector,setS
 
     useEffect(() => {
         dispatch(setSearch({value: value}))
-    }, [debouncedValue,dispatch,setSearch,value])
+    }, [debouncedValue])
 
     useEffect(() => {//чтобы после очистки фильтра затиралось
         search === '' && setValue(search)

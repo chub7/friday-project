@@ -1,7 +1,11 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { instance } from "../../../app/app-api";
-import { AddCardResponseType, CardType, DeleteCardResponseType, GetCardOfPackResponseType, UpdateCardResponseType } from "../../../types/types";
-
+import {
+    AddCardResponseType,
+    DeleteCardResponseType,
+    GetCardOfPackResponseType,
+    UpdateCardResponseType
+} from "../../../common/types/types";
 
 
 export const cardListApi = {

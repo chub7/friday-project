@@ -33,7 +33,7 @@ export const CardsContainer = () => {
 
     useEffect(() => {
         dispatch(setCards(params.id))
-    }, [page, pageCount, sort, search, dispatch, params.id])
+    }, [page, pageCount, sort, search])
 
     useEffect(() => {
         return () => { dispatch(setSearchCard({ value: '' })) }

@@ -19,11 +19,17 @@
 
 .name {
     border-bottom: 1px dashed black;
-    justify-self: flex-start
+    justify-self: flex-start;
+    cursor: pointer;
+
+
 }
 .avatar {
     position: relative;
     display: flex;
+    align-items: center;
+    gap: 10px;
+
 
 }
 .avatar img {
