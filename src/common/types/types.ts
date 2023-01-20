@@ -110,7 +110,8 @@ export type FilterParamsPack={
     packName:string
     page:number
     pageCount:number
-    user_id:string
-    cardsCount:number[]
+    user_id: string
+    min: number
+    max: number
     sortPacks:string
 }

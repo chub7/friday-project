@@ -29,7 +29,6 @@ export const Profile = () => {
         ? profileDataAvatar
         : "https://static.thenounproject.com/png/707608-200.png";
 
-    console.log(successLogin)
     return (
         <div className={styles.wholeForm}>
             <BackToPackLink />

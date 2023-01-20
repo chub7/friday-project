@@ -51,7 +51,7 @@ function App() {
                 <Route element={<RequireAuth/>}>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/packs" element={<PacksList/>}/>
-                    <Route path="/cards-pack" element={<CardsContainer/>}/>
+                    {/*<Route path="/cards-pack" element={<CardsContainer/>}/>*/}
                     <Route path="/cards-pack/:id" element={<CardsContainer/>}/>
                 </Route>
 

@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, {AlertProps} from '@mui/material/Alert';
 import {useAppDispatch} from '../../../app/store';
@@ -16,22 +16,16 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 export const UniversalSnackbar: FC<ErrorSnackBarType> = ({error, changeError, success, changeSuccess}) => {
-
     const dispatch = useAppDispatch();
-
     const handleClose = (event?: React.SyntheticEvent<any> | Event, reason?: string) => {
-
         changeError && dispatch(changeError({error: null}))
         changeSuccess && dispatch(changeSuccess({success: ''}))
-
     }
 
     useEffect(() => {
         return () => handleClose()
     }, [])
-    console.log(error !== '' || success !== '')
 
     const color = error !== null && (success === '' || success === undefined) ? "error" : "success"
     return (
