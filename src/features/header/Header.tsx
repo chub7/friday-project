@@ -35,7 +35,6 @@ export const Header = () => {
                                  onClick={onClickHandler}
                                  disabled={isInProgress}> Sing In
                 </GeneralButton>
-
             }
         </div>
     );
