@@ -1,0 +1,17 @@
+.header{
+    margin: 0;
+    margin-bottom: 7px;
+}
+
+.activeButton{
+    fill: #366EFF;
+    background: #366EFF;
+    color: white;
+    border-radius: 30px;
+}
+
+.button{
+    background-color: #fff;
+    color: #366EFF;
+    width: 100px;
+}

@@ -1,10 +1,10 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import {appSlice} from "./app-slice";
-import {loginSlice} from "../features/Login/login-slice";
-import {profileSlice} from "../features/Profile/profile-slice";
-import {passwordSlice} from "../features/Login/PasswordTroubles/password-slice";
-import {packListSlice} from "../features/studies-page/pack-list/pack-slice";
-import {cardsList} from "../features/studies-page/cards-list/cards-slice";
+import {loginSlice} from "../features/login/login-slice";
+import {profileSlice} from "../features/profile/profile-slice";
+import {passwordSlice} from "../features/login/password-troubles/password-slice";
+import {packListSlice} from "../features/studies-page/packs/packs-slice";
+import {cardsList} from "../features/studies-page/cards/cards-slice";
 
 export const rootReducer = combineReducers({
     app: appSlice,
