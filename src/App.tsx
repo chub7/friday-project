@@ -32,6 +32,7 @@ function App() {
         return <div className={'progress'}><CircularProgress/></div>;
     }
 
+
     return (
         <Routes>
             <Route path="/" element={<Layout/>}>
@@ -39,6 +40,7 @@ function App() {
                 {/*public routes*/}
                 <Route element={<ProtectedAfterAuth/>}>
                     <Route path="/login" element={<SingIn/>}/>
+                    <Route path="/" element={<SingIn/>}/>
                     <Route path="/register" element={<SingUp/>}/>
                     <Route path="/recoverypass" element={<RecoveryPassword/>}/>
                     <Route path="/checkEmail" element={<CheckEmail/>}/>
