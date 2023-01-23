@@ -15,7 +15,7 @@ const colorsArray: ColorsArrayType = {
 }
 
 export const GeneralButton = styled(Button)(({value = 'blue'}) => ({
-
+    textTransform: 'none',
     background: colorsArray[`${value}`].default,
     borderRadius: 20,
     color: colorsArray[`${value}`].color,
@@ -31,12 +31,11 @@ export const GeneralButton = styled(Button)(({value = 'blue'}) => ({
     }
 
 }))
+
 export const ButtonForGroup = styled(Button)(() => ({
     fontFamily: 'Montserrat',
     width: '100px',
     border: '1px solid #D9D9D9',
-
-
 }))
 
 export const styleForTableRow={

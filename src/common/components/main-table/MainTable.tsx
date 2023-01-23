@@ -47,20 +47,22 @@ export const MainTable: FC<TableType> = ({ model, pagination }) => {
                                 </TableCell>)}
                         </TableRow>
                     </TableHead>
-                    {model.rows.length !== 0 ? <TableBody>
-                        {model.rows.map((row: TypeCardForTable, index) => (
-                            <TableRow
-                                key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                {model.key.map((property, index) =>
-                                    <TableCell key={index} sx={styleForTableRow}>
-                                        <p className={styles.row}>
-                                            {row[property as keyof TypeCardForTable]}
-                                        </p>
-                                    </TableCell>
-                                )}
-                            </TableRow>
-                        ))}
-                    </TableBody> : <div className={styles.noResult}> No results for your search </div>}
+                    {model.rows.length !== 0
+                        ? <TableBody>
+                            {model.rows.map((row: TypeCardForTable, index) => (
+                                <TableRow
+                                    key={index} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                                    {model.key.map((property, index) =>
+                                        <TableCell key={index} sx={styleForTableRow}>
+                                            <p className={styles.row}>
+                                                {row[property as keyof TypeCardForTable]}
+                                            </p>
+                                        </TableCell>
+                                    )}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                        : <div className={styles.noResult}> No results for your search </div>}
                 </Table>
             </TableContainer>
             <PaginationRounded

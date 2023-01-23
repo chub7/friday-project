@@ -123,10 +123,10 @@ export const setPacksCards = (): TypedThunk => async (dispatch, getState) => {
 }
 
 
-export const addNewPacksCards = (): TypedThunk => async (dispatch) => {
+export const addNewPacksCards = (name:string,isPrivatePack:boolean): TypedThunk => async (dispatch) => {
     dispatch(setLoading({ isLoading: true }))
     try {
-        await packsApi.createPack()
+        await packsApi.createPack(name,isPrivatePack)
         dispatch(setPacksCards())
         dispatch(setSuccessStatusForSnackBar({success:'New pack successfully added'}))
     } catch (error) {
@@ -147,10 +147,10 @@ export const deletePacksCards = (id: string | undefined): TypedThunk => async (d
     }
 }
 
-export const changeNamePacksCards = (id: string | undefined): TypedThunk => async (dispatch) => {
+export const changeNamePacksCards = (id: string | undefined, name :string, isPrivate:boolean): TypedThunk => async (dispatch) => {
     dispatch(setLoading({ isLoading: true }))
     try {
-        await packsApi.changePackName(id)
+        await packsApi.changePackName(id,name,isPrivate)
         dispatch(setPacksCards())
         dispatch(setSuccessStatusForSnackBar({success:'Name was changed successfully'}))
     } catch (error) {

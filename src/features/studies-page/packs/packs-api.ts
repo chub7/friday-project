@@ -15,17 +15,17 @@ export const packsApi = {
             params: {...packList}
         })
     },
-    createPack(){
+    createPack(name:string ,isPrivatePack: boolean){
         return instance.post<any, AxiosResponse<AddPackResponseType>>(`cards/pack`,{
-            cardsPack: {name: "New pack",}
+            cardsPack: {name, private: isPrivatePack}
         })
     },
     deletePack(id:string | undefined){
         return instance.delete<any, AxiosResponse<DeletePackResponseType>>(`cards/pack?id=${id}`)
     },
-    changePackName(id: string | undefined) {
+    changePackName(id: string | undefined, name :string, isPrivate:boolean) {
         return instance.put<any, AxiosResponse<UpdatePackResponseType>>(`cards/pack`, {
-            cardsPack: {name: "Refactor name", _id:id}
+            cardsPack: {name: name, _id:id, private: isPrivate}
         })
     }
 }
