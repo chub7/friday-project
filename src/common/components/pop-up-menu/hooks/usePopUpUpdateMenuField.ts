@@ -16,4 +16,5 @@ export const usePopUpUpdateMenuField = () => {
         {name: `Delete`, icon: deleteIcon, event: () => {dispatch(deletePacksCards(params.id))}},
         {name: `Learn`, icon: learnIcon, event: () => alert(`Learn`)},
     ]
+
 }

@@ -59,7 +59,7 @@ export const RecoveryPassword = () => {
                         instructions </p>
                     <GeneralButton value={'blue'} sx={{mt: 2}} onClick={onClickHandler}>Send instruction</GeneralButton>
                     <p className={styles.boldText}>Did you remember your password?</p>
-                    <NavLink to={'login'} className={styles.linkForm}>Try logging in</NavLink>
+                    <NavLink to={'/login'} className={styles.linkForm}>Try logging in</NavLink>
                     {error != null && <UniversalSnackbar error={error} changeError={setError} />}
                 </form>
                 : <CircularProgress/>}
