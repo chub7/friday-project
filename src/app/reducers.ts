@@ -5,6 +5,7 @@ import {profileSlice} from "../features/profile/profile-slice";
 import {passwordSlice} from "../features/login/password-troubles/password-slice";
 import {packListSlice} from "../features/studies-page/packs/packs-slice";
 import {cardsList} from "../features/studies-page/cards/cards-slice";
+import { learnPage } from "../features/studies-page/learn/learn-page-slice";
 
 export const rootReducer = combineReducers({
     app: appSlice,
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
     profile: profileSlice,
     passwordData: passwordSlice,
     packList: packListSlice,
-    cardList: cardsList
+    cardList: cardsList,
+    learnPage: learnPage 
 })
