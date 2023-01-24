@@ -30,7 +30,7 @@ export const PackModel = () => {
         pack.cardsCount,
         parseData(pack.updated),
         pack.user_name,
-        <ButtonRowCrud userId={pack.user_id} packId={pack._id} packCardsCount={pack.cardsCount}/>))
+        <ButtonRowCrud userId={pack.user_id} packId={pack._id} packCardsCount={pack.cardsCount} />))
 
 
     const key = rows.length !== 0 ? Object.keys(rows[0]) : []

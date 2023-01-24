@@ -35,7 +35,7 @@ export const cardListApi = {
         return instance.put<any, AxiosResponse<UpdateCardResponseType>>(`cards/card`, {
             card: {
                 _id,
-                question: "new question"
+                question: "new questiow"
             }
         })
     },

@@ -31,7 +31,7 @@ export const ButtonRowCrud: FC<ButtonRowCrudType> = ({userId, packId, packCardsC
         (userId === myId) ?
             <div className={styles.linkContainer}>
                 <IconButton disabled={packCardsCount === 0}>
-                    <NavLink to={`/learn`}>
+                    <NavLink to={`/learn/${packId}`}>
                         <SchoolIcon color={packCardsCount === 0 ? 'disabled' : 'action'}/>
                     </NavLink>
                 </IconButton>
@@ -39,7 +39,7 @@ export const ButtonRowCrud: FC<ButtonRowCrudType> = ({userId, packId, packCardsC
                 <IconButton onClick={handleDeletePack}> <DeleteIcon/></IconButton>
             </div>
             : <IconButton disabled={packCardsCount === 0}>
-                <NavLink to={`/learn`}>
+                <NavLink to={`/learn/${packId}`}>
                     <SchoolIcon color={packCardsCount === 0 ? 'disabled' : 'action'}/>
                 </NavLink>
             </IconButton>)

@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../../../app/store";
 import {GeneralButton} from "../../../../../common/utils/style-for-mui/style-for-mui";
 import {ownerOfPackSelector} from "../../../packs/packs-selectors";
@@ -15,6 +15,8 @@ export const TableTitleCard = () => {
     const dispatch = useAppDispatch();
     const params = useParams()
     const model = CardModel()
+    const navigate = useNavigate()
+
 
     const sendRequest = () => {
         dispatch(addNewCard(params.id))
@@ -28,6 +30,7 @@ export const TableTitleCard = () => {
             {model.myPack ?
                 <GeneralButton onClick={sendRequest}>Add new Card</GeneralButton> :
                 <GeneralButton onClick={() => {
+                    navigate(`/learn/${params.id}`)
                 }}>Learn to pack</GeneralButton>}
         </div>
     )
