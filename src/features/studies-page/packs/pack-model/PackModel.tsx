@@ -1,13 +1,12 @@
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {parseData} from "../../../../common/utils/data-parse/parse-data";
-
-
 import {NavLink} from "react-router-dom";
 import styles from '../../studies-page.module.css'
-import { setCurrentOwnerOfPack, setSortPack} from "../packs-slice";
+import {setCurrentOwnerOfPack, setSortPack} from "../packs-slice";
 import {packsCardsSelector, sortPacksSelector} from "../packs-selectors";
 import {ButtonSort} from "../../../../common/components/button-sort/ButtonSort";
 import {ButtonRowCrud} from "./button-row-crud/ButtonRowCrud";
+
 
 export function createData(name?: any, cardsCount?: number, lastUpdated?: any, createdBy?: string, myProfile?: any,) {
     return {name, cardsCount, lastUpdated, createdBy, myProfile}
@@ -16,7 +15,6 @@ export function createData(name?: any, cardsCount?: number, lastUpdated?: any, c
 export const PackModel = () => {
 
     const dispatch = useAppDispatch()
-
     const dataTable = useAppSelector(packsCardsSelector)
 
     const tableFieldName = [`Name`, `Cards`, <ButtonSort header={'Last Update'}
@@ -30,7 +28,8 @@ export const PackModel = () => {
         pack.cardsCount,
         parseData(pack.updated),
         pack.user_name,
-        <ButtonRowCrud userId={pack.user_id} packId={pack._id} packCardsCount={pack.cardsCount} />))
+        <ButtonRowCrud userId={pack.user_id} packId={pack._id} packCardsCount={pack.cardsCount} packName={pack.name}/>
+    ))
 
 
     const key = rows.length !== 0 ? Object.keys(rows[0]) : []

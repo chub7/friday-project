@@ -42,7 +42,7 @@ export const EnterNewPassword = () => {
 
     if (isSuccess) {
         dispatch(setSuccess({status: false}))
-        navigate('login')
+        navigate('/login')
     }
 
     return (

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MainTable} from '../../../common/components/main-table/MainTable';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 
@@ -32,7 +32,8 @@ import {
     successStatusForSnackBarSelector,
     totalCountPackSelector
 } from "./packs-selectors";
-import {setSearchCard} from "../cards/cards-slice";
+import {ModalWindow} from "../../../common/modal-window/ModalWindow";
+import {ModalWindowForPack} from "./packs-modal-window/ModalWindowForPack";
 
 
 export const PacksList = () => {
@@ -46,12 +47,15 @@ export const PacksList = () => {
     const packError = useAppSelector(packErrorSelector)
     const successForSnackBar = useAppSelector(successStatusForSnackBarSelector)
 
-
-
+    const [showModal, setShowModal] = useState(false);
     const dispatch = useAppDispatch();
     const model = PackModel()
     const open = packError !== null || !!successForSnackBar
  
+
+    const handleSubmitSave = (inputValue:string, checkBoxValue:boolean) =>{
+        dispatch(addNewPacksCards(inputValue, checkBoxValue))
+    }
 
     useEffect(() => {
         dispatch(setPacksCards())
@@ -65,7 +69,11 @@ export const PacksList = () => {
         <div className={styles.wholeForm}>
             <div className={styles.headerContainer}>
                 <h3>Pack List</h3>
-                <GeneralButton onClick={()=>{dispatch(addNewPacksCards())}}>Add new pack</GeneralButton>
+                {/*<GeneralButton onClick={()=>{dispatch(addNewPacksCards())}}>Add new pack</GeneralButton>*/}
+                <GeneralButton onClick={() => {setShowModal(true)}}>Add new pack</GeneralButton>
+                <ModalWindow showModal={showModal} setShowModal={setShowModal} title={`Add new pack`}>
+                    <ModalWindowForPack setShowModal={setShowModal} submitSave={handleSubmitSave}/>
+                </ModalWindow>
             </div>
             <div className={styles.tool}>
                 <div className={styles.inputContainerPack}>
@@ -89,6 +97,4 @@ export const PacksList = () => {
         </div>
     )
 };
-
-
 

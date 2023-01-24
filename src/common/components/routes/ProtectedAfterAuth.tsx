@@ -5,10 +5,13 @@ import React from "react";
 
 export const ProtectedAfterAuth = () => {
     const auth = useAppSelector(isAuthSelector);
-    const location = useLocation()
+    //const location = useLocation()
+    const {state} = useLocation()
+    const pathBack = state.from.pathname
     return (
         auth
-            ? <Navigate to={"/profile"} state={{from: location}} replace/>
+            ? <Navigate to={pathBack} />
+            //? <Navigate to={"/profile"} state={{from: location}} replace/>
             : <Outlet/>
     )
 }
