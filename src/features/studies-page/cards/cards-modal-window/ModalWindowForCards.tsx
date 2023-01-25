@@ -46,6 +46,7 @@ export const ModalWindowForCards: FC<ModalCardType> = ({
     }
 
     return (
+
         <div className={styles.childrenContainer}>
             <TextField
                 id="standard-helperText"

@@ -1,0 +1,69 @@
+.wholeForm {
+    width: 80%;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    flex-direction: column;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    min-height: 50vh;
+
+}
+
+
+
+.form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    padding: 35px 33px 35px 33px;
+    width: 350px;
+}
+
+.nextButton {
+    margin: 10px 0 10px 90px;
+}
+
+.stopButton {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+}
+.chooseButton:active{
+    width: 18px;
+    height: 18px;
+    border: 3px solid blue;
+    border-radius: 50%;
+    background: none;
+}
+.chooseButton{
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background: none;
+}
+
+.gradeContainer{
+margin: 15px;
+}
+
+.answer{
+    margin-bottom: 20px;
+}
+.finishForm{
+    margin: 30px 0 30px 0;
+    font-size: large;
+    font-weight: bold;
+}

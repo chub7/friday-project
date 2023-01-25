@@ -60,6 +60,7 @@ type dataType = {
     name: string
     icon: string
     event: () => void
+    //event: (cl:(name: string, isPrivate: boolean)=>void) => void
 }
 type AccountMenuType = {
     variant: dataType[]

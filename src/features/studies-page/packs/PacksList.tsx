@@ -51,6 +51,7 @@ export const PacksList = () => {
     const dispatch = useAppDispatch();
     const model = PackModel()
     const open = packError !== null || !!successForSnackBar
+ 
 
     const handleSubmitSave = (inputValue:string, checkBoxValue:boolean) =>{
         dispatch(addNewPacksCards(inputValue, checkBoxValue))

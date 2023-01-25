@@ -18,6 +18,7 @@ import {SingIn} from "./features/login/sing-in/SingIn";
 import {Layout} from "./common/components/routes/layout/Layout";
 import {RequireAuth} from "./common/components/routes/RequireAuth";
 import {ProtectedAfterAuth} from "./common/components/routes/ProtectedAfterAuth";
+import { LearnPage } from "./features/studies-page/learn/LearnPage";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
                     <Route path="/packs" element={<PacksList/>}/>
                     {/*<Route path="/cards-pack" element={<CardsContainer/>}/>*/}
                     <Route path="/cards-pack/:id" element={<CardsContainer/>}/>
+                    <Route path="/learn/:packId" element={<LearnPage/>}/>
                 </Route>
 
                 {/*catch miss*/}
