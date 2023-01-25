@@ -68,5 +68,5 @@ export const ModalWindowForPack = (props: ModalType) => {
 type ModalType = {
     setShowModal: (v: boolean) => void
     currentName?: string
-    submitSave: (inputValue:string, checkBoxValue:boolean) => void
+    submitSave: any //(inputValue:string, checkBoxValue:boolean) => void
 }

@@ -7,7 +7,7 @@ export const ProtectedAfterAuth = () => {
     const auth = useAppSelector(isAuthSelector);
     //const location = useLocation()
     const {state} = useLocation()
-    const pathBack = state.from.pathname
+    const pathBack = state?.from.pathname || `/profile`
     return (
         auth
             ? <Navigate to={pathBack} />
