@@ -1,11 +1,11 @@
 import React, {FC, useState} from 'react';
-import styles from "../../../studies-page.module.css"
+import styles from "../../../studies-page.module.css";
 import IconButton from "@mui/material/IconButton";
 import {NavLink} from "react-router-dom";
 import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {useAppDispatch, useAppSelector} from '../../../../../app/store';
+import {useAppDispatch, useAppSelector} from "../../../../../app/store";
 import {getMyIdSelector} from "../../../../profile/profile-selectors";
 import {changeNamePacksCards, deletePacksCards} from "../../packs-slice";
 import {ModalWindow} from "../../../../../common/modal-window/ModalWindow";
@@ -54,14 +54,19 @@ export const ButtonRowCrud: FC<ButtonRowCrudType> = ({userId, packId, packCardsC
 
                 {/*Модалка редактирования */}
                 <ModalWindow setShowModal={setShowModalEdit} showModal={showModalEdit} title={`Edit pack`}>
-                    <ModalWindowForPack setShowModal={setShowModalEdit} submitSave={submitSave} currentName={packName}/>
+                    <ModalWindowForPack
+                        setShowModal={setShowModalEdit}
+                        submitSave={submitSave}
+                        currentName={packName}/>
                 </ModalWindow>
                 {/*Модалка редактирования */}
 
                 {/*Модалка удаления */}
-                <ModalWindow setShowModal={setShowModalDelete} showModal={showModalDelete} title={`Edit pack`}>
-                    <DeleteModalWindow setShowModal={setShowModalDelete} submitDelete={handleSubmitDeletePack}
-                                       currentName={packName}/>
+                <ModalWindow setShowModal={setShowModalDelete} showModal={showModalDelete} title={`Delete pack`}>
+                    <DeleteModalWindow
+                        setShowModal={setShowModalDelete}
+                        submitDelete={handleSubmitDeletePack}
+                        currentName={packName}/>
                 </ModalWindow>
                 {/*Модалка удаления */}
             </div>

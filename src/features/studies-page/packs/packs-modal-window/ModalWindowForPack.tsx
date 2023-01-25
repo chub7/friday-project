@@ -5,10 +5,16 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {GeneralButton} from "../../../../common/utils/style-for-mui/style-for-mui";
 
+type ModalType = {
+    setShowModal: (v: boolean) => void
+    currentName?: string
+    submitSave: (inputValue:string, checkBoxValue:boolean) => void
+}
+
 export const ModalWindowForPack = (props: ModalType) => {
 
     const {setShowModal, currentName, submitSave} = props
-    const [inputValue, setInputValue] = useState(``)
+    const [inputValue, setInputValue] = useState(currentName?currentName:'')
     const [checkBoxValue, setCheckBoxValue] = useState(false)
     const [error, setError] = useState<string>("");
 
@@ -63,10 +69,4 @@ export const ModalWindowForPack = (props: ModalType) => {
             </div>
         </div>
     )
-}
-
-type ModalType = {
-    setShowModal: (v: boolean) => void
-    currentName?: string
-    submitSave: (inputValue:string, checkBoxValue:boolean) => void
 }

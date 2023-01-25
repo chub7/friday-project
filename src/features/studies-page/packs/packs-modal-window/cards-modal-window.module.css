@@ -25,17 +25,21 @@
     z-index: 3;
     background-color: #FFFFFF;
     border-radius: 2px;
+
+
 }
 
 .titleBlock {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 19px 24px;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
     min-height: max-content;
+
 
 }
 .contentChildren {

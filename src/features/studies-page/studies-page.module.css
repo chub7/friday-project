@@ -16,6 +16,9 @@
     width: 100%;
     justify-content: space-between;
 
+    margin-top: 10px;
+    margin-bottom: 20px;
+
 }
 .tool{
     display: flex;

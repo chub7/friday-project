@@ -1,0 +1,15 @@
+.childrenContainer{
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px 24px 36px 24px;
+    gap: 20px;
+
+}
+.buttonsBlock{
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 20px;
+}

@@ -12,11 +12,13 @@ export const ProfileNavigation = ({popUpProfileMenuField}:ProfileNavigationType)
     const avatar = profileAvatar
         ? profileAvatar
         : "https://static.thenounproject.com/png/707608-200.png";
+
     return (
         <div className={styles.avatar}>
             <div className={styles.name} onClick={handleClick}>{profileName}</div>
             <AccountMenu variant={popUpProfileMenuField} open={open} anchorEl={anchorEl} handleClose={handleClose} />
             <img alt={`avatatr`} src={avatar}/>
+
         </div>
     );
 };

@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {setIsMyPack} from "../packs-slice";
 import {ButtonForGroup} from '../../../../common/utils/style-for-mui/style-for-mui';
 import {isMyPackSelector} from "../packs-selectors";
-import {useEffect} from "react";
+import { useEffect } from 'react';
 import {getMyIdSelector} from "../../../profile/profile-selectors";
 import { useSearchParams } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ export const BasicButtonGroup = () => {
     const params = searchParams.get('myPack')
 
     const dispatch = useAppDispatch()
-
+//ЕЩЕ НЕ РАБОТАЕТ
     useEffect(() => {
         params != null &&
         params === 'My'

@@ -68,8 +68,9 @@ export const PacksList = () => {
         <div className={styles.wholeForm}>
             <div className={styles.headerContainer}>
                 <h3>Pack List</h3>
-                {/*<GeneralButton onClick={()=>{dispatch(addNewPacksCards())}}>Add new pack</GeneralButton>*/}
+
                 <GeneralButton onClick={() => {setShowModal(true)}}>Add new pack</GeneralButton>
+
                 <ModalWindow showModal={showModal} setShowModal={setShowModal} title={`Add new pack`}>
                     <ModalWindowForPack setShowModal={setShowModal} submitSave={handleSubmitSave}/>
                 </ModalWindow>

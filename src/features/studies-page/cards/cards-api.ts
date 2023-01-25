@@ -17,13 +17,13 @@ export const cardListApi = {
         })
     },
 
-    createCard(_id: string | undefined) {
+    createCard(_id: string | undefined,question:string,answer:string) {
         return instance.post<any, AxiosResponse<AddCardResponseType>>(`cards/card`, {
             card: {
                 cardsPack_id: _id,
-                question: "new card",
-                answer: "no answer",
-                grade: 2,
+                question,
+                answer,
+                grade: 0,
                 shots: 0,
                 answerImg: "url or base 64",
                 questionImg: "url or base 64",
@@ -31,11 +31,12 @@ export const cardListApi = {
                 answerVideo: "url or base 64"
             }})},
 
-    updateCardName(_id: string) {
+    updateCardName(_id: string,question:string,answer:string) {
         return instance.put<any, AxiosResponse<UpdateCardResponseType>>(`cards/card`, {
             card: {
                 _id,
-                question: "new question"
+                question,
+                answer
             }
         })
     },

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {GeneralButton} from "../../../../common/utils/style-for-mui/style-for-mui";
 import style from "./empty-pack.module.css"
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
@@ -8,24 +8,29 @@ import {CardModel} from '../cards-list/card-model/CardModel';
 import {BackToPackLink} from "../../../../common/components/back-link/BackToPackLink";
 import styles from "../../studies-page.module.css";
 import {UniversalSnackbar} from "../../../../common/components/snack-bar/Snackbar";
-import { cardErrorSelector, successStatusForSnackBarSelector } from '../cards-selectors';
-type EmptyPackType={
-    namePack:string
+import {cardErrorSelector, successStatusForSnackBarSelector} from '../cards-selectors';
+import {ModalWindowForCards} from "../cards-modal-window/ModalWindowForCards";
+import {ModalWindow} from "../../../../common/modal-window/ModalWindow";
+
+type EmptyPackType = {
+    namePack: string
 
 }
-export const EmptyPack:FC<EmptyPackType> = ({namePack}) => {
+export const EmptyPack: FC<EmptyPackType> = ({namePack}) => {
 
     const dispatch = useAppDispatch()
     const params = useParams()
     const model = CardModel()
-  const success = useAppSelector(successStatusForSnackBarSelector)
+    const success = useAppSelector(successStatusForSnackBarSelector)
     const error = useAppSelector(cardErrorSelector)
+    const [showModalEdit, setShowModalEdit] = useState(false)
 
-    const onClickHandler = () => {
-        dispatch(addNewCard(params.id))
+    const handleAddCard = (question: string, answer: string) => {
+        dispatch(addNewCard(params.id, question, answer))
     }
 
-  const open = error !== null || !!success
+
+    const open = error !== null || !!success
 
     return (
         <div className={styles.wholeForm}>
@@ -34,8 +39,14 @@ export const EmptyPack:FC<EmptyPackType> = ({namePack}) => {
             {model.myPack ?
                 <div className={style.form}>
                     <p className={style.greyLabel}>This pack is empty. Click add new card to fill this pack</p>
-                    <GeneralButton value={'blue'} onClick={onClickHandler}>Add new
-                        card</GeneralButton>
+
+                    <GeneralButton value={'blue'} onClick={() => setShowModalEdit(true)}>Add new card</GeneralButton>
+
+                    <ModalWindow setShowModal={setShowModalEdit} showModal={showModalEdit} title={`Edit card`}>
+                        <ModalWindowForCards
+                            submitSave={handleAddCard}
+                            setShowModal={setShowModalEdit}/>
+                    </ModalWindow>
                 </div>
                 : <div className={style.form}>
                     <p className={style.greyLabel}>This pack is empty.</p>

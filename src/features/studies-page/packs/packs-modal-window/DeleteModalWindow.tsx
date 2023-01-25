@@ -9,21 +9,19 @@ type ModalType = {
 }
 
 export const DeleteModalWindow = (props: ModalType) => {
-    const {setShowModal, currentName, submitDelete} = props
 
+    const {setShowModal, currentName, submitDelete} = props
 
     return (
         <div className={styles.contentChildren}>
             <p>Do you really want to remove <b>{currentName}</b>?
                 All cards will be deleted.</p>
             <div className={styles.buttonsBlock}>
-                <GeneralButton value={'white'} sx={{width: '127px'}}
-                               onClick={()=>setShowModal(false)}>
+                <GeneralButton value={'white'} onClick={() => setShowModal(false)}>
                     Cancel
                 </GeneralButton>
-                <GeneralButton value={'red'} sx={{width: '127px'}}
-                               onClick={submitDelete}
-                               > Delete
+                <GeneralButton value={'red'} onClick={submitDelete}>
+                    Delete
                 </GeneralButton>
             </div>
         </div>

@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {CardType, GetCardOfPackResponseType} from "../../../common/types/types";
 import {TypedThunk} from "../../../app/store";
 import {cardListApi} from "./cards-api";
-import { handleServerAppError } from "../../../common/utils/handling-response-error/handleServerAppError";
+import {handleServerAppError} from "../../../common/utils/handling-response-error/handleServerAppError";
 
 type InitialStateType = {
     isLoading: boolean,
@@ -15,8 +15,8 @@ type InitialStateType = {
     page: number,
     pageCount: number,
     packUserId: string
-    sort:string,
-    search:string,
+    sort: string,
+    search: string,
     successStatusForSnackBar: string,
 }
 const initialState: InitialStateType = {
@@ -30,8 +30,8 @@ const initialState: InitialStateType = {
     page: 0,
     pageCount: 0,
     packUserId: "",
-    sort:'',
-    search:'',
+    sort: '',
+    search: '',
     successStatusForSnackBar: ''
 }
 
@@ -41,7 +41,7 @@ const slice = createSlice({
     reducers: {
         setCardsState(state, action: PayloadAction<{ response: GetCardOfPackResponseType }>) {
             state.packUserId = action.payload.response.packUserId
-            state.cards=action.payload.response.cards
+            state.cards = action.payload.response.cards
             state.cardsTotalCount = action.payload.response.cardsTotalCount
             state.pageCount = action.payload.response.pageCount
 
@@ -58,14 +58,14 @@ const slice = createSlice({
         setPageCountCard(state, action: PayloadAction<{ count: number }>) {
             state.pageCount = action.payload.count
         },
-        setSortCard(state, action: PayloadAction<{sort:string }>) {
+        setSortCard(state, action: PayloadAction<{ sort: string }>) {
             state.sort = action.payload.sort
 
         },
         setSearchCard(state, action: PayloadAction<{ value: string }>) {
             state.search = action.payload.value
         },
-        setCardsError(state, action:PayloadAction<{ error: string | null }>){
+        setCardsError(state, action: PayloadAction<{ error: string | null }>) {
             state.error = action.payload.error
         },
         setSuccessStatusForSnackBar(state, action: PayloadAction<{ success: string }>) {
@@ -75,13 +75,22 @@ const slice = createSlice({
 });
 
 export const cardsList = slice.reducer
-export const {setLoading, setCardsState, setPageCard,setPageCountCard,setSortCard,setSearchCard,setCardsError,setSuccessStatusForSnackBar} = slice.actions
+export const {
+    setLoading,
+    setCardsState,
+    setPageCard,
+    setPageCountCard,
+    setSortCard,
+    setSearchCard,
+    setCardsError,
+    setSuccessStatusForSnackBar
+} = slice.actions
 
-export const setCards = (id: string | undefined): TypedThunk => async (dispatch,getState) => {
-    const { page,pageCount,sort,search} = getState().cardList
+export const setCards = (id: string | undefined): TypedThunk => async (dispatch, getState) => {
+    const {page, pageCount, sort, search} = getState().cardList
     dispatch(setLoading({isLoading: true}))
     try {
-        let response = await cardListApi.getCardsOfPack(id,page,pageCount,sort,search)
+        let response = await cardListApi.getCardsOfPack(id, page, pageCount, sort, search)
         dispatch(setCardsState({response: response.data}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
@@ -90,36 +99,36 @@ export const setCards = (id: string | undefined): TypedThunk => async (dispatch,
     }
 }
 
-export const addNewCard = (id:string|undefined): TypedThunk => async (dispatch) => {
+export const addNewCard = (id: string | undefined, question: string, answer: string): TypedThunk => async (dispatch) => {
     dispatch(setLoading({isLoading: true}))
     try {
-        await cardListApi.createCard(id)
+        await cardListApi.createCard(id, question, answer)
         dispatch(setCards(id))
-        dispatch(setSuccessStatusForSnackBar({success:'New card successfully added'}))
+        dispatch(setSuccessStatusForSnackBar({success: 'New card successfully added'}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
     }
 }
 
-export const updateNameCard = (cardId:string, packId:string): TypedThunk => async (dispatch) => {
+export const updateNameCard = (cardId: string, packId: string, question: string, answer: string): TypedThunk => async (dispatch) => {
     dispatch(setLoading({isLoading: true}))
     try {
-        await cardListApi.updateCardName(cardId)
+        await cardListApi.updateCardName(cardId, question, answer)
         dispatch(setCards(packId))
-        dispatch(setSuccessStatusForSnackBar({success:'Name was changed successfully'}))
+        dispatch(setSuccessStatusForSnackBar({success: 'Name was changed successfully'}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
     }
 }
 
-export const deleteCard = (cardId:string, packId:string): TypedThunk => async (dispatch) => {
+export const deleteCard = (cardId: string, packId: string): TypedThunk => async (dispatch) => {
     dispatch(setLoading({isLoading: true}))
     try {
         await cardListApi.deleteCard(cardId)
         dispatch(setCards(packId))
-        dispatch(setSuccessStatusForSnackBar({success:'Card was removed'}))
+        dispatch(setSuccessStatusForSnackBar({success: 'Card was removed'}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
