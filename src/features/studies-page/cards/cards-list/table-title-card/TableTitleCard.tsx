@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../../../app/store";
 import {GeneralButton} from "../../../../../common/utils/style-for-mui/style-for-mui";
 import {ownerOfPackSelector} from "../../../packs/packs-selectors";
@@ -13,7 +13,7 @@ import {changeNamePacksCards, deletePacksCards, setCurrentOwnerOfPack} from "../
 import {DeleteModalWindow} from "../../../packs/packs-modal-window/DeleteModalWindow";
 import {ModalWindowForCards} from "../../cards-modal-window/ModalWindowForCards";
 import {useParams} from "react-router-dom";
-import { ModalWindow } from "../../../../../common/modal-window/ModalWindow";
+import {ModalWindow} from "../../../../../common/modal-window/ModalWindow";
 
 export const TableTitleCard = () => {
 
@@ -23,12 +23,11 @@ export const TableTitleCard = () => {
     const [showModalEdit, setShowModalEdit] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
 
-    const popUpUpdateMenuField = usePopUpUpdateMenuField(setShowModalEdit,setShowModalDelete)
-
+    const popUpUpdateMenuField = usePopUpUpdateMenuField(setShowModalEdit, setShowModalDelete)
 
     const params = useParams()
     const model = CardModel()
-    const navigate = useNavigate()
+
     const dispatch = useAppDispatch()
 
     const handleAddCard = (question: string, answer: string) => {
@@ -50,27 +49,31 @@ export const TableTitleCard = () => {
                 <h3>{namePack}</h3>
                 {model.myPack && <PopUpUpdateMenu popUpUpdateMenuField={popUpUpdateMenuField}/>}
             </div>
-            {model.myPack ?
-                <GeneralButton onClick={() => setShowModal(true)}>Add new Card</GeneralButton>
-                : <GeneralButton onClick={() => {navigate(`/learn/${params.id}`)}}>Learn to pack</GeneralButton>}
+            {model.myPack
+                ? <GeneralButton onClick={() => setShowModal(true)}>Add new Card</GeneralButton>
+                : <GeneralButton>
+                    <NavLink to={`/learn/${params.id}`}> Learn to pack</NavLink>
+                </GeneralButton>}
 
-            {/*Модалка редактирования */}
-            <ModalWindow setShowModal={setShowModalEdit} showModal={showModalEdit} title={`Edit pack`}>
-                <ModalWindowForPack setShowModal={setShowModalEdit} submitSave={submitSave} currentName={namePack}/>
-            </ModalWindow>
+            <ModalWindowForPack
+                showModal={showModalEdit}
+                setShowModal={setShowModalEdit}
+                submitSave={submitSave}
+                currentName={namePack}
+                title={'Edit pack'}/>
 
-            {/*Модалка удаления */}
-            <ModalWindow setShowModal={setShowModalDelete} showModal={showModalDelete} title={`Edit pack`}>
-                <DeleteModalWindow setShowModal={setShowModalDelete} submitDelete={handleSubmitDeletePack}
-                                   currentName={namePack}/>
-            </ModalWindow>
+                <DeleteModalWindow
+                    showModal={showModalDelete}
+                    setShowModal={setShowModalDelete}
+                    submitDelete={handleSubmitDeletePack}
+                    currentName={namePack}
+                    title={`Edit pack`}/>
 
-            <ModalWindow showModal={showModal} setShowModal={setShowModal} title={`Add new pack`}>
-                <ModalWindowForCards
-                    setShowModal={setShowModal}
-                    submitSave={handleAddCard}/>
-            </ModalWindow>
-
+            <ModalWindowForCards
+                showModal={showModal}
+                setShowModal={setShowModal}
+                submitSave={handleAddCard}
+                title={`Add new pack`}/>
         </div>
     )
 }

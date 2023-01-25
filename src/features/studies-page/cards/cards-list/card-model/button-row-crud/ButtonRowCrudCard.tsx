@@ -32,20 +32,20 @@ export const ButtonRowCrudCard: FC<ButtonRowCrudType> = ({pack}) => {
             <IconButton onClick={() => setShowModalEdit(true)}> <EditIcon/></IconButton>
             <IconButton onClick={() => setShowModalDelete(true)}> <DeleteIcon/></IconButton>
 
-            <ModalWindow setShowModal={setShowModalEdit} showModal={showModalEdit} title={`Edit card`}>
-                <ModalWindowForCards
-                    submitSave={handleUpdateCard}
-                    setShowModal={setShowModalEdit}
-                    questionValue={pack.question}
-                    answerValue={pack.answer}/>
-            </ModalWindow>
+            <ModalWindowForCards
+                showModal={showModalEdit}
+                submitSave={handleUpdateCard}
+                setShowModal={setShowModalEdit}
+                questionValue={pack.question}
+                answerValue={pack.answer}
+                title={'Edit card'}/>
 
-            <ModalWindow setShowModal={setShowModalDelete} showModal={showModalDelete} title={`Delete pack`}>
-                <DeleteModalWindow
-                    setShowModal={setShowModalDelete}
-                    submitDelete={handleDeleteCard}
-                    currentName={pack.question}/>
-            </ModalWindow>
+            <DeleteModalWindow
+                showModal={showModalDelete}
+                setShowModal={setShowModalDelete}
+                submitDelete={handleDeleteCard}
+                currentName={pack.question}
+                title={`Delete pack`}/>
 
 
         </div>

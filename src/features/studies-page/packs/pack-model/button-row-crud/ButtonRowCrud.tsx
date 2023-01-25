@@ -52,23 +52,20 @@ export const ButtonRowCrud: FC<ButtonRowCrudType> = ({userId, packId, packCardsC
                 <IconButton onClick={handleChangeName}> <EditIcon/></IconButton>
                 <IconButton onClick={handleDeletePack}> <DeleteIcon/></IconButton>
 
-                {/*Модалка редактирования */}
-                <ModalWindow setShowModal={setShowModalEdit} showModal={showModalEdit} title={`Edit pack`}>
-                    <ModalWindowForPack
-                        setShowModal={setShowModalEdit}
-                        submitSave={submitSave}
-                        currentName={packName}/>
-                </ModalWindow>
-                {/*Модалка редактирования */}
+                <ModalWindowForPack
+                    showModal={showModalEdit}
+                    setShowModal={setShowModalEdit}
+                    submitSave={submitSave}
+                    currentName={packName}
+                    title={`Edit pack`}/>
 
-                {/*Модалка удаления */}
-                <ModalWindow setShowModal={setShowModalDelete} showModal={showModalDelete} title={`Delete pack`}>
-                    <DeleteModalWindow
-                        setShowModal={setShowModalDelete}
-                        submitDelete={handleSubmitDeletePack}
-                        currentName={packName}/>
-                </ModalWindow>
-                {/*Модалка удаления */}
+                <DeleteModalWindow
+                    showModal={showModalDelete}
+                    setShowModal={setShowModalDelete}
+                    submitDelete={handleSubmitDeletePack}
+                    currentName={packName}
+                    title={`Delete pack`}/>
+
             </div>
             : <IconButton disabled={packCardsCount === 0}>
                 <NavLink to={`/learn/${packId}`}>

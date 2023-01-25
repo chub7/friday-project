@@ -29,24 +29,23 @@ export const EmptyPack: FC<EmptyPackType> = ({namePack}) => {
         dispatch(addNewCard(params.id, question, answer))
     }
 
-
     const open = error !== null || !!success
 
     return (
         <div className={styles.wholeForm}>
             <BackToPackLink/>
             <h3 className={styles.ownerName}>{namePack}</h3>
-            {model.myPack ?
-                <div className={style.form}>
+
+            {model.myPack
+                ? <div className={style.form}>
                     <p className={style.greyLabel}>This pack is empty. Click add new card to fill this pack</p>
-
                     <GeneralButton value={'blue'} onClick={() => setShowModalEdit(true)}>Add new card</GeneralButton>
+                    <ModalWindowForCards
+                        showModal={showModalEdit}
+                        submitSave={handleAddCard}
+                        setShowModal={setShowModalEdit}
+                        title={`Edit card`}/>
 
-                    <ModalWindow setShowModal={setShowModalEdit} showModal={showModalEdit} title={`Edit card`}>
-                        <ModalWindowForCards
-                            submitSave={handleAddCard}
-                            setShowModal={setShowModalEdit}/>
-                    </ModalWindow>
                 </div>
                 : <div className={style.form}>
                     <p className={style.greyLabel}>This pack is empty.</p>

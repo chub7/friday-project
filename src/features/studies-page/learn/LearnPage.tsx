@@ -24,6 +24,7 @@ export const LearnPage = () => {
     const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Сonfused', 'Knew the answer']
     const [open, setIsOpen] = useState<boolean>(false)
     const [isFinish, setIsFinish] = useState<boolean>(false)
+
     const [chooseGrade, setChooseGrade] = useState<number>(1)
     const emptyCard = {
         answer: '',

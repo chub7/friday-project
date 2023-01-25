@@ -4,17 +4,18 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {GeneralButton} from "../../../../common/utils/style-for-mui/style-for-mui";
+import {ModalType, ModalWindow} from "../../../../common/modal-window/ModalWindow";
 
-type ModalType = {
-    setShowModal: (v: boolean) => void
+type ModalPackType = ModalType & {
     currentName?: string
-    submitSave: (inputValue:string, checkBoxValue:boolean) => void
+    submitSave: (inputValue: string, checkBoxValue: boolean) => void
+
 }
 
-export const ModalWindowForPack = (props: ModalType) => {
+export const ModalWindowForPack = (props: ModalPackType) => {
 
-    const {setShowModal, currentName, submitSave} = props
-    const [inputValue, setInputValue] = useState(currentName?currentName:'')
+    const {showModal, setShowModal, currentName, submitSave, title} = props
+    const [inputValue, setInputValue] = useState(currentName ? currentName : '')
     const [checkBoxValue, setCheckBoxValue] = useState(false)
     const [error, setError] = useState<string>("");
 
@@ -40,33 +41,33 @@ export const ModalWindowForPack = (props: ModalType) => {
     }
 
     return (
-        <div className={styles.contentChildren}>
-            <TextField
-                id="standard-helperText"
-                label="Name pack"
-                placeholder="Enter pack name"
-                helperText={error ? error : ""}
-                variant="standard"
-                value={inputValue}
-                onChange={handleInputValue}
-                defaultValue="Default Value"
-                sx={{fontFamily: 'Montserrat'}}
-            />
-            <FormControlLabel className={styles.input}
-                              control={<Checkbox defaultChecked={checkBoxValue} sx={{fontFamily: 'Montserrat'}}
-                                                 onChange={(event) => setCheckBoxValue(event.target.checked)}/>
-                              } label="Private pack"
-            />
-            <div className={styles.buttonsBlock}>
-                <GeneralButton value={'white'} sx={{width: '127px'}}
-                               onClick={handleOnClose}>
-                    Cancel
-                </GeneralButton>
-                <GeneralButton value={'blue'} sx={{width: '127px'}}
-                               onClick={handleOnSubmit}
-                               disabled={!!error || inputValue.length < 0}> Save
-                </GeneralButton>
+        <ModalWindow setShowModal={setShowModal} showModal={showModal} title={title}>
+            <div className={styles.contentChildren}>
+                <TextField
+                    id="standard-helperText"
+                    label="Name pack"
+                    placeholder="Enter pack name"
+                    helperText={error ? error : ""}
+                    variant="standard"
+                    value={inputValue}
+                    onChange={handleInputValue}
+                    defaultValue="Default Value"
+                    sx={{fontFamily: 'Montserrat'}}
+                />
+                <FormControlLabel className={styles.input}
+                                  control={<Checkbox defaultChecked={checkBoxValue} sx={{fontFamily: 'Montserrat'}}
+                                                     onChange={(event) => setCheckBoxValue(event.target.checked)}/>}
+                                  label="Private pack"
+                />
+                <div className={styles.buttonsBlock}>
+                    <GeneralButton value={'white'} onClick={handleOnClose}>
+                        Cancel
+                    </GeneralButton>
+                    <GeneralButton value={'blue'} onClick={handleOnSubmit} disabled={!!error || inputValue.length < 0}>
+                        Save
+                    </GeneralButton>
+                </div>
             </div>
-        </div>
+        </ModalWindow>
     )
 }

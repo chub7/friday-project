@@ -1,29 +1,32 @@
 import React from 'react';
 import styles from "./cards-modal-window.module.css";
 import {GeneralButton} from "../../../../common/utils/style-for-mui/style-for-mui";
+import {ModalType, ModalWindow} from "../../../../common/modal-window/ModalWindow";
 
-type ModalType = {
-    setShowModal: (v: boolean) => void
+type ModalDeleteType = ModalType & {
     currentName?: string
     submitDelete: () => void
+
 }
 
-export const DeleteModalWindow = (props: ModalType) => {
+export const DeleteModalWindow = (props: ModalDeleteType) => {
 
-    const {setShowModal, currentName, submitDelete} = props
+    const {showModal, setShowModal, currentName, submitDelete, title} = props
 
     return (
-        <div className={styles.contentChildren}>
-            <p>Do you really want to remove <b>{currentName}</b>?
-                All cards will be deleted.</p>
-            <div className={styles.buttonsBlock}>
-                <GeneralButton value={'white'} onClick={() => setShowModal(false)}>
-                    Cancel
-                </GeneralButton>
-                <GeneralButton value={'red'} onClick={submitDelete}>
-                    Delete
-                </GeneralButton>
+        <ModalWindow setShowModal={setShowModal} showModal={showModal} title={title}>
+            <div className={styles.contentChildren}>
+                <p>Do you really want to remove <b>{currentName}</b>?
+                    All cards will be deleted.</p>
+                <div className={styles.buttonsBlock}>
+                    <GeneralButton value={'white'} onClick={() => setShowModal(false)}>
+                        Cancel
+                    </GeneralButton>
+                    <GeneralButton value={'red'} onClick={submitDelete}>
+                        Delete
+                    </GeneralButton>
+                </div>
             </div>
-        </div>
+        </ModalWindow>
     )
 }

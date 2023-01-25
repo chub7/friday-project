@@ -48,12 +48,13 @@ export const PacksList = () => {
     const successForSnackBar = useAppSelector(successStatusForSnackBarSelector)
 
     const [showModal, setShowModal] = useState(false);
+
     const dispatch = useAppDispatch();
     const model = PackModel()
     const open = packError !== null || !!successForSnackBar
- 
 
-    const handleSubmitSave = (inputValue:string, checkBoxValue:boolean) =>{
+
+    const handleSubmitSave = (inputValue: string, checkBoxValue: boolean) => {
         dispatch(addNewPacksCards(inputValue, checkBoxValue))
     }
 
@@ -62,20 +63,19 @@ export const PacksList = () => {
     }, [search, page, pageCount, isMyPack, cardsCount, sort])
 
     useEffect(() => {
-        return () => {dispatch(setSearchPack({ value: '' })) }
+        return () => {
+            dispatch(setSearchPack({value: ''}))
+        }
     }, [dispatch])
 
     return (
         <div className={styles.wholeForm}>
+
             <div className={styles.headerContainer}>
                 <h3>Pack List</h3>
-
-                <GeneralButton onClick={() => {setShowModal(true)}}>Add new pack</GeneralButton>
-
-                <ModalWindow showModal={showModal} setShowModal={setShowModal} title={`Add new pack`}>
-                    <ModalWindowForPack setShowModal={setShowModal} submitSave={handleSubmitSave}/>
-                </ModalWindow>
+                <GeneralButton onClick={() => setShowModal(true)}>Add new pack</GeneralButton>
             </div>
+
             <div className={styles.tool}>
                 <div className={styles.inputContainerPack}>
                     <InputSearch searchSelector={searchPackSelector} setSearch={setSearchPack}/>
@@ -84,17 +84,27 @@ export const PacksList = () => {
                 <SliderCountCards/>
                 <ResetFilter/>
             </div>
-            {isLoading ?<div className={styles.loading}> <CircularProgress/></div> :
+            {isLoading ? <div className={styles.loading}><CircularProgress/></div> :
                 <MainTable model={model} pagination={{
                     pageSelector: pagePackSelector,
                     setPage: setPagePack,
                     totalCountSelector: totalCountPackSelector,
                     pageCountSelector: pageCountPackSelector,
                     setCountPage: setPageCountPack
-                }}
-                />}
+                }}/>}
 
-            {open && <UniversalSnackbar error={packError} changeError={setError} success={successForSnackBar} changeSuccess={setSuccessStatusForSnackBar}/>}
+            <ModalWindowForPack
+                showModal={showModal}
+                setShowModal={setShowModal}
+                submitSave={handleSubmitSave}
+                title={`Add new pack`}/>
+
+            {open &&
+                <UniversalSnackbar
+                    error={packError}
+                    changeError={setError}
+                    success={successForSnackBar}
+                    changeSuccess={setSuccessStatusForSnackBar}/>}
         </div>
     )
 };
