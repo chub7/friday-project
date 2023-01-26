@@ -1,13 +1,12 @@
 import React, {FC} from 'react';
-import GradeIcon from '@mui/icons-material/Grade';
+
+import {Rating} from "@mui/material";
 
 export const GradeRow: FC<{ grade: number }> = ({grade}) => {
 
     return (
         <div>
-            {new Array(5).fill(null).map((el, index) =>
-                <GradeIcon key={index} sx={{color: (grade > index ? '#FFC700' : '#DADADA')}}
-                />)}
+            <Rating name="half-rating-read" defaultValue={grade} precision={0.5} readOnly />
         </div>
     );
 };

@@ -16,7 +16,7 @@ import styles from '../studies-page.module.css'
 import {GeneralButton} from "../../../common/utils/style-for-mui/style-for-mui";
 import {InputSearch} from "../../../common/components/input-search/InputSearch";
 import {SliderCountCards} from "./slider-count-cards/SliderCountCards";
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Skeleton} from "@mui/material";
 import {UniversalSnackbar} from '../../../common/components/snack-bar/Snackbar';
 import {BasicButtonGroup} from "./button-sort-by-own/ButtonSortByOwn";
 import {ResetFilter} from "./reset-filter/ResetFilter";
@@ -32,7 +32,6 @@ import {
     successStatusForSnackBarSelector,
     totalCountPackSelector
 } from "./packs-selectors";
-import {ModalWindow} from "../../../common/modal-window/ModalWindow";
 import {ModalWindowForPack} from "./packs-modal-window/ModalWindowForPack";
 
 
@@ -84,8 +83,10 @@ export const PacksList = () => {
                 <SliderCountCards/>
                 <ResetFilter/>
             </div>
-            {isLoading ? <div className={styles.loading}><CircularProgress/></div> :
-                <MainTable model={model} pagination={{
+            {isLoading
+                ? <div className={styles.loading}><CircularProgress/></div>
+
+                : <MainTable model={model} pagination={{
                     pageSelector: pagePackSelector,
                     setPage: setPagePack,
                     totalCountSelector: totalCountPackSelector,

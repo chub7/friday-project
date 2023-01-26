@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "../../../app/store"
-import { BackToPackLink } from "../../../common/components/back-link/BackToPackLink"
-import { cardsForLearnSelector, isLoadingSelector, packNameSelector } from "./learn-page-selectors"
-import { asyncGeneratorWay,  setCards, setNewCardGrade } from "./learn-page-slice"
-import { CircularProgress} from "@mui/material";
+import {useEffect, useState} from "react"
+import {useNavigate, useParams} from "react-router-dom"
+import {useAppDispatch, useAppSelector} from "../../../app/store"
+import {BackToPackLink} from "../../../common/components/back-link/BackToPackLink"
+import {cardsForLearnSelector, isLoadingSelector, packNameSelector} from "./learn-page-selectors"
+import {asyncGeneratorWay, setCards, setNewCardGrade} from "./learn-page-slice"
+import {CircularProgress} from "@mui/material";
 import styles from '../learn/learn-page.module.css'
-import { CardType } from "../../../common/types/types"
-import { GeneralButton } from "../../../common/utils/style-for-mui/style-for-mui"
-import axios from "axios"
-
-
+import {CardType} from "../../../common/types/types"
+import {GeneralButton} from "../../../common/utils/style-for-mui/style-for-mui"
 
 
 export const LearnPage = () => {
@@ -45,15 +42,14 @@ export const LearnPage = () => {
             const sum = filterCards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
             const rand = Math.random() * sum;
             const res = filterCards.reduce((acc: { sum: number, id: number }, card, i) => {
-                const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
-                return { sum: newSum, id: newSum < rand ? i : acc.id }
-            }
-                , { sum: 0, id: -1 });
+                    const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
+                    return {sum: newSum, id: newSum < rand ? i : acc.id}
+                }
+                , {sum: 0, id: -1});
             console.log('test: ', sum, rand, res)
 
             return filterCards[res.id + 1];
-        }
-        else {
+        } else {
             setIsFinish(true)
             return emptyCard
         }
@@ -83,7 +79,7 @@ export const LearnPage = () => {
     }
 
     const onResetHandler = (cards: CardType[]) => {
-        asyncGeneratorWay(cards,dispatch)
+        asyncGeneratorWay(cards, dispatch)
         setIsFinish(false)
     }
 
@@ -92,24 +88,24 @@ export const LearnPage = () => {
     }
 
     if (lernPageIsLoading) {
-        return <div className={styles.loading}><CircularProgress /></div>
+        return <div className={styles.loading}><CircularProgress/></div>
     }
 
     return (
-        <div className={styles.wholeForm} >
-            <BackToPackLink />
+        <div className={styles.wholeForm}>
+            <BackToPackLink/>
             <h1>Learn {packName}</h1>
             {!isFinish
-                ? <div className={styles.form} >
-                    <div> <strong>Question: </strong>{card.question} </div>
+                ? <div className={styles.form}>
+                    <div><strong>Question: </strong> {card.question} </div>
                     <p>Количество попыток ответов на вопрос: {card.shots}</p>
                     {!open && <GeneralButton onClick={() => setIsOpen(true)}>Show answer</GeneralButton>}
                     {open && <Answer grades={grades} cardAnswer={card.answer} chooseGrade={chooseGrade}
-                        setChooseGrade={setChooseGrade} nextCard={nextCard} />}
+                                     setChooseGrade={setChooseGrade} nextCard={nextCard}/>}
                 </div>
-                : <FinishForm cards={cards} onResetHandler={onResetHandler} />}
+                : <FinishForm cards={cards} onResetHandler={onResetHandler}/>}
             <div className={styles.stopButton}>
-                <GeneralButton onClick={onClickNavigate} >Stop study</GeneralButton>
+                <GeneralButton onClick={onClickNavigate}>Stop study</GeneralButton>
             </div>
         </div>
     )
@@ -123,30 +119,31 @@ type AnswerPropsType = {
     nextCard: (grade: number) => void
 }
 
-const Answer =({grades, cardAnswer, chooseGrade, setChooseGrade, nextCard}:AnswerPropsType)=>{
+const Answer = ({grades, cardAnswer, chooseGrade, setChooseGrade, nextCard}: AnswerPropsType) => {
     return (
-<div>
-                    <div className={styles.answer}><strong>Answer: </strong> {cardAnswer}</div>
-                    <div>{
-                        grades.map((g, i) => <div className={styles.gradeContainer}>  <input type="radio" name="radio" value={g}
-                            checked={chooseGrade === (i + 1)}
-                            onChange={() => setChooseGrade(i + 1)} /><span>{g}</span></div>)
+        <div>
+            <div className={styles.answer}><strong>Answer: </strong> {cardAnswer}</div>
+            <div>{
+                grades.map((g, i) => <div className={styles.gradeContainer}><input type="radio" name="radio" value={g}
+                                                                                   checked={chooseGrade === (i + 1)}
+                                                                                   onChange={() => setChooseGrade(i + 1)}/><span>{g}</span>
+                </div>)
 
-                    }</div>
-                    <GeneralButton className={styles.nextButton} onClick={() => nextCard(chooseGrade)}>Next card</GeneralButton>
-                </div>
+            }</div>
+            <GeneralButton className={styles.nextButton} onClick={() => nextCard(chooseGrade)}>Next card</GeneralButton>
+        </div>
     )
 }
 
 type FinishFormType = {
     cards: CardType[]
-    onResetHandler:(cards:CardType[])=>void
+    onResetHandler: (cards: CardType[]) => void
 }
 
-const FinishForm = ({cards, onResetHandler}:FinishFormType) =>{
-return(<>
-    <div className={styles.finishForm} >Congratulations! You passed all cards</div>
-    <GeneralButton onClick={() => onResetHandler(cards)} >Reset result</GeneralButton>
-</>)
+const FinishForm = ({cards, onResetHandler}: FinishFormType) => {
+    return (<>
+        <div className={styles.finishForm}>Congratulations! You passed all cards</div>
+        <GeneralButton onClick={() => onResetHandler(cards)}>Reset result</GeneralButton>
+    </>)
 }
 

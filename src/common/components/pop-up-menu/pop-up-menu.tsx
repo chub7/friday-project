@@ -34,6 +34,7 @@ export const AccountMenu = ({variant, open, anchorEl, handleClose}: AccountMenuT
             <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
             </Box>
             <Menu
+                disableScrollLock={true}
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}

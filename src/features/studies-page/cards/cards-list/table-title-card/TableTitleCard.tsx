@@ -52,7 +52,7 @@ export const TableTitleCard = () => {
             {model.myPack
                 ? <GeneralButton onClick={() => setShowModal(true)}>Add new Card</GeneralButton>
                 : <GeneralButton>
-                    <NavLink to={`/learn/${params.id}`}> Learn to pack</NavLink>
+                    <NavLink to={`/learn/${params.id}`} className={styles.linkLearn}> Learn to pack</NavLink>
                 </GeneralButton>}
 
             <ModalWindowForPack
