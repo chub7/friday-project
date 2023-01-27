@@ -8,6 +8,8 @@ import {CircularProgress} from "@mui/material";
 import styles from '../learn/learn-page.module.css'
 import {CardType} from "../../../common/types/types"
 import {GeneralButton} from "../../../common/utils/style-for-mui/style-for-mui"
+import { FinishForm } from "./FinishForm"
+import { Answer } from "./Answer"
 
 
 export const LearnPage = () => {
@@ -55,7 +57,6 @@ export const LearnPage = () => {
         }
     }
 
-
     useEffect(() => {
         dispatch(setCards(params.packId))
         return () => {
@@ -68,9 +69,6 @@ export const LearnPage = () => {
             setCard(getCard(cards))
         }
     }, [cards])
-
-    console.log(cards);
-
 
     const nextCard = (grade: number) => {
         setIsOpen(false)
@@ -111,39 +109,7 @@ export const LearnPage = () => {
     )
 }
 
-type AnswerPropsType = {
-    grades: string[]
-    cardAnswer: string
-    chooseGrade: number
-    setChooseGrade: (grade: number) => void
-    nextCard: (grade: number) => void
-}
 
-const Answer = ({grades, cardAnswer, chooseGrade, setChooseGrade, nextCard}: AnswerPropsType) => {
-    return (
-        <div>
-            <div className={styles.answer}><strong>Answer: </strong> {cardAnswer}</div>
-            <div>{
-                grades.map((g, i) => <div className={styles.gradeContainer}><input type="radio" name="radio" value={g}
-                                                                                   checked={chooseGrade === (i + 1)}
-                                                                                   onChange={() => setChooseGrade(i + 1)}/><span>{g}</span>
-                </div>)
 
-            }</div>
-            <GeneralButton className={styles.nextButton} onClick={() => nextCard(chooseGrade)}>Next card</GeneralButton>
-        </div>
-    )
-}
 
-type FinishFormType = {
-    cards: CardType[]
-    onResetHandler: (cards: CardType[]) => void
-}
-
-const FinishForm = ({cards, onResetHandler}: FinishFormType) => {
-    return (<>
-        <div className={styles.finishForm}>Congratulations! You passed all cards</div>
-        <GeneralButton onClick={() => onResetHandler(cards)}>Reset result</GeneralButton>
-    </>)
-}
 
