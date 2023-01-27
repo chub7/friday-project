@@ -22,6 +22,7 @@ export const ModalWindowForPack = (props: ModalPackType) => {
     const handleInputValue = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         if (!event.currentTarget.value.trim()) {
             setError("required field");
+            setInputValue(``);
         } else {
             setError("");
             setInputValue(event.currentTarget.value);

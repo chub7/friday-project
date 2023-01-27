@@ -31,6 +31,7 @@ export const ModalWindowForCards: FC<ModalCardType> = ({
     const handleInputValue = (event: string, setInput: (value: string) => void, setError: (value: string) => void) => {
         if (!event.trim()) {
            setError("required field");
+            setInput(``);
         } else {
             setError("");
             setInput(event);
