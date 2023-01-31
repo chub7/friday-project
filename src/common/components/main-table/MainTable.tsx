@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC, ReactNode} from 'react';
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -19,6 +19,8 @@ export type TypeCardForTable = {
     questions?: string,
     answer?: string,
     grade?: string
+/*    answerImg?:any
+    questionImg:any*/
 
 }
 

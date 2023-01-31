@@ -3,8 +3,8 @@ import styles from "./cards-modal-window.module.css";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import {GeneralButton} from "../../../../common/utils/style-for-mui/style-for-mui";
-import {ModalType, ModalWindow} from "../../../../common/modal-window/ModalWindow";
+import {GeneralButton} from "../../utils/style-for-mui/style-for-mui";
+import {ModalType, ModalWindow} from "../main-modal-window/ModalWindow";
 
 type ModalPackType = ModalType & {
     currentName?: string

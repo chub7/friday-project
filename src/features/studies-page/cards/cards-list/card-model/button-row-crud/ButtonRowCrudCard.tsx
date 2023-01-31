@@ -1,14 +1,14 @@
 import React, {FC, useState} from 'react';
-import {ModalWindow} from "../../../../../../common/modal-window/ModalWindow";
-import {ModalWindowForPack} from "../../../../packs/packs-modal-window/ModalWindowForPack";
+import {ModalWindow} from "../../../../../../common/modal-window/main-modal-window/ModalWindow";
+import {ModalWindowForPack} from "../../../../../../common/modal-window/packs-modal-window/ModalWindowForPack";
 import IconButton from "@mui/material/IconButton";
 import {deleteCard, updateNameCard} from "../../../cards-slice";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {useAppDispatch} from "../../../../../../app/store";
-import {ModalWindowForCards} from "../../../cards-modal-window/ModalWindowForCards";
+import {ModalWindowForCards} from "../../../../../../common/modal-window/cards-modal-window/ModalWindowForCards";
 import {CardType} from "../../../../../../common/types/types";
-import {DeleteModalWindow} from "../../../../packs/packs-modal-window/DeleteModalWindow";
+import {DeleteModalWindow} from "../../../../../../common/modal-window/DeleteModalWindow";
 
 type ButtonRowCrudType = { pack: CardType }
 

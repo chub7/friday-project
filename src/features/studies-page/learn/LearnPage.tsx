@@ -8,8 +8,8 @@ import {CircularProgress} from "@mui/material";
 import styles from '../learn/learn-page.module.css'
 import {CardType} from "../../../common/types/types"
 import {GeneralButton} from "../../../common/utils/style-for-mui/style-for-mui"
-import { FinishForm } from "./FinishForm"
-import { Answer } from "./Answer"
+import {FinishForm} from "./FinishForm"
+import {Answer} from "./Answer"
 
 
 export const LearnPage = () => {
@@ -28,6 +28,8 @@ export const LearnPage = () => {
     const emptyCard = {
         answer: '',
         question: '',
+        answerImg: '',
+        questionImg: '',
         cardsPack_id: '',
         grade: 0,
         shots: 0,

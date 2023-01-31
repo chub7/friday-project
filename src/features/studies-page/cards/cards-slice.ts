@@ -99,10 +99,10 @@ export const setCards = (id: string | undefined): TypedThunk => async (dispatch,
     }
 }
 
-export const addNewCard = (id: string | undefined, question: string, answer: string): TypedThunk => async (dispatch) => {
+export const addNewCard = (id: string | undefined, question: string, answer: string, answerImg: string, questionImg: string): TypedThunk => async (dispatch) => {
     dispatch(setLoading({isLoading: true}))
     try {
-        await cardListApi.createCard(id, question, answer)
+        await cardListApi.createCard(id, question, answer, answerImg, questionImg)
         dispatch(setCards(id))
         dispatch(setSuccessStatusForSnackBar({success: 'New card successfully added'}))
     } catch (error) {

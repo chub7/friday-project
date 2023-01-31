@@ -57,6 +57,8 @@ export type GetPacksCardsResponseType = {
 export type CardType = {
     answer: string
     question: string
+    answerImg:string
+    questionImg:string
     cardsPack_id: string
     grade: number
     shots: number

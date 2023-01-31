@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from "./cards-modal-window.module.css";
-import {GeneralButton} from "../../../../common/utils/style-for-mui/style-for-mui";
-import {ModalType, ModalWindow} from "../../../../common/modal-window/ModalWindow";
+import styles from "./packs-modal-window/cards-modal-window.module.css";
+import {GeneralButton} from "../utils/style-for-mui/style-for-mui";
+import {ModalType, ModalWindow} from "./main-modal-window/ModalWindow";
 
 type ModalDeleteType = ModalType & {
     currentName?: string

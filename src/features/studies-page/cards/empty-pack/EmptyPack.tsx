@@ -9,8 +9,8 @@ import {BackToPackLink} from "../../../../common/components/back-link/BackToPack
 import styles from "../../studies-page.module.css";
 import {UniversalSnackbar} from "../../../../common/components/snack-bar/Snackbar";
 import {cardErrorSelector, successStatusForSnackBarSelector} from '../cards-selectors';
-import {ModalWindowForCards} from "../cards-modal-window/ModalWindowForCards";
-import {ModalWindow} from "../../../../common/modal-window/ModalWindow";
+import {ModalWindowForCards} from "../../../../common/modal-window/cards-modal-window/ModalWindowForCards";
+import {ModalWindow} from "../../../../common/modal-window/main-modal-window/ModalWindow";
 
 type EmptyPackType = {
     namePack: string
@@ -25,8 +25,8 @@ export const EmptyPack: FC<EmptyPackType> = ({namePack}) => {
     const error = useAppSelector(cardErrorSelector)
     const [showModalEdit, setShowModalEdit] = useState(false)
 
-    const handleAddCard = (question: string, answer: string) => {
-        dispatch(addNewCard(params.id, question, answer))
+    const handleAddCard = (question: string, answer: string, answerImg: string, questionImg: string) => {
+        dispatch(addNewCard(params.id, question, answer, answerImg, questionImg))
     }
 
     const open = error !== null || !!success

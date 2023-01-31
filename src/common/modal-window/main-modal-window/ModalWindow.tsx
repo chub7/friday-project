@@ -1,6 +1,6 @@
 import {createPortal} from "react-dom";
-import styles from "../../features/studies-page/packs/packs-modal-window/cards-modal-window.module.css"
-import closeIcon from "../assets/close-modal.svg"
+import styles from "../packs-modal-window/cards-modal-window.module.css"
+import closeIcon from "../../assets/close-modal.svg"
 import React, {FC} from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@mui/material/IconButton";

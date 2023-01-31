@@ -8,9 +8,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {useAppDispatch, useAppSelector} from "../../../../../app/store";
 import {getMyIdSelector} from "../../../../profile/profile-selectors";
 import {changeNamePacksCards, deletePacksCards} from "../../packs-slice";
-import {ModalWindow} from "../../../../../common/modal-window/ModalWindow";
-import {ModalWindowForPack} from "../../packs-modal-window/ModalWindowForPack";
-import {DeleteModalWindow} from "../../packs-modal-window/DeleteModalWindow";
+import {ModalWindow} from "../../../../../common/modal-window/main-modal-window/ModalWindow";
+import {ModalWindowForPack} from "../../../../../common/modal-window/packs-modal-window/ModalWindowForPack";
+import {DeleteModalWindow} from "../../../../../common/modal-window/DeleteModalWindow";
 
 
 type ButtonRowCrudType = {

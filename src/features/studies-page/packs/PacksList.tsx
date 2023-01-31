@@ -32,7 +32,7 @@ import {
     successStatusForSnackBarSelector,
     totalCountPackSelector
 } from "./packs-selectors";
-import {ModalWindowForPack} from "./packs-modal-window/ModalWindowForPack";
+import {ModalWindowForPack} from "../../../common/modal-window/packs-modal-window/ModalWindowForPack";
 
 
 export const PacksList = () => {
