@@ -9,6 +9,9 @@ export const profileApi = {
    },
    changeProfileData(name:string){
        return instance.put<{ name: string }, AxiosResponse<ChangeNameType>>('/auth/me', {name})
+   },
+   changeProfileAvatar(file:string){
+    return instance.put<{file:string}, AxiosResponse<ChangeNameType>>('/auth/me', {avatar:file})
    }
 }
 
