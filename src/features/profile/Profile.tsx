@@ -22,11 +22,10 @@ export const Profile = () => {
     const successLogin = useAppSelector(successSelector)
     const isLoading = useAppSelector(getIsLoading)
     const open = error !== null || !!successChangeNameProfile
-    const [avatarLocal, setAva] = useState("https://static.thenounproject.com/png/707608-200.png")
 
     const avatar = profileDataAvatar
         ? profileDataAvatar
-        : avatarLocal;
+        : "https://static.thenounproject.com/png/707608-200.png";
 
     return (
         <div className={styles.wholeForm}>
@@ -38,7 +37,6 @@ export const Profile = () => {
                     <ProfileAvatar />
                 </div>
                 {isLoading ? <CircularProgress /> : <EditableSpan />}
-
                 <div className={styles.profileEmail}>{profileDataEmail}</div>
                 <GeneralButton value={"white"} sx={{ width: '150px' }} onClick={() => { dispatch(logOutThunk()) }}>
                     <img src={logoutIcon} alt="" />
