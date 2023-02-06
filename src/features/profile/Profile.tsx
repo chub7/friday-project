@@ -37,7 +37,6 @@ export const Profile = () => {
                     <ProfileAvatar />
                 </div>
                 {isLoading ? <CircularProgress /> : <EditableSpan />}
-
                 <div className={styles.profileEmail}>{profileDataEmail}</div>
                 <GeneralButton value={"white"} sx={{ width: '150px' }} onClick={() => { dispatch(logOutThunk()) }}>
                     <img src={logoutIcon} alt="" />
