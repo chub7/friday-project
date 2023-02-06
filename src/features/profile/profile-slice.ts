@@ -1,7 +1,7 @@
-import {createSlice, PayloadAction,} from "@reduxjs/toolkit";
-import {profileApi} from "./profile-api";
-import {TypedThunk} from "../../app/store";
-import {handleServerAppError} from "../../common/utils/handling-response-error/handleServerAppError";
+import { createSlice, PayloadAction, } from "@reduxjs/toolkit";
+import { profileApi } from "./profile-api";
+import { TypedThunk } from "../../app/store";
+import { handleServerAppError } from "../../common/utils/handling-response-error/handleServerAppError";
 
 export type ProfileType = {
     _id: string;
@@ -50,12 +50,15 @@ const slice = createSlice({
         },
         setIsLoading(state, action: PayloadAction<{ isLoading: boolean }>) {
             state.isLoading = action.payload.isLoading
+        },
+        setNewAvatar(state, action: PayloadAction<{ avatar: string | undefined }>) {
+            state.profile.avatar = action.payload.avatar
         }
     },
 });
 
 export const profileSlice = slice.reducer;
-export const { setProfile, setNewName, clearProfileData, setError, setSuccessStatusForSnackBar, setIsLoading } = slice.actions;
+export const { setProfile, setNewName, clearProfileData, setError, setSuccessStatusForSnackBar, setIsLoading, setNewAvatar } = slice.actions;
 
 
 /*export const logOutThunk = (): TypedThunk => async (dispatch) => {
@@ -73,7 +76,7 @@ export const { setProfile, setNewName, clearProfileData, setError, setSuccessSta
 };*/
 export const changeProfileDataThunk =
     (name: string): TypedThunk => async (dispatch) => {
-        dispatch(setIsLoading({isLoading:true}))
+        dispatch(setIsLoading({ isLoading: true }))
         try {
             let res = await profileApi.changeProfileData(name);
             dispatch(setNewName({ name: res.data.updatedUser.name }));
@@ -81,7 +84,22 @@ export const changeProfileDataThunk =
         } catch (e) {
             handleServerAppError(e, dispatch, setError)
         } finally {
-            dispatch(setIsLoading({isLoading:false}))
+            dispatch(setIsLoading({ isLoading: false }))
         }
     };
+
+export const changeProfileAvatarThunk =
+    (file: string): TypedThunk => async (dispatch) => {
+        dispatch(setIsLoading({ isLoading: true }))
+        try {
+            let res = await profileApi.changeProfileAvatar(file);
+            dispatch(setNewAvatar({ avatar: res.data.updatedUser.avatar }));
+            dispatch(setSuccessStatusForSnackBar({ success: 'Avatar was changed successfully' }))
+        } catch (e) {
+            handleServerAppError(e, dispatch, setError)
+        } finally {
+            dispatch(setIsLoading({ isLoading: false }))
+        }
+    };
+
 
