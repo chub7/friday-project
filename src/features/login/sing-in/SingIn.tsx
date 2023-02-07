@@ -85,6 +85,13 @@ export const SingIn = () => {
                     <NavLink className={styles.linkForm} to={"/register"}>Sign Up</NavLink>
                     {open && <UniversalSnackbar error={error} changeError={setErrorSingUp}
                                                 success={successForSnackBar} changeSuccess={setSuccessLogin}/>}
+                    <p className={styles.info}>
+
+                        Test account<br/>
+                        Email: accounttest@gmail.com<br/>
+                        Password: accounttest
+                    </p>
+
                 </form>
             ) : (
                 <CircularProgress/>

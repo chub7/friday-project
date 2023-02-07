@@ -9,8 +9,8 @@ export const usePopUpUpdateMenuField = (handleEdit: (v: boolean) => void, handle
     const params = useParams()
 
     return [
-        {name: `Edit`, icon: editIcon, event: () => handleEdit(true)},
-        {name: `Delete`, icon: deleteIcon, event: () => handleDelete(true)},
+     /*   {name: `Edit`, icon: editIcon, event: () => handleEdit(true)},
+        {name: `Delete`, icon: deleteIcon, event: () => handleDelete(true)},*/
         {name: `Learn`, icon: learnIcon, event: () => navigate(`/learn/${params.id}`)},
     ]
 

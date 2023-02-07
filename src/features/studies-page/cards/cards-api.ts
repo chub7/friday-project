@@ -25,20 +25,22 @@ export const cardListApi = {
                 answer,
                 grade: 0,
                 shots: 0,
-                answerImg: answerImg,
-                questionImg: questionImg,
+                answerImg,
+                questionImg,
                 questionVideo: "url or base 64",
                 answerVideo: "url or base 64"
             }
         })
     },
 
-    updateCardName(_id: string, question: string, answer: string) {
+    updateCardName(_id: string, question: string, answer: string, answerImg: string, questionImg: string) {
         return instance.put<any, AxiosResponse<UpdateCardResponseType>>(`cards/card`, {
             card: {
                 _id,
                 question,
-                answer
+                answer,
+                answerImg,
+                questionImg,
             }
         })
     },

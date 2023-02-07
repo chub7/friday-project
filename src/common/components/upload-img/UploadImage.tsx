@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC, useState} from 'react';
 import {IconButton} from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {convertFileToBase64} from "../../utils/convert-file/convert-file";
+import { GeneralButton } from '../../utils/style-for-mui/style-for-mui';
 
 type UploadImageType = {
     image: string
@@ -9,24 +10,19 @@ type UploadImageType = {
 }
 export const UploadImage: FC<UploadImageType> = ({image, setImage}) => {
 
-    const [isAvaBroken, setIsAvaBroken] = useState(false)
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
-            if (file.size < 4000000) {
+            console.log(file.size)
+            if (file.size < 100000) {
                 convertFileToBase64(file, (file64: string) => {
                     setImage(file64)
 
                 })
             } else {
-                console.error('Error: ', 'Файл слишком большого размера')
+                alert( 'Файл слишком большого размера')
             }
         }
-    }
-
-    const errorHandler = () => {
-        setIsAvaBroken(true)
-        alert('Кривая картинка')
     }
 
     return (
@@ -35,7 +31,6 @@ export const UploadImage: FC<UploadImageType> = ({image, setImage}) => {
                 <img
                     src={image}
                     style={{width: '100px'}}
-                    onError={errorHandler}
                     alt="ava"
                 />}
 
@@ -44,6 +39,7 @@ export const UploadImage: FC<UploadImageType> = ({image, setImage}) => {
                        onChange={uploadHandler}
                        style={{display: 'none'}}
                 />
+
                 <IconButton component="span">
                     <CloudUploadIcon/>
                 </IconButton>

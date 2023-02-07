@@ -21,13 +21,6 @@ export const Header = () => {
     return (
         <div className={styles.header}>
             <img src={logo} alt="logo" className={styles.logo}/>
-            <NavLink to={"/login"}>Home</NavLink>
-            <NavLink to={"/register"}> Register</NavLink>
-            <NavLink to={"/recoverypass"}> Forgot pass</NavLink>
-            <NavLink to={"/profile"}> profile</NavLink>
-            <NavLink to={"/newpass"}> NewPass</NavLink>
-            <NavLink to={"/404"}> PageNotFound</NavLink>
-            <NavLink to={"/packs"}>Packs List</NavLink>
 
             {isAuth
                 ?<ProfileNavigation popUpProfileMenuField={data}/>

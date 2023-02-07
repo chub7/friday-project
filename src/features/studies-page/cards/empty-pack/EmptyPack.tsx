@@ -44,7 +44,7 @@ export const EmptyPack: FC<EmptyPackType> = ({namePack}) => {
                         showModal={showModalEdit}
                         submitSave={handleAddCard}
                         setShowModal={setShowModalEdit}
-                        title={`Edit card`}/>
+                        title={`Add card`}/>
 
                 </div>
                 : <div className={style.form}>

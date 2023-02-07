@@ -98,7 +98,11 @@ export const SingUp = () => {
                         Sign In
                     </NavLink>
 
+
+
+
                     {error != null && <UniversalSnackbar error={error} changeError={setErrorSingUp}/>}
+
 
                 </form>) : <CircularProgress/>}
         </div>

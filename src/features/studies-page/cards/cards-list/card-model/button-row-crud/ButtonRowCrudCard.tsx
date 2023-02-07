@@ -23,8 +23,8 @@ export const ButtonRowCrudCard: FC<ButtonRowCrudType> = ({pack}) => {
         dispatch(deleteCard(pack._id, pack.cardsPack_id))
     }
 
-    const handleUpdateCard = (question: string, answer: string) => {
-        dispatch(updateNameCard(pack._id, pack.cardsPack_id, question, answer))
+    const handleUpdateCard = (question: string, answer: string, answerImg: string, questionImg: string) => {
+        dispatch(updateNameCard(pack._id, pack.cardsPack_id, question, answer, answerImg, questionImg))
     }
 
     return (
@@ -38,6 +38,8 @@ export const ButtonRowCrudCard: FC<ButtonRowCrudType> = ({pack}) => {
                 setShowModal={setShowModalEdit}
                 questionValue={pack.question}
                 answerValue={pack.answer}
+                answerValueImg={pack.answerImg}
+                questionValueImg={pack.questionImg}
                 title={'Edit card'}/>
 
             <DeleteModalWindow

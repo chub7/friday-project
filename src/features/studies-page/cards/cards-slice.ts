@@ -108,18 +108,20 @@ export const addNewCard = (id: string | undefined, question: string, answer: str
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
+        dispatch(setLoading({isLoading: false}))
     }
 }
 
-export const updateNameCard = (cardId: string, packId: string, question: string, answer: string): TypedThunk => async (dispatch) => {
+export const updateNameCard = (cardId: string, packId: string, question: string, answer: string, answerImg: string, questionImg: string): TypedThunk => async (dispatch) => {
     dispatch(setLoading({isLoading: true}))
     try {
-        await cardListApi.updateCardName(cardId, question, answer)
+        await cardListApi.updateCardName(cardId, question, answer, answerImg, questionImg)
         dispatch(setCards(packId))
         dispatch(setSuccessStatusForSnackBar({success: 'Name was changed successfully'}))
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
+        dispatch(setLoading({isLoading: false}))
     }
 }
 
@@ -132,5 +134,6 @@ export const deleteCard = (cardId: string, packId: string): TypedThunk => async 
     } catch (error) {
         handleServerAppError(error, dispatch, setCardsError)
     } finally {
+        dispatch(setLoading({isLoading: false}))
     }
 }
